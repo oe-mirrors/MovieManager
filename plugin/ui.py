@@ -147,7 +147,7 @@ class MovieManager(Screen, HelpableScreen):
 
 		self.playingRef = self.session.nav.getCurrentlyPlayingServiceOrGroup()
 		self.sort = 0
-		self["description"].setText(_("Select files with 'OK' and then use 'Menu' or 'Action' for select operation"))
+		self["description"].setText(_("Select files with 'OK' or use 'CH+/CH-' and then use 'Menu' or 'Action' for select operation"))
 
 		self["Service"] = ServiceEvent()
 		self["config"].onSelectionChanged.append(self.setService)
@@ -178,48 +178,52 @@ class MovieManager(Screen, HelpableScreen):
 
 	def getSelectString(self):
 		name = ""
+		n = ""
 		item = self["config"].getCurrent()
 		length = int(config.moviemanager.length.value)
 		if item and length:
 			name = item[0][0].decode('UTF-8', 'replace')[0:length]
-		self.session.openWithCallback(self.selectItems, VirtualKeyBoard, title = _("Add to selection (starts with...)"), text = name)
+			n = "\t%s" % length
+		self.session.openWithCallback(self.selectItems, VirtualKeyBoard, title = _("Add to selection (starts with...)") + n, text = name)
 
 	def selectItems(self, searchString = None):
 		if searchString:
+			searchString = searchString.decode('UTF-8', 'replace')
 			if config.moviemanager.sensitive.value:
-					search = searchString.decode('UTF-8', 'replace')
 					for item in self.list.list:
-						if item[0][0].decode('UTF-8', 'replace').startswith(search):
+						if item[0][0].decode('UTF-8', 'replace').startswith(searchString):
 							if not item[0][3]:
 								self.list.toggleItemSelection(item[0])
 			else:
-				search = searchString.decode('UTF-8', 'replace').lower()
+				searchString = searchString.lower()
 				for item in self.list.list:
-					if item[0][0].decode('UTF-8', 'replace').lower().startswith(search):
+					if item[0][0].decode('UTF-8', 'replace').lower().startswith(searchString):
 						if not item[0][3]:
 							self.list.toggleItemSelection(item[0])
 		self.displaySelectionPars()
 
 	def getUnselectString(self):
 		name = ""
+		n = ""
 		item = self["config"].getCurrent()
 		length = int(config.moviemanager.length.value)
 		if item and length:
 			name = item[0][0].decode('UTF-8', 'replace')[0:length]
-		self.session.openWithCallback(self.unselectItems, VirtualKeyBoard, title = _("Remove from selection (starts with...)"), text = name)
+			n = "\t%s" % length
+		self.session.openWithCallback(self.unselectItems, VirtualKeyBoard, title = _("Remove from selection (starts with...)") + n, text = name)
 
 	def unselectItems(self, searchString = None):
 		if searchString:
+			searchString = searchString.decode('UTF-8', 'replace')
 			if config.moviemanager.sensitive.value:
-					search = searchString.decode('UTF-8', 'replace')
 					for item in self.list.list:
-						if item[0][0].decode('UTF-8', 'replace').startswith(search):
+						if item[0][0].decode('UTF-8', 'replace').startswith(searchString):
 							if item[0][3]:
 								self.list.toggleItemSelection(item[0])
 			else:
-				search = searchString.decode('UTF-8', 'replace').lower()
+				searchString = searchString.lower()
 				for item in self.list.list:
-					if item[0][0].decode('UTF-8', 'replace').lower().startswith(search):
+					if item[0][0].decode('UTF-8', 'replace').lower().startswith(searchString):
 						if item[0][3]:
 							self.list.toggleItemSelection(item[0])
 		self.displaySelectionPars()
@@ -282,6 +286,9 @@ class MovieManager(Screen, HelpableScreen):
 			self.sort += 1
 		elif self.sort == 2:	# z-a
 			self.list.sort(flag=True)
+			self.sort += 1
+		elif self.sort == 3:	# selected top
+			self.list.sort(sortType=3, flag=True)
 			self.sort += 1
 		else:			# default
 			self.list.sort(sortType=2)
