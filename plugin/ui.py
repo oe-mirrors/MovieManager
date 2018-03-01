@@ -45,6 +45,7 @@ for i in range(1, 11, 1):
 choicelist.append(("15","15"))
 choicelist.append(("20","20"))
 config.moviemanager.length = ConfigSelection(default = "0", choices = [("0", _("no"))] + choicelist + [("255", _("All"))])
+cfg = config.moviemanager
 
 class MovieManager(Screen, HelpableScreen):
 	skin="""
@@ -180,7 +181,7 @@ class MovieManager(Screen, HelpableScreen):
 		name = ""
 		n = ""
 		item = self["config"].getCurrent()
-		length = int(config.moviemanager.length.value)
+		length = int(cfg.length.value)
 		if item and length:
 			name = item[0][0].decode('UTF-8', 'replace')[0:length]
 			n = "\t%s" % length
@@ -189,7 +190,7 @@ class MovieManager(Screen, HelpableScreen):
 	def selectItems(self, searchString = None):
 		if searchString:
 			searchString = searchString.decode('UTF-8', 'replace')
-			if config.moviemanager.sensitive.value:
+			if cfg.sensitive.value:
 					for item in self.list.list:
 						if item[0][0].decode('UTF-8', 'replace').startswith(searchString):
 							if not item[0][3]:
@@ -206,7 +207,7 @@ class MovieManager(Screen, HelpableScreen):
 		name = ""
 		n = ""
 		item = self["config"].getCurrent()
-		length = int(config.moviemanager.length.value)
+		length = int(cfg.length.value)
 		if item and length:
 			name = item[0][0].decode('UTF-8', 'replace')[0:length]
 			n = "\t%s" % length
@@ -215,7 +216,7 @@ class MovieManager(Screen, HelpableScreen):
 	def unselectItems(self, searchString = None):
 		if searchString:
 			searchString = searchString.decode('UTF-8', 'replace')
-			if config.moviemanager.sensitive.value:
+			if cfg.sensitive.value:
 					for item in self.list.list:
 						if item[0][0].decode('UTF-8', 'replace').startswith(searchString):
 							if item[0][3]:
@@ -452,8 +453,8 @@ class MovieManagerCfg(Screen, ConfigListScreen):
 		}, -2)
 
 		MovieManagerCfg = []
-		MovieManagerCfg.append(getConfigListEntry(_("Compare case sensitive"), config.moviemanager.sensitive))
-		MovieManagerCfg.append(getConfigListEntry(_("Use first 'x' filename's chars for virtual keyboard"), config.moviemanager.length))
+		MovieManagerCfg.append(getConfigListEntry(_("Compare case sensitive"), cfg.sensitive))
+		MovieManagerCfg.append(getConfigListEntry(_("Use first 'x' filename's chars for virtual keyboard"), cfg.length))
 		ConfigListScreen.__init__(self, MovieManagerCfg, session, on_change = self.changedEntry)
 		self.onChangedEntry = []
 
