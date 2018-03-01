@@ -1,0 +1,144 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-03-01 19:24+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "no"
+msgstr ""
+
+msgid "All"
+msgstr ""
+
+msgid "List of files"
+msgstr ""
+
+msgid "Exit plugin"
+msgstr ""
+
+msgid "Add or remove item of selection"
+msgstr ""
+
+msgid "Preview"
+msgstr ""
+
+msgid "Skip forward"
+msgstr ""
+
+msgid "Skip backward"
+msgstr ""
+
+msgid "Select action"
+msgstr ""
+
+msgid "Sort list"
+msgstr ""
+
+msgid "Invert selection"
+msgstr ""
+
+msgid "Stop"
+msgstr ""
+
+msgid "Group selection - add"
+msgstr ""
+
+msgid "Group selection - remove"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "Action"
+msgstr ""
+
+msgid "Sort"
+msgstr ""
+
+msgid "Inversion"
+msgstr ""
+
+msgid ""
+"Select files with 'OK' and then use 'Menu' or 'Action' for select operation"
+msgstr ""
+
+msgid "Add to selection (starts with...)"
+msgstr ""
+
+msgid "Remove from selection (starts with...)"
+msgstr ""
+
+#, python-format
+msgid "Size: %s"
+msgstr ""
+
+#, python-format
+msgid "Selected: %s"
+msgstr ""
+
+msgid "Copy to..."
+msgstr ""
+
+msgid "Move to..."
+msgstr ""
+
+msgid "Options..."
+msgstr ""
+
+msgid "Select operation:"
+msgstr ""
+
+msgid "Select destination for copy selected files..."
+msgstr ""
+
+msgid "Select destination for move selected files..."
+msgstr ""
+
+#, python-format
+msgid "On destination '%s' is %s free space only!"
+msgstr ""
+
+msgid "Other"
+msgstr ""
+
+#, python-format
+msgid "%.0f GB"
+msgstr ""
+
+#, python-format
+msgid "%.2f GB"
+msgstr ""
+
+#, python-format
+msgid "%.0f MB"
+msgstr ""
+
+#, python-format
+msgid "%.0f kB"
+msgstr ""
+
+#, python-format
+msgid "%d B"
+msgstr ""
+
+msgid "OK"
+msgstr ""
+
+msgid "Compare case sensitive"
+msgstr ""
+
+msgid "Use first 'x' filename's chars for virtual keyboard"
+msgstr ""
