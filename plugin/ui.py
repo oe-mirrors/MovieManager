@@ -478,7 +478,7 @@ class MovieManagerCfg(Screen, ConfigListScreen):
 
 		self.MovieManagerCfg = []
 		self.MovieManagerCfg.append(getConfigListEntry(_("Compare case sensitive"), cfg.sensitive, _("Sets whether to distinguish between uper case and lower case for searching.")))
-		self.MovieManagerCfg.append(getConfigListEntry(_("Pre-fill first 'n' filename chars to virtual keyboard"), cfg.length, _("For easier input You can set the number of letters from the beginning of the current file name as the text pre-filled into virtual keyboard.")))
+		self.MovieManagerCfg.append(getConfigListEntry(_("Pre-fill first 'n' filename chars to virtual keyboard"), cfg.length, _("You can set the number of letters from the beginning of the current file name as the text pre-filled into virtual keyboard for easier input via group selection. For 'group selection' use 'CH+/CH-' buttons.")))
 		ConfigListScreen.__init__(self, self.MovieManagerCfg, on_change = self.changedEntry)
 		self.onChangedEntry = []
 
