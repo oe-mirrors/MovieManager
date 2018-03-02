@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-02 17:55+0100\n"
+"POT-Creation-Date: 2018-03-03 00:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -82,14 +82,6 @@ msgstr ""
 msgid "Remove from selection (starts with...)"
 msgstr ""
 
-#, python-format
-msgid "Size: %s"
-msgstr ""
-
-#, python-format
-msgid "Selected: %s"
-msgstr ""
-
 msgid "Copy to..."
 msgstr ""
 
@@ -106,16 +98,34 @@ msgid "Select operation:"
 msgstr ""
 
 #, python-format
-msgid "Are You sure delete %s selected file(s)?"
+msgid "Size: %s"
 msgstr ""
 
-msgid "Are You sure?"
+#, python-format
+msgid "Selected: %s"
 msgstr ""
 
-msgid "Deleted...(still not finished in program)"
+#, python-format
+msgid ""
+"Plugin does not use the trash or check a running recording!\n"
+"Do You want continue and delete %s selected files?"
+msgstr ""
+
+#, python-format
+msgid "Are You sure to delete %s selected file(s)?"
+msgstr ""
+
+#, python-format
+msgid "Sucessfuly deleted %s of %s files..."
+msgstr ""
+
+msgid "Delete failed!"
 msgstr ""
 
 msgid "Select destination for copy selected files..."
+msgstr ""
+
+msgid "Same source and target directory!"
 msgstr ""
 
 msgid "Select destination for move selected files..."

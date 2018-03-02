@@ -3,8 +3,8 @@ import setup_translate
 
 pkg = 'Extensions.MovieManager'
 setup (name = 'enigma2-plugin-extensions-moviemanager',
-       version = '1.00',
-       description = 'copy and move more files at once',
+       version = '1.40',
+       description = 'copy, move and delete more files at once',
        packages = [pkg],
        package_dir = {pkg: 'plugin'},
        package_data = {pkg: ['*.xml', 'locale/*.pot', 'locale/*/LC_MESSAGES/*.mo']},

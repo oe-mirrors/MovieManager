@@ -28,7 +28,7 @@ from Components.Button import Button
 from Components.ActionMap import ActionMap, HelpableActionMap
 from Screens.HelpMenu import HelpableScreen
 from Components.ConfigList import ConfigListScreen
-from enigma import eServiceReference, iServiceInformation
+from enigma import eServiceReference, iServiceInformation, eServiceCenter
 from Components.SelectionList import SelectionList
 from Components.Sources.ServiceEvent import ServiceEvent
 from Screens.ChoiceBox import ChoiceBox
@@ -234,9 +234,8 @@ class MovieManager(Screen, HelpableScreen):
 		menu.append((_("Copy to..."),5))
 		menu.append((_("Move to..."),6))
 		keys = ["5","6"]
-# prepared
-#		menu.append((_("Delete"),8))
-#		keys+=["8"]
+		menu.append((_("Delete"),8))
+		keys+=["8"]
 		menu.append((_("Options..."),20))
 		keys+=["menu"]
 
@@ -272,14 +271,14 @@ class MovieManager(Screen, HelpableScreen):
 	def displaySelectionPars(self, singleToggle=False):
 		size = ""
 		number = ""
-		nr = len(self.list.getSelectionsList())
-		if nr:
+		selected = len(self.list.getSelectionsList())
+		if selected:
 			if singleToggle:
 				size = self.convertSize(self.size)
 			else:
 				size = self.countSizeSelectedItems()
 			size = _("Size: %s") % size
-			number = _("Selected: %s") % nr
+			number = _("Selected: %s") % selected
 		self["number"].setText(number)
 		self["size"].setText(size)
 
@@ -296,6 +295,8 @@ class MovieManager(Screen, HelpableScreen):
 		item = self["config"].getCurrent()
 		if item:
 			self["Service"].newService(item[0][1][0])
+		else:
+			self["Service"].newService(None)
 
 	def changePng(self):
 		path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/icons/mark_select.png")
@@ -322,26 +323,50 @@ class MovieManager(Screen, HelpableScreen):
 			self.sort = 0
 
 	def deleteSelected(self):
+		def firstConfirmForDelete(choice):
+			if choice:
+				self.session.openWithCallback(self.delete, MessageBox, _("Plugin does not use the trash or check a running recording!\nDo You want continue and delete %s selected files?") % selected, type=MessageBox.TYPE_YESNO, default=False)
 		if self["config"].getCurrent():
-			nr = len(self.list.getSelectionsList())
-			if not nr:
-				nr = 1
-			self.session.openWithCallback(self.deleteFirstTest, MessageBox, _("Are You sure delete %s selected file(s)?") % nr, type=MessageBox.TYPE_YESNO, default=False)
-	def deleteFirstTest(self, choice):
-		if choice:
-			self.session.openWithCallback(self.delete, MessageBox, _("Are You sure?"), type=MessageBox.TYPE_YESNO, default=False)
+			selected = len(self.list.getSelectionsList())
+			if not selected:
+				selected = 1
+			self.session.openWithCallback(firstConfirmForDelete, MessageBox, _("Are You sure to delete %s selected file(s)?") % selected, type=MessageBox.TYPE_YESNO, default=False)
+
 	def delete(self, choice):
 		if choice:
 			data = self.list.getSelectionsList()
-			if len(data) == 0:
+			selected = len(data)
+			if not selected:
 				data = [self["config"].getCurrent()[0]]
 				self.size = data[0][1][1]
+				selected = 1
+			deleted = 0
 			for item in data:
 				# item ... (name, (service, size), index, status)
-				# TODO remove here
-				self.list.removeSelection(item)
-				self.mainList.removeService(item[1][0])
-			self.session.open(MessageBox, _("Deleted...(still not finished in program)"), type=MessageBox.TYPE_INFO, timeout=3)
+				if self.deleteConfirmed(item):
+					deleted += 1
+			self.displaySelectionPars()
+			self.session.open(MessageBox, _("Sucessfuly deleted %s of %s files...") % (selected, deleted), type=MessageBox.TYPE_INFO, timeout=5)
+
+	def deleteConfirmed(self, item):
+		name = item[0]
+		serviceHandler = eServiceCenter.getInstance()
+		offline = serviceHandler.offlineOperations(item[1][0])
+		try:
+			if offline is None:
+			        from enigma import eBackgroundFileEraser
+			        eBackgroundFileEraser.getInstance().erase(os.path.realpath(item[1][0].getPath()))
+			else:
+				if offline.deleteFromDisk(0):
+					raise Exception, "Offline delete failed"
+			self.list.removeSelection(item)
+			self.mainList.removeService(item[1][0])
+			from Screens.InfoBarGenerics import delResumePoint
+			delResumePoint(item[1][0])
+			return True
+		except Exception, ex:
+			self.session.open(MessageBox, _("Delete failed!") + "\n" + name + "\n" + str(ex), MessageBox.TYPE_ERROR, timeout=3)
+			return False
 
 	def copySelected(self):
 		if self["config"].getCurrent():
@@ -351,7 +376,11 @@ class MovieManager(Screen, HelpableScreen):
 		if not choice:
 			return
 		dest = os.path.normpath(choice)
+		if dest == config.movielist.last_videodir.value[0:-1]:
+			self.session.open(MessageBox, _("Same source and target directory!"), MessageBox.TYPE_ERROR, timeout=3)
+			return
 		data = self.list.getSelectionsList()
+
 		toggle = True
 		if len(data) == 0:
 			data = [self["config"].getCurrent()[0]]
@@ -360,16 +389,15 @@ class MovieManager(Screen, HelpableScreen):
 		if not self.isFreeSpace(dest):
 			return
 		if len(data):
-			try:
-				for item in data:
+			for item in data:
+				try:
 					# item ... (name, (service, size), index, status)
 					copyServiceFiles(item[1][0], dest, item[0])
 					if toggle:
 						self.list.toggleItemSelection(item)
-			except Exception, e:
-				self.session.open(MessageBox, str(e), MessageBox.TYPE_ERROR)
-			else:
-				self["size"].setText("")
+				except Exception, e:
+					self.session.open(MessageBox, str(e), MessageBox.TYPE_ERROR, timeout=2)
+		self.displaySelectionPars()
 
 	def moveSelected(self):
 		if self["config"].getCurrent():
@@ -380,7 +408,9 @@ class MovieManager(Screen, HelpableScreen):
 			return
 		dest = os.path.normpath(choice)
 		src = config.movielist.last_videodir.value
-
+		if dest == src[0:-1]:
+			self.session.open(MessageBox, _("Same source and target directory!"), MessageBox.TYPE_ERROR, timeout=3)
+			return
 		data = self.list.getSelectionsList()
 		if len(data) == 0:
 			data = [self["config"].getCurrent()[0]]
@@ -389,16 +419,15 @@ class MovieManager(Screen, HelpableScreen):
 			if not self.isFreeSpace(dest):
 				return
 		if len(data):
-			try:
-				for item in data:
+			for item in data:
+				try:
 					# item ... (name, (service, size), index, status)
 					moveServiceFiles(item[1][0], dest, item[0])
 					self.list.removeSelection(item)
 					self.mainList.removeService(item[1][0])
-			except Exception, e:
-				self.session.open(MessageBox, str(e), MessageBox.TYPE_ERROR)
-			else:
-				self["size"].setText("")
+				except Exception, e:
+					self.session.open(MessageBox, str(e), MessageBox.TYPE_ERROR, timeout=3 )
+		self.displaySelectionPars()
 
 	def isSameDevice(self, src, dest):
 		if os.stat(src).st_dev != os.stat(dest).st_dev:
@@ -412,7 +441,7 @@ class MovieManager(Screen, HelpableScreen):
 	def isFreeSpace(self, dest):
 		free_space = self.freeSpace(dest)
 		if free_space <= self.size:
-			self.session.open(MessageBox, _("On destination '%s' is %s free space only!") % (dest, self.convertSize(free_space)), MessageBox.TYPE_ERROR)
+			self.session.open(MessageBox, _("On destination '%s' is %s free space only!") % (dest, self.convertSize(free_space)), MessageBox.TYPE_ERROR, timeout=5)
 			return False
 		return True
 
