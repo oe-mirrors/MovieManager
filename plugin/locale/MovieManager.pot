@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-01 23:17+0100\n"
+"POT-Creation-Date: 2018-03-02 16:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -96,10 +96,23 @@ msgstr ""
 msgid "Move to..."
 msgstr ""
 
+msgid "Delete"
+msgstr ""
+
 msgid "Options..."
 msgstr ""
 
 msgid "Select operation:"
+msgstr ""
+
+#, python-format
+msgid "Are You sure delete %s selected file(s)?"
+msgstr ""
+
+msgid "Are You sure?"
+msgstr ""
+
+msgid "Deleted...(still not finished in program)"
 msgstr ""
 
 msgid "Select destination for copy selected files..."
@@ -141,5 +154,5 @@ msgstr ""
 msgid "Compare case sensitive"
 msgstr ""
 
-msgid "Use first 'x' filename's chars for virtual keyboard"
+msgid "Pre-fill first 'n' filename chars to virtual keyboard"
 msgstr ""

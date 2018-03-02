@@ -296,8 +296,15 @@ class MovieManager(Screen, HelpableScreen):
 			self.sort = 0
 
 	def selectAction(self):
-		menu = [(_("Copy to..."),5), (_("Move to..."),6), (_("Options..."),20)]
-		keys = ["5","6","menu"]
+		menu = []
+		menu.append((_("Copy to..."),5))
+		menu.append((_("Move to..."),6))
+		keys = ["5","6"]
+		menu.append((_("Delete"),8))
+		keys+=["8"]
+		menu.append((_("Options..."),20))
+		keys+=["menu"]
+
 		text = _("Select operation:")
 		self.session.openWithCallback(self.menuCallback, ChoiceBox, title=text, list=menu, keys=keys)
 
@@ -308,8 +315,24 @@ class MovieManager(Screen, HelpableScreen):
 			self.copySelected()
 		elif choice[1] == 6:
 			self.moveSelected()
+		elif choice[1] == 8:
+			self.deleteSelected()
 		elif choice[1] == 20:
 			self.session.open(MovieManagerCfg)
+
+	def deleteSelected(self):
+		if self["config"].getCurrent():
+			nr = len(self.list.getSelectionsList())
+			if not nr:
+				nr = 1
+			self.session.openWithCallback(self.deleteFirstTest, MessageBox, _("Are You sure delete %s selected file(s)?") % nr, type=MessageBox.TYPE_YESNO, default=False)
+	def deleteFirstTest(self, choice):
+		if choice:
+			self.session.openWithCallback(self.delete, MessageBox, _("Are You sure?"), type=MessageBox.TYPE_YESNO, default=False)
+	def delete(self, choice):
+		if choice:
+			self.session.open(MessageBox, _("Deleted...(still not finished in program)"), type=MessageBox.TYPE_INFO, timeout=3)
+			#TODO
 
 	def copySelected(self):
 		if self["config"].getCurrent():
@@ -454,7 +477,7 @@ class MovieManagerCfg(Screen, ConfigListScreen):
 
 		MovieManagerCfg = []
 		MovieManagerCfg.append(getConfigListEntry(_("Compare case sensitive"), cfg.sensitive))
-		MovieManagerCfg.append(getConfigListEntry(_("Use first 'x' filename's chars for virtual keyboard"), cfg.length))
+		MovieManagerCfg.append(getConfigListEntry(_("Pre-fill first 'n' filename chars to virtual keyboard"), cfg.length))
 		ConfigListScreen.__init__(self, MovieManagerCfg, session, on_change = self.changedEntry)
 		self.onChangedEntry = []
 
