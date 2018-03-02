@@ -229,6 +229,32 @@ class MovieManager(Screen, HelpableScreen):
 							self.list.toggleItemSelection(item[0])
 		self.displaySelectionPars()
 
+	def selectAction(self):
+		menu = []
+		menu.append((_("Copy to..."),5))
+		menu.append((_("Move to..."),6))
+		keys = ["5","6"]
+# prepared
+#		menu.append((_("Delete"),8))
+#		keys+=["8"]
+		menu.append((_("Options..."),20))
+		keys+=["menu"]
+
+		text = _("Select operation:")
+		self.session.openWithCallback(self.menuCallback, ChoiceBox, title=text, list=menu, keys=keys)
+
+	def menuCallback(self, choice):
+		if choice is None:
+			return
+		if choice[1] == 5:
+			self.copySelected()
+		elif choice[1] == 6:
+			self.moveSelected()
+		elif choice[1] == 8:
+			self.deleteSelected()
+		elif choice[1] == 20:
+			self.session.open(MovieManagerCfg)
+
 	def toggleAllSelection(self):
 		self.list.toggleAllSelection()
 		self.displaySelectionPars()
@@ -295,31 +321,6 @@ class MovieManager(Screen, HelpableScreen):
 			self.list.sort(sortType=2)
 			self.sort = 0
 
-	def selectAction(self):
-		menu = []
-		menu.append((_("Copy to..."),5))
-		menu.append((_("Move to..."),6))
-		keys = ["5","6"]
-		menu.append((_("Delete"),8))
-		keys+=["8"]
-		menu.append((_("Options..."),20))
-		keys+=["menu"]
-
-		text = _("Select operation:")
-		self.session.openWithCallback(self.menuCallback, ChoiceBox, title=text, list=menu, keys=keys)
-
-	def menuCallback(self, choice):
-		if choice is None:
-			return
-		if choice[1] == 5:
-			self.copySelected()
-		elif choice[1] == 6:
-			self.moveSelected()
-		elif choice[1] == 8:
-			self.deleteSelected()
-		elif choice[1] == 20:
-			self.session.open(MovieManagerCfg)
-
 	def deleteSelected(self):
 		if self["config"].getCurrent():
 			nr = len(self.list.getSelectionsList())
@@ -331,8 +332,16 @@ class MovieManager(Screen, HelpableScreen):
 			self.session.openWithCallback(self.delete, MessageBox, _("Are You sure?"), type=MessageBox.TYPE_YESNO, default=False)
 	def delete(self, choice):
 		if choice:
+			data = self.list.getSelectionsList()
+			if len(data) == 0:
+				data = [self["config"].getCurrent()[0]]
+				self.size = data[0][1][1]
+			for item in data:
+				# item ... (name, (service, size), index, status)
+				# TODO remove here
+				self.list.removeSelection(item)
+				self.mainList.removeService(item[1][0])
 			self.session.open(MessageBox, _("Deleted...(still not finished in program)"), type=MessageBox.TYPE_INFO, timeout=3)
-			#TODO
 
 	def copySelected(self):
 		if self["config"].getCurrent():
