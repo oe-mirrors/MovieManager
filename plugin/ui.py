@@ -466,6 +466,7 @@ class MovieManagerCfg(Screen, ConfigListScreen):
 
 		self["key_red"] = Label(_("Cancel"))
 		self["key_green"] = Label(_("OK"))
+		self["description"] = Label("")
 
 		self["actions"] = ActionMap(["SetupActions", "ColorActions"],
 		{
@@ -475,10 +476,10 @@ class MovieManagerCfg(Screen, ConfigListScreen):
 			"cancel": self.exit
 		}, -2)
 
-		MovieManagerCfg = []
-		MovieManagerCfg.append(getConfigListEntry(_("Compare case sensitive"), cfg.sensitive))
-		MovieManagerCfg.append(getConfigListEntry(_("Pre-fill first 'n' filename chars to virtual keyboard"), cfg.length))
-		ConfigListScreen.__init__(self, MovieManagerCfg, session, on_change = self.changedEntry)
+		self.MovieManagerCfg = []
+		self.MovieManagerCfg.append(getConfigListEntry(_("Compare case sensitive"), cfg.sensitive, _("Sets whether to distinguish between uper case and lower case for searching.")))
+		self.MovieManagerCfg.append(getConfigListEntry(_("Pre-fill first 'n' filename chars to virtual keyboard"), cfg.length, _("For easier input You can set the number of letters from the beginning of the current file name as the text pre-filled into virtual keyboard.")))
+		ConfigListScreen.__init__(self, self.MovieManagerCfg, on_change = self.changedEntry)
 		self.onChangedEntry = []
 
 	# for summary:
@@ -486,6 +487,7 @@ class MovieManagerCfg(Screen, ConfigListScreen):
 		for x in self.onChangedEntry:
 			x()
 	def getCurrentEntry(self):
+		self["description"].setText(self["config"].getCurrent()[2])
 		return self["config"].getCurrent()[0]
 	def getCurrentValue(self):
 		return str(self["config"].getCurrent()[1].getText())
