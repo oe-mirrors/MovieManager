@@ -310,10 +310,10 @@ class MovieManager(Screen, HelpableScreen):
 			self.list.sort(sortType=2, flag=True)
 			self.sort += 1
 		elif self.sort == 1:	# a-z
-			self.list.sort()
+			self.list.sort(sortType=0)
 			self.sort += 1
 		elif self.sort == 2:	# z-a
-			self.list.sort(flag=True)
+			self.list.sort(sortType=0, flag=True)
 			self.sort += 1
 		elif self.sort == 3:	# selected top
 			self.list.sort(sortType=3, flag=True)
@@ -347,6 +347,8 @@ class MovieManager(Screen, HelpableScreen):
 					deleted += 1
 			self.displaySelectionPars()
 			self.session.open(MessageBox, _("Sucessfuly deleted %s of %s files...") % (selected, deleted), type=MessageBox.TYPE_INFO, timeout=5)
+			if not len(self.list.list):
+				self.exit()
 
 	def deleteConfirmed(self, item):
 		name = item[0]
@@ -379,9 +381,9 @@ class MovieManager(Screen, HelpableScreen):
 		if dest == config.movielist.last_videodir.value[0:-1]:
 			self.session.open(MessageBox, _("Same source and target directory!"), MessageBox.TYPE_ERROR, timeout=3)
 			return
-		data = self.list.getSelectionsList()
 
 		toggle = True
+		data = self.list.getSelectionsList()
 		if len(data) == 0:
 			data = [self["config"].getCurrent()[0]]
 			self.size = data[0][1][1]
@@ -395,6 +397,7 @@ class MovieManager(Screen, HelpableScreen):
 					copyServiceFiles(item[1][0], dest, item[0])
 					if toggle:
 						self.list.toggleItemSelection(item)
+
 				except Exception, e:
 					self.session.open(MessageBox, str(e), MessageBox.TYPE_ERROR, timeout=2)
 		self.displaySelectionPars()
@@ -428,6 +431,8 @@ class MovieManager(Screen, HelpableScreen):
 				except Exception, e:
 					self.session.open(MessageBox, str(e), MessageBox.TYPE_ERROR, timeout=3 )
 		self.displaySelectionPars()
+		if not len(self.list.list):
+			self.exit()
 
 	def isSameDevice(self, src, dest):
 		if os.stat(src).st_dev != os.stat(dest).st_dev:
