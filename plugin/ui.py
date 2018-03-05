@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.41"
+VERSION = "1.42"
 #  by ims (c) 2018 ims21@users.sourceforge.net
 #
 #  This program is free software; you can redistribute it and/or
@@ -234,8 +234,9 @@ class MovieManager(Screen, HelpableScreen):
 		menu.append((_("Copy to..."),5))
 		menu.append((_("Move to..."),6))
 		keys = ["5","6"]
-		menu.append((_("Delete"),8))
-		keys+=["8"]
+		if config.usage.setup_level.index == 2:
+			menu.append((_("Delete"),8))
+			keys+=["8"]
 		menu.append((_("Options..."),20))
 		keys+=["menu"]
 
