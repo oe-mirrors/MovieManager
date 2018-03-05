@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.00"
+VERSION = "1.41"
 #  by ims (c) 2018 ims21@users.sourceforge.net
 #
 #  This program is free software; you can redistribute it and/or
@@ -44,7 +44,7 @@ for i in range(1, 11, 1):
 	choicelist.append(("%d" % i))
 choicelist.append(("15","15"))
 choicelist.append(("20","20"))
-config.moviemanager.length = ConfigSelection(default = "0", choices = [("0", _("no"))] + choicelist + [("255", _("All"))])
+config.moviemanager.length = ConfigSelection(default = "0", choices = [("0", _("No"))] + choicelist + [("255", _("All"))])
 cfg = config.moviemanager
 
 class MovieManager(Screen, HelpableScreen):
@@ -126,19 +126,19 @@ class MovieManager(Screen, HelpableScreen):
 		ssback = lambda: self.seekRelative(-1, config.seek.selfdefined_79.value * 90000)
 		self["MovieManagerActions"] = HelpableActionMap(self, "MovieManagerActions",
 			{
-			"menu": (self.selectAction,_("Select action")),
+			"menu": (self.selectAction, _("Select action")),
 			"red": (self.exit, _("Exit plugin")),
-			"green": (self.selectAction,_("Select action")),
-			"yellow": (self.sortList,_("Sort list")),
-			"blue": (self.toggleAllSelection,_("Invert selection")),
+			"green": (self.selectAction, _("Select action")),
+			"yellow": (self.sortList, _("Sort list")),
+			"blue": (self.toggleAllSelection, _("Invert selection")),
 			"preview": (self.preview, _("Preview")),
-			"stop": (self.stop,_("Stop")),
+			"stop": (self.stop, _("Stop")),
 			"seekFwd": (sfwd, tFwd),
 			"seekFwdManual": (ssfwd, tFwd),
 			"seekBack": (sback, tBack),
 			"seekBackManual": (ssback, tBack),	
-			"groupSelect": (self.getSelectString,_("Group selection - add")),
-			"groupUnselect": (self.getUnselectString,_("Group selection - remove")),
+			"groupSelect": (self.getSelectString, _("Group selection - add")),
+			"groupUnselect": (self.getUnselectString, _("Group selection - remove")),
 			}, -2)
 
 		self["key_red"] = Button(_("Cancel"))
@@ -148,7 +148,7 @@ class MovieManager(Screen, HelpableScreen):
 
 		self.playingRef = self.session.nav.getCurrentlyPlayingServiceOrGroup()
 		self.sort = 0
-		self["description"].setText(_("Select files with 'OK' or use 'CH+/CH-' and then use 'Menu' or 'Action' for select operation"))
+		self["description"].setText(_("Select files with 'OK' or use 'CH+/CH-' and then use 'Menu' or 'Action' for select operation."))
 
 		self["Service"] = ServiceEvent()
 		self["config"].onSelectionChanged.append(self.setService)
@@ -504,8 +504,9 @@ class MovieManager(Screen, HelpableScreen):
 class MovieManagerCfg(Screen, ConfigListScreen):
 	def __init__(self, session):
 		Screen.__init__(self, session)
-		self.skinName = ["Setup"]
-		self.setup_title = ""
+		self.skinName = ["MovieManagerCfg", "Setup"]
+		self.setup_title = _("Options...")
+		self.setTitle(self.setup_title)
 
 		self["key_red"] = Label(_("Cancel"))
 		self["key_green"] = Label(_("OK"))
