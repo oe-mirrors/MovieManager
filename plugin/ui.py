@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.42"
+VERSION = "1.43"
 #  by ims (c) 2018 ims21@users.sourceforge.net
 #
 #  This program is free software; you can redistribute it and/or
@@ -34,7 +34,8 @@ from Components.Sources.ServiceEvent import ServiceEvent
 from Screens.ChoiceBox import ChoiceBox
 from Screens.VirtualKeyBoard import VirtualKeyBoard
 from Screens.MovieSelection import buildMovieLocationList, copyServiceFiles, moveServiceFiles, last_selected_dest
-from Screens.LocationBox import MovieLocationBox	
+from Screens.LocationBox import MovieLocationBox
+from Components.MovieList import MovieList, StubInfo, IMAGE_EXTENSIONS
 import os
 
 config.moviemanager = ConfigSubsection()
@@ -89,7 +90,6 @@ class MovieManager(Screen, HelpableScreen):
 
 		self.list = SelectionList([])
 		index = 0
-		from Components.MovieList import MovieList, StubInfo
 		for i, record in enumerate(list):
 			if record:
 				item = record[0]
@@ -172,7 +172,17 @@ class MovieManager(Screen, HelpableScreen):
 	def preview(self):
 		item = self["config"].getCurrent()
 		if item:
-			self.session.nav.playService(item[0][1][0])
+			path = item[0][1][0].getPath()
+			ext = os.path.splitext(path)[1].lower()
+			if ext in IMAGE_EXTENSIONS:
+				try:
+					from Plugins.Extensions.PicturePlayer import ui
+					self.session.open(ui.Pic_Full_View, [((path ,False), None)], 0, path)
+				except Exception, ex:
+					print "[MovieManager] Cannot display", str(ex)
+					return
+			else:
+				self.session.nav.playService(item[0][1][0])
 
 	def stop(self):
 		self.session.nav.playService(self.playingRef)
