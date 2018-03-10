@@ -177,7 +177,7 @@ class MovieManager(Screen, HelpableScreen):
 			if ext in IMAGE_EXTENSIONS:
 				try:
 					from Plugins.Extensions.PicturePlayer import ui
-					self.session.open(ui.Pic_Full_View, [((path ,False), None)], 0, path)
+					self.session.open(ui.Pic_Full_View, [((path, False), None)], 0, path)
 				except Exception, ex:
 					print "[MovieManager] Cannot display", str(ex)
 					return
