@@ -186,7 +186,7 @@ msgstr ""
 msgid "Use target directory as bookmark"
 msgstr "Použít cílový adresář jako záložku"
 
-msgid "Set 'Yes' if You want add target directories into bookmarks."
+msgid "Set 'yes' if You want add target directories into bookmarks."
 msgstr "Jestliže chcete přidávat cílové adresáře do záložek, zvolte 'Ano' ."
 
 #~ msgid "no"

@@ -180,5 +180,5 @@ msgstr ""
 msgid "Use target directory as bookmark"
 msgstr ""
 
-msgid "Set 'Yes' if You want add target directories into bookmarks."
+msgid "Set 'yes' if You want add target directories into bookmarks."
 msgstr ""
