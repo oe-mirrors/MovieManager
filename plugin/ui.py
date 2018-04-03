@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.43"
+VERSION = "1.44"
 #  by ims (c) 2018 ims21@users.sourceforge.net
 #
 #  This program is free software; you can redistribute it and/or
@@ -34,7 +34,7 @@ from Components.Sources.ServiceEvent import ServiceEvent
 from Screens.ChoiceBox import ChoiceBox
 from Screens.VirtualKeyBoard import VirtualKeyBoard
 from Screens.MovieSelection import buildMovieLocationList, copyServiceFiles, moveServiceFiles, last_selected_dest
-from Screens.LocationBox import MovieLocationBox
+from Screens.LocationBox import LocationBox, defaultInhibitDirs
 from Components.MovieList import MovieList, StubInfo, IMAGE_EXTENSIONS
 import os
 
@@ -46,6 +46,7 @@ for i in range(1, 11, 1):
 choicelist.append(("15","15"))
 choicelist.append(("20","20"))
 config.moviemanager.length = ConfigSelection(default = "0", choices = [("0", _("No"))] + choicelist + [("255", _("All"))])
+config.moviemanager.bookmark = ConfigYesNo(default=False)
 cfg = config.moviemanager
 
 class MovieManager(Screen, HelpableScreen):
@@ -484,10 +485,11 @@ class MovieManager(Screen, HelpableScreen):
 		if isinstance(choice, tuple):
 			if choice[1] is None:
 				# Display full browser, which returns string
-				self.session.openWithCallback(self.gotMovieLocation, MovieLocationBox, self.movieSelectTitle, config.movielist.last_videodir.value)
+				self.session.openWithCallback(self.gotMovieLocation, MyMovieLocationBox, self.movieSelectTitle, config.movielist.last_videodir.value)
 				return
 			choice = choice[1]
 		choice = os.path.normpath(choice)
+
 		self.rememberMovieLocation(choice)
 		self.onMovieSelected(choice)
 		del self.onMovieSelected
@@ -512,6 +514,10 @@ class MovieManager(Screen, HelpableScreen):
 			return _("%d B") % filesize
 		return ""
 
+def MyMovieLocationBox(session, text, dir, filename = "", minFree = None):
+	config.movielist.videodirs.load()
+	return LocationBox(session, text = text,  filename = filename, currDir = dir, bookmarks = config.movielist.videodirs, autoAdd = cfg.bookmark.value, editDir = True, inhibitDirs = defaultInhibitDirs, minFree = minFree)
+
 class MovieManagerCfg(Screen, ConfigListScreen):
 	def __init__(self, session):
 		Screen.__init__(self, session)
@@ -534,6 +540,7 @@ class MovieManagerCfg(Screen, ConfigListScreen):
 		self.MovieManagerCfg = []
 		self.MovieManagerCfg.append(getConfigListEntry(_("Compare case sensitive"), cfg.sensitive, _("Sets whether to distinguish between uper case and lower case for searching.")))
 		self.MovieManagerCfg.append(getConfigListEntry(_("Pre-fill first 'n' filename chars to virtual keyboard"), cfg.length, _("You can set the number of letters from the beginning of the current file name as the text pre-filled into virtual keyboard for easier input via group selection. For 'group selection' use 'CH+/CH-' buttons.")))
+		self.MovieManagerCfg.append(getConfigListEntry(_("Use target directory as bookmark"), cfg.bookmark, _("Set 'yes' if You want add target directories into bookmarks.")))
 		ConfigListScreen.__init__(self, self.MovieManagerCfg, on_change = self.changedEntry)
 		self.onChangedEntry = []
 
