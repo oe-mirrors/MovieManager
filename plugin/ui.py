@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.44"
+VERSION = "1.45"
 #  by ims (c) 2018 ims21@users.sourceforge.net
 #
 #  This program is free software; you can redistribute it and/or
@@ -47,6 +47,7 @@ choicelist.append(("15","15"))
 choicelist.append(("20","20"))
 config.moviemanager.length = ConfigSelection(default = "0", choices = [("0", _("No"))] + choicelist + [("255", _("All"))])
 config.moviemanager.bookmark = ConfigYesNo(default=False)
+config.moviemanager.current_item = ConfigYesNo(default=True)
 cfg = config.moviemanager
 
 class MovieManager(Screen, HelpableScreen):
@@ -79,7 +80,7 @@ class MovieManager(Screen, HelpableScreen):
 		<widget name="description" position="125,368" zPosition="2" size="470,46" valign="center" halign="left" font="Regular;20" foregroundColor="white"/>
 	</screen>
 	"""
-	def __init__(self, session, list):
+	def __init__(self, session, list, current=None):
 		Screen.__init__(self, session)
 		HelpableScreen.__init__(self)
 		self.session = session
@@ -91,10 +92,13 @@ class MovieManager(Screen, HelpableScreen):
 
 		self.list = SelectionList([])
 		index = 0
+		self.position = 0
 		for i, record in enumerate(list):
 			if record:
 				item = record[0]
 				if not item.flags & eServiceReference.mustDescent:
+					if cfg.current_item.value and item == current:
+						self.position = index
 					info = record[1]
 					name = info and info.getName(item)
 					size = 0
@@ -153,7 +157,11 @@ class MovieManager(Screen, HelpableScreen):
 
 		self["Service"] = ServiceEvent()
 		self["config"].onSelectionChanged.append(self.setService)
-		self.onShown.append(self.setService)
+		self.onShown.append(self.moveSelector)
+
+	def moveSelector(self):
+		self["config"].moveToIndex(self.position)
+		self.setService()
 
 	def seekRelative(self, direction, amount):
 		seekable = self.getSeek()
@@ -541,6 +549,7 @@ class MovieManagerCfg(Screen, ConfigListScreen):
 		self.MovieManagerCfg.append(getConfigListEntry(_("Compare case sensitive"), cfg.sensitive, _("Sets whether to distinguish between uper case and lower case for searching.")))
 		self.MovieManagerCfg.append(getConfigListEntry(_("Pre-fill first 'n' filename chars to virtual keyboard"), cfg.length, _("You can set the number of letters from the beginning of the current file name as the text pre-filled into virtual keyboard for easier input via group selection. For 'group selection' use 'CH+/CH-' buttons.")))
 		self.MovieManagerCfg.append(getConfigListEntry(_("Use target directory as bookmark"), cfg.bookmark, _("Set 'yes' if You want add target directories into bookmarks.")))
+		self.MovieManagerCfg.append(getConfigListEntry(_("Cursor on start to current item"), cfg.current_item, _("If You want on plugin start set cursor to same item as it was on current file in movieplayer list.")))
 		ConfigListScreen.__init__(self, self.MovieManagerCfg, on_change = self.changedEntry)
 		self.onChangedEntry = []
 
