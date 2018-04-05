@@ -214,14 +214,14 @@ class MovieManager(Screen, HelpableScreen):
 		if searchString:
 			searchString = searchString.decode('UTF-8', 'replace')
 			if cfg.sensitive.value:
-					for item in self.list.list:
-						if item[0][0].decode('UTF-8', 'replace').startswith(searchString):
-							if mark:
-								if not item[0][3]:
-									self.list.toggleItemSelection(item[0])
-							else:
-								if item[0][3]:
-									self.list.toggleItemSelection(item[0])
+				for item in self.list.list:
+					if item[0][0].decode('UTF-8', 'replace').startswith(searchString):
+						if mark:
+							if not item[0][3]:
+								self.list.toggleItemSelection(item[0])
+						else:
+							if item[0][3]:
+								self.list.toggleItemSelection(item[0])
 			else:
 				searchString = searchString.lower()
 				for item in self.list.list:
