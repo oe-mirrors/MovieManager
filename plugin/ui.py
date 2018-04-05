@@ -202,8 +202,8 @@ class MovieManager(Screen, HelpableScreen):
 			txt = _("Add to selection (starts with...)")
 		else:
 			txt = _("Remove from selection (starts with...)")
-		item = self["services"].getCurrent()
-		length = int(cfg.vk_length.value)
+		item = self["config"].getCurrent()
+		length = int(cfg.length.value)
 		name = ""
 		if item and length:
 			name = item[0][0].decode('UTF-8', 'replace')[0:length]
@@ -213,7 +213,7 @@ class MovieManager(Screen, HelpableScreen):
 	def changeItems(self, mark, searchString = None):
 		if searchString:
 			searchString = searchString.decode('UTF-8', 'replace')
-			if cfg.vk_sensitive.value:
+			if cfg.sensitive.value:
 					for item in self.list.list:
 						if item[0][0].decode('UTF-8', 'replace').startswith(searchString):
 							if mark:
