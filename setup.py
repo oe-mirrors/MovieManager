@@ -3,7 +3,7 @@ import setup_translate
 
 pkg = 'Extensions.MovieManager'
 setup (name = 'enigma2-plugin-extensions-moviemanager',
-       version = '1.45',
+       version = '1.46',
        description = 'copy, move and delete more files at once',
        packages = [pkg],
        package_dir = {pkg: 'plugin'},

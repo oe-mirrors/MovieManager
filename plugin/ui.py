@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.45"
+VERSION = "1.46"
 #  by ims (c) 2018 ims21@users.sourceforge.net
 #
 #  This program is free software; you can redistribute it and/or
@@ -36,6 +36,7 @@ from Screens.VirtualKeyBoard import VirtualKeyBoard
 from Screens.MovieSelection import buildMovieLocationList, copyServiceFiles, moveServiceFiles, last_selected_dest
 from Screens.LocationBox import LocationBox, defaultInhibitDirs
 from Components.MovieList import MovieList, StubInfo, IMAGE_EXTENSIONS
+from Tools.BoundFunction import boundFunction
 import os
 
 config.moviemanager = ConfigSubsection()
@@ -142,8 +143,8 @@ class MovieManager(Screen, HelpableScreen):
 			"seekFwdManual": (ssfwd, tFwd),
 			"seekBack": (sback, tBack),
 			"seekBackManual": (ssback, tBack),	
-			"groupSelect": (self.getSelectString, _("Group selection - add")),
-			"groupUnselect": (self.getUnselectString, _("Group selection - remove")),
+			"groupSelect": (boundFunction(self.selectGroup, True), _("Group selection - add")),
+			"groupUnselect": (boundFunction(self.selectGroup, False), _("Group selection - remove")),
 			}, -2)
 
 		self["key_red"] = Button(_("Cancel"))
@@ -196,56 +197,41 @@ class MovieManager(Screen, HelpableScreen):
 	def stop(self):
 		self.session.nav.playService(self.playingRef)
 
-	def getSelectString(self):
+	def selectGroup(self, mark=True):
+		if mark:
+			txt = _("Add to selection (starts with...)")
+		else:
+			txt = _("Remove from selection (starts with...)")
+		item = self["services"].getCurrent()
+		length = int(cfg.vk_length.value)
 		name = ""
-		n = ""
-		item = self["config"].getCurrent()
-		length = int(cfg.length.value)
 		if item and length:
 			name = item[0][0].decode('UTF-8', 'replace')[0:length]
-			n = "\t%s" % length
-		self.session.openWithCallback(self.selectItems, VirtualKeyBoard, title = _("Add to selection (starts with...)") + n, text = name)
+			txt += "\t%s" % length
+		self.session.openWithCallback(boundFunction(self.changeItems, mark), VirtualKeyBoard, title = txt, text = name)
 
-	def selectItems(self, searchString = None):
+	def changeItems(self, mark, searchString = None):
 		if searchString:
 			searchString = searchString.decode('UTF-8', 'replace')
-			if cfg.sensitive.value:
+			if cfg.vk_sensitive.value:
 					for item in self.list.list:
 						if item[0][0].decode('UTF-8', 'replace').startswith(searchString):
+							if mark:
+								if not item[0][3]:
+									self.list.toggleItemSelection(item[0])
+							else:
+								if item[0][3]:
+									self.list.toggleItemSelection(item[0])
+			else:
+				searchString = searchString.lower()
+				for item in self.list.list:
+					if item[0][0].decode('UTF-8', 'replace').lower().startswith(searchString):
+						if mark:
 							if not item[0][3]:
 								self.list.toggleItemSelection(item[0])
-			else:
-				searchString = searchString.lower()
-				for item in self.list.list:
-					if item[0][0].decode('UTF-8', 'replace').lower().startswith(searchString):
-						if not item[0][3]:
-							self.list.toggleItemSelection(item[0])
-		self.displaySelectionPars()
-
-	def getUnselectString(self):
-		name = ""
-		n = ""
-		item = self["config"].getCurrent()
-		length = int(cfg.length.value)
-		if item and length:
-			name = item[0][0].decode('UTF-8', 'replace')[0:length]
-			n = "\t%s" % length
-		self.session.openWithCallback(self.unselectItems, VirtualKeyBoard, title = _("Remove from selection (starts with...)") + n, text = name)
-
-	def unselectItems(self, searchString = None):
-		if searchString:
-			searchString = searchString.decode('UTF-8', 'replace')
-			if cfg.sensitive.value:
-					for item in self.list.list:
-						if item[0][0].decode('UTF-8', 'replace').startswith(searchString):
+						else:
 							if item[0][3]:
 								self.list.toggleItemSelection(item[0])
-			else:
-				searchString = searchString.lower()
-				for item in self.list.list:
-					if item[0][0].decode('UTF-8', 'replace').lower().startswith(searchString):
-						if item[0][3]:
-							self.list.toggleItemSelection(item[0])
 		self.displaySelectionPars()
 
 	def selectAction(self):
