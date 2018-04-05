@@ -158,7 +158,8 @@ class MovieManager(Screen, HelpableScreen):
 
 		self["Service"] = ServiceEvent()
 		self["config"].onSelectionChanged.append(self.setService)
-		self.onShown.append(self.moveSelector)
+		self.onShown.append(self.setService)
+		self.onLayoutFinish.append(self.moveSelector)
 
 	def moveSelector(self):
 		self["config"].moveToIndex(self.position)
@@ -213,25 +214,20 @@ class MovieManager(Screen, HelpableScreen):
 	def changeItems(self, mark, searchString = None):
 		if searchString:
 			searchString = searchString.decode('UTF-8', 'replace')
-			if cfg.sensitive.value:
-				for item in self.list.list:
-					if item[0][0].decode('UTF-8', 'replace').startswith(searchString):
-						if mark:
-							if not item[0][3]:
-								self.list.toggleItemSelection(item[0])
-						else:
-							if item[0][3]:
-								self.list.toggleItemSelection(item[0])
-			else:
+			if not cfg.sensitive.value:
 				searchString = searchString.lower()
-				for item in self.list.list:
-					if item[0][0].decode('UTF-8', 'replace').lower().startswith(searchString):
-						if mark:
-							if not item[0][3]:
-								self.list.toggleItemSelection(item[0])
-						else:
-							if item[0][3]:
-								self.list.toggleItemSelection(item[0])
+			for item in self.list.list:
+				if cfg.sensitive.value:
+					exist = item[0][0].decode('UTF-8', 'replace').startswith(searchString)
+				else:
+					exist = item[0][0].decode('UTF-8', 'replace').lower().startswith(searchString)
+				if exist:
+					if mark:
+						if not item[0][3]:
+							self.list.toggleItemSelection(item[0])
+					else:
+						if item[0][3]:
+							self.list.toggleItemSelection(item[0])
 		self.displaySelectionPars()
 
 	def selectAction(self):
