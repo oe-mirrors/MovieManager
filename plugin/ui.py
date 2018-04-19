@@ -588,7 +588,8 @@ class MovieManagerClearBookmarks(Screen, HelpableScreen):
 
 		self.list = SelectionList([])
 		index = 0
-		for bookmark in config.movielist.videodirs.value:
+		self.loadAllMovielistVideodirs()
+		for bookmark in eval(config.movielist.videodirs.saved_value):
 			self.list.addSelection(bookmark, bookmark, index, False)
 			index += 1
 		self["config"] = self.list
@@ -615,10 +616,19 @@ class MovieManagerClearBookmarks(Screen, HelpableScreen):
 		self["description"] = Label(_("Select with 'OK' and then remove with 'Delete'."))
 		self["config"].onSelectionChanged.append(self.bookmark)
 
+	def loadAllMovielistVideodirs(self):
+		sv = config.movielist.videodirs.saved_value
+		tmp = eval(sv)
+		locations = [[x, None, False, False] for x in tmp]
+		for x in locations:
+			x[1] = x[0]
+			x[2] = True
+		config.movielist.videodirs.locations = locations
+
 	def bookmark(self):
-		item = self["config"].getCurrent()[0]
+		item = self["config"].getCurrent()
 		if item:
-			text = "%s" % item[0]
+			text = "%s" % item[0][0]
 			self["description"].setText(text)
 
 	def sortList(self):
