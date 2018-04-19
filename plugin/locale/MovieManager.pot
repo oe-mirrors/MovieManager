@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-04 15:22+0200\n"
+"POT-Creation-Date: 2018-04-19 20:17+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -89,6 +89,9 @@ msgid "Move to..."
 msgstr ""
 
 msgid "Delete"
+msgstr ""
+
+msgid "Clear bookmarks..."
 msgstr ""
 
 msgid "Options..."
@@ -189,4 +192,23 @@ msgstr ""
 msgid ""
 "If You want on plugin start set cursor to same item as it was on current "
 "file in movieplayer list."
+msgstr ""
+
+msgid "Enable 'Clear bookmark...'"
+msgstr ""
+
+msgid "Enable utility for delete bookmarks in menu."
+msgstr ""
+
+msgid "List of bookmarks"
+msgstr ""
+
+msgid "Delete selected"
+msgstr ""
+
+msgid "Select with 'OK' and then remove with 'Delete'."
+msgstr ""
+
+#, python-format
+msgid "Are You sure to delete %s selected bookmark(s)?"
 msgstr ""

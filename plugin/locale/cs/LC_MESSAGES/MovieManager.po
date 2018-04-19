@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Enigma2 ManagerAutofs Plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-04 15:23+0200\n"
-"PO-Revision-Date: 2018-04-04 15:25+0200\n"
+"POT-Creation-Date: 2018-04-19 20:18+0200\n"
+"PO-Revision-Date: 2018-04-19 20:19+0200\n"
 "Last-Translator: ims <ims21@users.sourceforge.net>\n"
 "Language-Team: PLi\n"
 "Language: cs_CZ\n"
@@ -89,6 +89,9 @@ msgstr "Přesunout do..."
 
 msgid "Delete"
 msgstr "Smazat"
+
+msgid "Clear bookmarks..."
+msgstr "Čistit záložky..."
 
 msgid "Options..."
 msgstr "Možnosti..."
@@ -198,6 +201,25 @@ msgid ""
 msgstr ""
 "Jestliže chcete po startu vždy nastavit kurzor na stejnou položku v seznamu "
 "jako byl na aktuální položce v movieplayeru."
+
+msgid "Enable 'Clear bookmark...'"
+msgstr "Povolit 'Čistit záložky...'"
+
+msgid "Enable utility for delete bookmarks in menu."
+msgstr "Povolít v menu nástroj pro mazání záložek."
+
+msgid "List of bookmarks"
+msgstr "Seznam záložek"
+
+msgid "Delete selected"
+msgstr "Smazat vybrané"
+
+msgid "Select with 'OK' and then remove with 'Delete'."
+msgstr "Vyberte pomocí 'OK' a pak odstraňte pomocí 'Smazat'."
+
+#, python-format
+msgid "Are You sure to delete %s selected bookmark(s)?"
+msgstr "Opravdu chctete smazat %s označených  záložek?"
 
 #~ msgid "no"
 #~ msgstr "ne"

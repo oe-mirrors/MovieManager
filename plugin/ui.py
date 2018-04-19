@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.46"
+VERSION = "1.47"
 #  by ims (c) 2018 ims21@users.sourceforge.net
 #
 #  This program is free software; you can redistribute it and/or
@@ -47,7 +47,8 @@ for i in range(1, 11, 1):
 choicelist.append(("15","15"))
 choicelist.append(("20","20"))
 config.moviemanager.length = ConfigSelection(default = "0", choices = [("0", _("No"))] + choicelist + [("255", _("All"))])
-config.moviemanager.bookmark = ConfigYesNo(default=False)
+config.moviemanager.add_bookmark = ConfigYesNo(default=False)
+config.moviemanager.clear_bookmarks = ConfigYesNo(default=True)
 config.moviemanager.current_item = ConfigYesNo(default=True)
 cfg = config.moviemanager
 
@@ -238,6 +239,9 @@ class MovieManager(Screen, HelpableScreen):
 		if config.usage.setup_level.index == 2:
 			menu.append((_("Delete"),8))
 			keys+=["8"]
+		if cfg.clear_bookmarks.value:
+			menu.append((_("Clear bookmarks..."),10))
+			keys+=[""]
 		menu.append((_("Options..."),20))
 		keys+=["menu"]
 
@@ -253,6 +257,8 @@ class MovieManager(Screen, HelpableScreen):
 			self.moveSelected()
 		elif choice[1] == 8:
 			self.deleteSelected()
+		elif choice[1] == 10:
+			self.session.open(MovieManagerClearBookmarks)
 		elif choice[1] == 20:
 			self.session.open(MovieManagerCfg)
 
@@ -506,7 +512,7 @@ class MovieManager(Screen, HelpableScreen):
 
 def MyMovieLocationBox(session, text, dir, filename = "", minFree = None):
 	config.movielist.videodirs.load()
-	return LocationBox(session, text = text,  filename = filename, currDir = dir, bookmarks = config.movielist.videodirs, autoAdd = cfg.bookmark.value, editDir = True, inhibitDirs = defaultInhibitDirs, minFree = minFree)
+	return LocationBox(session, text = text,  filename = filename, currDir = dir, bookmarks = config.movielist.videodirs, autoAdd = cfg.add_bookmark.value, editDir = True, inhibitDirs = defaultInhibitDirs, minFree = minFree)
 
 class MovieManagerCfg(Screen, ConfigListScreen):
 	def __init__(self, session):
@@ -530,8 +536,9 @@ class MovieManagerCfg(Screen, ConfigListScreen):
 		self.MovieManagerCfg = []
 		self.MovieManagerCfg.append(getConfigListEntry(_("Compare case sensitive"), cfg.sensitive, _("Sets whether to distinguish between uper case and lower case for searching.")))
 		self.MovieManagerCfg.append(getConfigListEntry(_("Pre-fill first 'n' filename chars to virtual keyboard"), cfg.length, _("You can set the number of letters from the beginning of the current file name as the text pre-filled into virtual keyboard for easier input via group selection. For 'group selection' use 'CH+/CH-' buttons.")))
-		self.MovieManagerCfg.append(getConfigListEntry(_("Use target directory as bookmark"), cfg.bookmark, _("Set 'yes' if You want add target directories into bookmarks.")))
+		self.MovieManagerCfg.append(getConfigListEntry(_("Use target directory as bookmark"), cfg.add_bookmark, _("Set 'yes' if You want add target directories into bookmarks.")))
 		self.MovieManagerCfg.append(getConfigListEntry(_("Cursor on start to current item"), cfg.current_item, _("If You want on plugin start set cursor to same item as it was on current file in movieplayer list.")))
+		self.MovieManagerCfg.append(getConfigListEntry(_("Enable 'Clear bookmark...'"), cfg.clear_bookmarks, _("Enable utility for delete bookmarks in menu.")))
 		ConfigListScreen.__init__(self, self.MovieManagerCfg, on_change = self.changedEntry)
 		self.onChangedEntry = []
 
@@ -554,3 +561,98 @@ class MovieManagerCfg(Screen, ConfigListScreen):
 
 	def exit(self):
 		self.keyCancel()
+
+class MovieManagerClearBookmarks(Screen, HelpableScreen):
+	skin="""
+	<screen name="MovieManager" position="center,center" size="600,390" title="List of bookmarks">
+		<ePixmap name="red"    position="0,0"   zPosition="2" size="140,40" pixmap="skin_default/buttons/red.png" transparent="1" alphatest="on"/>
+		<ePixmap name="green"  position="140,0" zPosition="2" size="140,40" pixmap="skin_default/buttons/green.png" transparent="1" alphatest="on"/>
+		<ePixmap name="yellow" position="280,0" zPosition="2" size="140,40" pixmap="skin_default/buttons/yellow.png" transparent="1" alphatest="on"/>
+		<ePixmap name="blue"   position="420,0" zPosition="2" size="140,40" pixmap="skin_default/buttons/blue.png" transparent="1" alphatest="on"/>
+		<widget name="key_red" position="0,0" size="140,40" valign="center" halign="center" zPosition="4"  foregroundColor="white" font="Regular;20" transparent="1" shadowColor="background" shadowOffset="-2,-2"/>
+		<widget name="key_green" position="140,0" size="140,40" valign="center" halign="center" zPosition="4"  foregroundColor="white" font="Regular;20" transparent="1" shadowColor="background" shadowOffset="-2,-2"/>
+		<widget name="key_yellow" position="280,0" size="140,40" valign="center" halign="center" zPosition="4"  foregroundColor="white" font="Regular;20" transparent="1" shadowColor="background" shadowOffset="-2,-2"/>
+		<widget name="key_blue" position="420,0" size="140,40" valign="center" halign="center" zPosition="4"  foregroundColor="white" font="Regular;20" transparent="1" shadowColor="background" shadowOffset="-2,-2"/>
+		<widget name="config" position="5,50" zPosition="2" size="590,300" foregroundColor="white" scrollbarMode="showOnDemand"/>
+		<ePixmap pixmap="skin_default/div-h.png" position="5,355" zPosition="2" size="590,2"/>
+		<widget name="description" position="5,360" zPosition="2" size="590,25" valign="center" halign="left" font="Regular;22" foregroundColor="white"/>
+	</screen>
+	"""
+	def __init__(self, session):
+		Screen.__init__(self, session)
+		HelpableScreen.__init__(self)
+		self.skinName = ["MovieManagerCfg", "Setup"]
+		self.session = session
+
+		self.setTitle(_("List of bookmarks"))
+
+		self.list = SelectionList([])
+		index = 0
+		for bookmark in config.movielist.videodirs.value:
+			self.list.addSelection(bookmark, bookmark, index, False)
+			index += 1
+		self["config"] = self.list
+
+		self["OkCancelActions"] = HelpableActionMap(self, "OkCancelActions",
+			{
+			"cancel": (self.exit, _("Exit plugin")),
+			"ok": (self.list.toggleSelection, _("Add or remove item of selection")),
+			})
+		self["MovieManagerActions"] = HelpableActionMap(self, "MovieManagerActions",
+			{
+			"red": (self.exit, _("Exit plugin")),
+			"green": (self.deleteSelected, _("Delete selected")),
+			"yellow": (self.sortList, _("Sort list")),
+			"blue": (self.list.toggleAllSelection, _("Invert selection")),
+			}, -2)
+
+		self["key_red"] = Button(_("Cancel"))
+		self["key_green"] = Button(_("Delete"))
+		self["key_yellow"] = Button(_("Sort"))
+		self["key_blue"] = Button(_("Inversion"))
+
+		self.sort = 0
+		self["description"] = Label(_("Select with 'OK' and then remove with 'Delete'."))
+		self["config"].onSelectionChanged.append(self.bookmark)
+
+	def bookmark(self):
+		item = self["config"].getCurrent()[0]
+		if item:
+			text = "%s" % item[0]
+			self["description"].setText(text)
+
+	def sortList(self):
+		if self.sort == 0:	# z-a
+			self.list.sort(sortType=0, flag=True)
+			self.sort += 1
+		elif self.sort == 1 and len(self.list.getSelectionsList()):	# selected top
+			self.list.sort(sortType=3, flag=True)
+			self.sort += 1
+		else:			# a-z
+			self.list.sort(sortType=0)
+			self.sort = 0
+
+	def deleteSelected(self):
+		if self["config"].getCurrent():
+			selected = len(self.list.getSelectionsList())
+			if not selected:
+				selected = 1
+			self.session.openWithCallback(self.delete, MessageBox, _("Are You sure to delete %s selected bookmark(s)?") % selected, type=MessageBox.TYPE_YESNO, default=False)
+
+	def delete(self, choice):
+		if choice:
+			bookmarks = config.movielist.videodirs.value
+			data = self.list.getSelectionsList()
+			selected = len(data)
+			if not selected:
+				data = [self["config"].getCurrent()[0]]
+				selected = 1
+			for item in data:
+				# item ... (name, name, index, status)
+				self.list.removeSelection(item)
+				bookmarks.remove(item[0])
+			config.movielist.videodirs.value = bookmarks
+			config.movielist.videodirs.save()
+
+	def exit(self):
+		self.close()
