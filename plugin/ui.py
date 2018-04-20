@@ -596,12 +596,12 @@ class MovieManagerClearBookmarks(Screen, HelpableScreen):
 
 		self["OkCancelActions"] = HelpableActionMap(self, "OkCancelActions",
 			{
-			"cancel": (self.exit, _("Exit plugin")),
+			"cancel": (self.exit, _("Close")),
 			"ok": (self.list.toggleSelection, _("Add or remove item of selection")),
 			})
 		self["MovieManagerActions"] = HelpableActionMap(self, "MovieManagerActions",
 			{
-			"red": (self.exit, _("Exit plugin")),
+			"red": (self.exit, _("Close")),
 			"green": (self.deleteSelected, _("Delete selected")),
 			"yellow": (self.sortList, _("Sort list")),
 			"blue": (self.list.toggleAllSelection, _("Invert selection")),
