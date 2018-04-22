@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.47"
+VERSION = "1.48"
 #  by ims (c) 2018 ims21@users.sourceforge.net
 #
 #  This program is free software; you can redistribute it and/or
@@ -323,7 +323,7 @@ class MovieManager(Screen, HelpableScreen):
 		elif self.sort == 2:	# z-a
 			self.list.sort(sortType=0, flag=True)
 			self.sort += 1
-		elif self.sort == 3:	# selected top
+		elif self.sort == 3 and len(self.list.getSelectionsList()):	# selected top
 			self.list.sort(sortType=3, flag=True)
 			self.sort += 1
 		else:			# default
