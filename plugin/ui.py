@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.48"
+VERSION = "1.49"
 #  by ims (c) 2018 ims21@users.sourceforge.net
 #
 #  This program is free software; you can redistribute it and/or
@@ -35,7 +35,7 @@ from Screens.ChoiceBox import ChoiceBox
 from Screens.VirtualKeyBoard import VirtualKeyBoard
 from Screens.MovieSelection import buildMovieLocationList, copyServiceFiles, moveServiceFiles, last_selected_dest
 from Screens.LocationBox import LocationBox, defaultInhibitDirs
-from Components.MovieList import MovieList, StubInfo, IMAGE_EXTENSIONS
+from Components.MovieList import MovieList, StubInfo, IMAGE_EXTENSIONS, resetMoviePlayState
 from Tools.BoundFunction import boundFunction
 import os
 
@@ -242,6 +242,8 @@ class MovieManager(Screen, HelpableScreen):
 		if cfg.clear_bookmarks.value:
 			menu.append((_("Clear bookmarks..."),10))
 			keys+=[""]
+		menu.append((_("Reset"),15))
+		keys = [""]
 		menu.append((_("Options..."),20))
 		keys+=["menu"]
 
@@ -259,6 +261,8 @@ class MovieManager(Screen, HelpableScreen):
 			self.deleteSelected()
 		elif choice[1] == 10:
 			self.session.open(MovieManagerClearBookmarks)
+		elif choice[1] == 15:
+			self.resetSelected()
 		elif choice[1] == 20:
 			self.session.open(MovieManagerCfg)
 
@@ -457,6 +461,22 @@ class MovieManager(Screen, HelpableScreen):
 			self.session.open(MessageBox, _("On destination '%s' is %s free space only!") % (dest, self.convertSize(free_space)), MessageBox.TYPE_ERROR, timeout=5)
 			return False
 		return True
+
+	def resetSelected(self):
+		if self["config"].getCurrent():
+			toggle = True
+			data = self.list.getSelectionsList()
+			if len(data) == 0:
+				data = [self["config"].getCurrent()[0]]
+				toggle = False
+			if len(data):
+				for item in data:
+					current = item[1][0]
+					resetMoviePlayState(current.getPath() + ".cuts", current)
+					if toggle:
+						self.list.toggleItemSelection(item)
+					self.mainList.invalidateItem(item[2])
+			self.displaySelectionPars()
 
 	def exit(self):
 		if self.original_selectionpng:
