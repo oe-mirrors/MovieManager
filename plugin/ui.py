@@ -243,7 +243,7 @@ class MovieManager(Screen, HelpableScreen):
 			menu.append((_("Clear bookmarks..."),10))
 			keys+=[""]
 		menu.append((_("Reset"),15))
-		keys = [""]
+		keys+=[""]
 		menu.append((_("Options..."),20))
 		keys+=["menu"]
 
