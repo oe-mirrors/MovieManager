@@ -1,0 +1,230 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-04-20 11:33+0200\n"
+"PO-Revision-Date: 2018-04-28 10:20+0200\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.7\n"
+"Last-Translator: Rob van der Does <RobvanderDoes@Gmail.com>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: nl\n"
+
+msgid "No"
+msgstr "Nee"
+
+msgid "All"
+msgstr "Alle"
+
+msgid "List of files"
+msgstr "Lijst met bestanden"
+
+msgid "Exit plugin"
+msgstr "Verlaat plugin"
+
+msgid "Add or remove item of selection"
+msgstr "Verwijder of voeg toe als selectie"
+
+msgid "Preview"
+msgstr "Preview"
+
+msgid "Skip forward"
+msgstr "Skip forward"
+
+msgid "Skip backward"
+msgstr "Skip backward"
+
+msgid "Select action"
+msgstr "Kies actie "
+
+msgid "Sort list"
+msgstr "Sorteer lijst"
+
+msgid "Invert selection"
+msgstr "Keer selectie om"
+
+msgid "Stop"
+msgstr "Stop"
+
+msgid "Group selection - add"
+msgstr "Groepsselectie - voeg toe"
+
+msgid "Group selection - remove"
+msgstr "Groepsselectie - verwijder"
+
+msgid "Cancel"
+msgstr "Annuleer"
+
+msgid "Action"
+msgstr "Actie"
+
+msgid "Sort"
+msgstr "Sorteer"
+
+msgid "Inversion"
+msgstr "Omkeren"
+
+msgid ""
+"Select files with 'OK' or use 'CH+/CH-' and then use 'Menu' or 'Action' for "
+"select operation."
+msgstr ""
+"Selecteer bestanden met 'OK' of gebruik 'CH+/-' en vervolgens 'Menu' of "
+"'Actie' om de gewenste handeling te kiezen."
+
+msgid "Add to selection (starts with...)"
+msgstr "Voeg toe aan selectie (begint met...)"
+
+msgid "Remove from selection (starts with...)"
+msgstr "Verwijder van selectie (begint met...)"
+
+msgid "Copy to..."
+msgstr "Kopieer naar..."
+
+msgid "Move to..."
+msgstr "Verplaats naar..."
+
+msgid "Delete"
+msgstr "Verwijder"
+
+msgid "Clear bookmarks..."
+msgstr "Verwijder bookmarks..."
+
+msgid "Options..."
+msgstr "Opties..."
+
+msgid "Select operation:"
+msgstr "Kies uitvoering:"
+
+#, python-format
+msgid "Size: %s"
+msgstr "Grootte: %s"
+
+#, python-format
+msgid "Selected: %s"
+msgstr "Geselecteerd: %s"
+
+#, python-format
+msgid ""
+"Plugin does not use the trash or check a running recording!\n"
+"Do You want continue and delete %s selected files?"
+msgstr ""
+"Plugin gebruikt geen prullenbak en controleert niet op lopende opnames!\n"
+"Wilt u doorgaan met het verwijderen van %s bestanden?"
+
+#, python-format
+msgid "Are You sure to delete %s selected file(s)?"
+msgstr "Weet u zeker dat u %s geselecteerde bestand(en) wilt wissen?"
+
+#, python-format
+msgid "Sucessfuly deleted %s of %s files..."
+msgstr "Sucesvol %s van %s bestanden verwijderd..."
+
+msgid "Delete failed!"
+msgstr "Verwijderen mislukt!"
+
+msgid "Select destination for copy selected files..."
+msgstr "Kies bestemming voor gekopieerde bestanden..."
+
+msgid "Same source and target directory!"
+msgstr "Bron en doel hebben dezelfde locatie!"
+
+msgid "Select destination for move selected files..."
+msgstr "Kies bestemming voor verplaatste bestanden..."
+
+#, python-format
+msgid "On destination '%s' is %s free space only!"
+msgstr "Op de bestemming is slechts '%s' van %s vrije ruimte!"
+
+msgid "Other"
+msgstr "Anders"
+
+#, python-format
+msgid "%.0f GB"
+msgstr "%.0f GB"
+
+#, python-format
+msgid "%.2f GB"
+msgstr "%.2f GB"
+
+#, python-format
+msgid "%.0f MB"
+msgstr "%.0f MB"
+
+#, python-format
+msgid "%.0f kB"
+msgstr "%.0f kB"
+
+#, python-format
+msgid "%d B"
+msgstr "%d B"
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Compare case sensitive"
+msgstr "Vergelijk hoofdlettergevoelig"
+
+msgid ""
+"Sets whether to distinguish between uper case and lower case for searching."
+msgstr ""
+"Hiermee bepaalt u of de hoofdletters/kleine letters als zoekargument moeten "
+"worden gebruikt."
+
+msgid "Pre-fill first 'n' filename chars to virtual keyboard"
+msgstr "Vul de eerste 'n' karakters in op het virtuele toetsenbord."
+
+msgid ""
+"You can set the number of letters from the beginning of the current file "
+"name as the text pre-filled into virtual keyboard for easier input via group "
+"selection. For 'group selection' use 'CH+/CH-' buttons."
+msgstr ""
+"Hier kunt u het aantal karakters aangeven waarmee het virtuele toetsenbord "
+"wordt gevuld. Dat zijn de eerste 'n' karakters van het momenteel "
+"geselecteerde item.\n"
+"U gebruikt 'CH+' om de huidige groep te selecteren en 'CH-' om de huidige "
+"groep te deselecteren."
+
+msgid "Use target directory as bookmark"
+msgstr "Gebruik doel als bookmark"
+
+msgid "Set 'yes' if You want add target directories into bookmarks."
+msgstr "Kies 'Ja' als u de doellocatie als bookmark wilt toevoegen."
+
+msgid "Cursor on start to current item"
+msgstr "Cursor begint met huidige item"
+
+msgid ""
+"If You want on plugin start set cursor to same item as it was on current "
+"file in movieplayer list."
+msgstr ""
+"Als u wilt dat de cursor start op dezelfde positie als in de opnamelijst."
+
+msgid "Enable 'Clear bookmark...'"
+msgstr "Schakel 'Bookmarks verwijderen...' in"
+
+msgid "Enable utility for delete bookmarks in menu."
+msgstr "Geeft de mogelijkheid bookmarks in het menu te verwijderen."
+
+msgid "List of bookmarks"
+msgstr "Lijst met bookmarks"
+
+msgid "Close"
+msgstr "Sluit"
+
+msgid "Delete selected"
+msgstr "Verwijder geselecteerde"
+
+msgid "Select with 'OK' and then remove with 'Delete'."
+msgstr "Selecteer met 'OK' en deselecteer met 'Verwijder'."
+
+#, python-format
+msgid "Are You sure to delete %s selected bookmark(s)?"
+msgstr "Weet u zeker de %s geselecteerde bookmarks te verwijderen?"
