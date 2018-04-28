@@ -54,7 +54,7 @@ cfg = config.moviemanager
 
 class MovieManager(Screen, HelpableScreen):
 	skin="""
-	<screen name="MovieManager" position="center,center" size="600,410" title="List of files">
+	<screen name="MovieManager" position="center,center" size="600,415" title="List of files">
 		<ePixmap name="red"    position="0,0"   zPosition="2" size="140,40" pixmap="skin_default/buttons/red.png" transparent="1" alphatest="on"/>
 		<ePixmap name="green"  position="140,0" zPosition="2" size="140,40" pixmap="skin_default/buttons/green.png" transparent="1" alphatest="on"/>
 		<ePixmap name="yellow" position="280,0" zPosition="2" size="140,40" pixmap="skin_default/buttons/yellow.png" transparent="1" alphatest="on"/>
@@ -77,9 +77,9 @@ class MovieManager(Screen, HelpableScreen):
 			<convert type="ClockToText">Format:%a %d.%m.%Y, %H:%M</convert>
 		</widget>
 		<ePixmap pixmap="skin_default/div-h.png" position="5,363" zPosition="2" size="590,2"/>
-		<widget name="number" position="5,372" size="120,20" zPosition="1" foregroundColor="green" font="Regular;16"/>
-		<widget name="size" position="5,392" size="120,20" zPosition="1" foregroundColor="green" font="Regular;16"/>
-		<widget name="description" position="125,368" zPosition="2" size="470,46" valign="center" halign="left" font="Regular;20" foregroundColor="white"/>
+		<widget name="number" position="5,372" size="135,20" zPosition="1" foregroundColor="green" font="Regular;16"/>
+		<widget name="size" position="5,392" size="135,20" zPosition="1" foregroundColor="green" font="Regular;16"/>
+		<widget name="description" position="140,368" zPosition="2" size="470,46" valign="center" halign="left" font="Regular;16" foregroundColor="white"/>
 	</screen>
 	"""
 	def __init__(self, session, list, current=None):
