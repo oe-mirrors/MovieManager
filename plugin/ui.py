@@ -471,11 +471,12 @@ class MovieManager(Screen, HelpableScreen):
 				toggle = False
 			if len(data):
 				for item in data:
+					# 0 - name, 1(0 - item, 1-size), 2-index
 					current = item[1][0]
 					resetMoviePlayState(current.getPath() + ".cuts", current)
 					if toggle:
 						self.list.toggleItemSelection(item)
-					self.mainList.invalidateItem(item[2])
+					self.mainList.reload()
 			self.displaySelectionPars()
 
 	def exit(self):
