@@ -242,7 +242,7 @@ class MovieManager(Screen, HelpableScreen):
 		if cfg.clear_bookmarks.value:
 			menu.append((_("Clear bookmarks..."),10))
 			keys+=[""]
-		menu.append((_("Reset"),15))
+		menu.append((_("Reset playback position"),15))
 		keys+=[""]
 		menu.append((_("Options..."),20))
 		keys+=["menu"]
