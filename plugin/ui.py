@@ -50,7 +50,7 @@ config.moviemanager.length = ConfigSelection(default = "0", choices = [("0", _("
 config.moviemanager.add_bookmark = ConfigYesNo(default=False)
 config.moviemanager.clear_bookmarks = ConfigYesNo(default=True)
 config.moviemanager.current_item = ConfigYesNo(default=True)
-config.moviemanager.manage_all = ConfigYesNo(default=True)
+config.moviemanager.manage_all = ConfigYesNo(default=False)
 cfg = config.moviemanager
 
 class MovieManager(Screen, HelpableScreen):
