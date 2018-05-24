@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.49"
+VERSION = "1.52"
 #  by ims (c) 2018 ims21@users.sourceforge.net
 #
 #  This program is free software; you can redistribute it and/or
@@ -50,6 +50,7 @@ config.moviemanager.length = ConfigSelection(default = "0", choices = [("0", _("
 config.moviemanager.add_bookmark = ConfigYesNo(default=False)
 config.moviemanager.clear_bookmarks = ConfigYesNo(default=True)
 config.moviemanager.current_item = ConfigYesNo(default=True)
+config.moviemanager.manage_all = ConfigYesNo(default=True)
 cfg = config.moviemanager
 
 class MovieManager(Screen, HelpableScreen):
@@ -86,35 +87,21 @@ class MovieManager(Screen, HelpableScreen):
 		Screen.__init__(self, session)
 		HelpableScreen.__init__(self)
 		self.session = session
+		self.current = current
 		self.mainList = list
 		self.setTitle(_("List of files") + ":  %s" % config.movielist.last_videodir.value)
 
 		self.original_selectionpng = None
 		self.changePng()
 
-		self.list = SelectionList([])
-		index = 0
+		self.ACCROSS = False
 		self.position = 0
-		for i, record in enumerate(list):
-			if record:
-				item = record[0]
-				if not item.flags & eServiceReference.mustDescent:
-					if cfg.current_item.value and item == current:
-						self.position = index
-					info = record[1]
-					name = info and info.getName(item)
-					size = 0
-					if info:
-						if isinstance(info, StubInfo): # picture
-							size = info.getInfo(item, iServiceInformation.sFileSize)
-						else:
-							size = info.getInfoObject(item, iServiceInformation.sFileSize)
-					self.list.addSelection(name, (item, size), index, False) # movie
-					index += 1
-
-		self["config"] = self.list
-		self["description"] = Label()
 		self.size = 0
+		self.list = SelectionList([])
+		self["config"] = self.parseMovieList( list, self.list)
+
+		self["description"] = Label()
+
 		self["size"] = Label()
 		self["number"] = Label()
 
@@ -161,6 +148,31 @@ class MovieManager(Screen, HelpableScreen):
 		self["config"].onSelectionChanged.append(self.setService)
 		self.onShown.append(self.setService)
 		self.onLayoutFinish.append(self.moveSelector)
+
+	def parseMovieList(self, movielist, list):
+		self.position = 0
+		index = 0
+		suma=0
+		for i, record in enumerate(movielist):
+			if record:
+				item = record[0]
+				if not item.flags & eServiceReference.mustDescent:
+					if cfg.current_item.value and item == self.current:
+						self.position = index
+					info = record[1]
+					name = info and info.getName(item)
+					size = 0
+					if info:
+						if isinstance(info, StubInfo): # picture
+							size = info.getInfo(item, iServiceInformation.sFileSize)
+						else:
+							size = info.getInfoObject(item, iServiceInformation.sFileSize)
+					list.addSelection(name, (item, size), index, False) # movie
+					index += 1
+					suma+=size
+		print "[MovieMnager} list filled with %s items. Size: %s" % (index, self.convertSize(suma))
+		self.size = 0
+		return list
 
 	def moveSelector(self):
 		self["config"].moveToIndex(self.position)
@@ -244,6 +256,9 @@ class MovieManager(Screen, HelpableScreen):
 			keys+=[""]
 		menu.append((_("Reset playback position"),15))
 		keys+=[""]
+		if cfg.manage_all.value:
+			menu.append((_("Manage files in active bookmarks..."), 18))
+			keys+=[""]
 		menu.append((_("Options..."),20))
 		keys+=["menu"]
 
@@ -263,8 +278,36 @@ class MovieManager(Screen, HelpableScreen):
 			self.session.open(MovieManagerClearBookmarks)
 		elif choice[1] == 15:
 			self.resetSelected()
+		elif choice[1] == 18:
+			self.ACCROSS = True
+			self.runManageAll()
 		elif choice[1] == 20:
 			self.session.open(MovieManagerCfg)
+
+	def runManageAll(self):
+		def setCurrentRef(path):
+			self.current_ref = eServiceReference("2:0:1:0:0:0:0:0:0:0:" + path)
+			self.current_ref.setName('16384:jpg 16384:png 16384:gif 16384:bmp')
+		def readDirectory(bookmark):
+			selected_tags = []
+			list = MovieList(None, sort_type=MovieList.SORT_ALPHANUMERIC)
+			list.reload(self.current_ref, selected_tags)
+			return list
+		def clearList():
+			self.l = self.list
+			self.l.setList([])
+			print "[MovieManager] current list erased"
+
+		clearList()
+		files = []
+		for path in eval(config.movielist.videodirs.saved_value):
+			setCurrentRef(path)
+			files += readDirectory(path)
+			print "[MovieManager] + added files from %s" % path
+		print "[MovieManager] readed items accross bookmarks"
+
+		self.list = self.parseMovieList(files, self.list)
+		del files
 
 	def toggleAllSelection(self):
 		self.list.toggleAllSelection()
@@ -307,6 +350,8 @@ class MovieManager(Screen, HelpableScreen):
 		item = self["config"].getCurrent()
 		if item:
 			self["Service"].newService(item[0][1][0])
+			if self.ACCROSS:
+				self.setTitle(_("List of files") + ":  %s" % os.path.realpath(item[0][1][0].getPath()).rpartition('/')[0])
 		else:
 			self["Service"].newService(None)
 
@@ -327,9 +372,13 @@ class MovieManager(Screen, HelpableScreen):
 		elif self.sort == 2:	# z-a
 			self.list.sort(sortType=0, flag=True)
 			self.sort += 1
-		elif self.sort == 3 and len(self.list.getSelectionsList()):	# selected top
-			self.list.sort(sortType=3, flag=True)
-			self.sort += 1
+		elif self.sort == 3:	# selected top
+			if len(self.list.getSelectionsList()):
+				self.list.sort(sortType=3, flag=True)
+				self.sort += 1
+			else: 		# if selected is empty, sort as default
+				self.list.sort(sortType=2, flag=False)
+				self.sort = 0 # next be reversed
 		else:			# default
 			self.list.sort(sortType=2)
 			self.sort = 0
@@ -559,7 +608,8 @@ class MovieManagerCfg(Screen, ConfigListScreen):
 		self.MovieManagerCfg.append(getConfigListEntry(_("Pre-fill first 'n' filename chars to virtual keyboard"), cfg.length, _("You can set the number of letters from the beginning of the current file name as the text pre-filled into virtual keyboard for easier input via group selection. For 'group selection' use 'CH+/CH-' buttons.")))
 		self.MovieManagerCfg.append(getConfigListEntry(_("Use target directory as bookmark"), cfg.add_bookmark, _("Set 'yes' if You want add target directories into bookmarks.")))
 		self.MovieManagerCfg.append(getConfigListEntry(_("Cursor on start to current item"), cfg.current_item, _("If You want on plugin start set cursor to same item as it was on current file in movieplayer list.")))
-		self.MovieManagerCfg.append(getConfigListEntry(_("Enable 'Clear bookmark...'"), cfg.clear_bookmarks, _("Enable utility for delete bookmarks in menu.")))
+		self.MovieManagerCfg.append(getConfigListEntry(_("Enable 'Clear bookmark...'"), cfg.clear_bookmarks, _("Enable in menu utility for delete bookmarks in menu.")))
+		self.MovieManagerCfg.append(getConfigListEntry(_("Enable 'Manage files in active bookmarks...'"), cfg.manage_all, _("Enable in menu item for manage movies in all active bookmarks as one list.")))
 		ConfigListScreen.__init__(self, self.MovieManagerCfg, on_change = self.changedEntry)
 		self.onChangedEntry = []
 

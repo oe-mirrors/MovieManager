@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-06 21:58+0200\n"
+"POT-Creation-Date: 2018-05-24 19:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -95,6 +95,9 @@ msgid "Clear bookmarks..."
 msgstr ""
 
 msgid "Reset playback position"
+msgstr ""
+
+msgid "Manage files in active bookmarks..."
 msgstr ""
 
 msgid "Options..."
@@ -200,7 +203,14 @@ msgstr ""
 msgid "Enable 'Clear bookmark...'"
 msgstr ""
 
-msgid "Enable utility for delete bookmarks in menu."
+msgid "Enable in menu utility for delete bookmarks in menu."
+msgstr ""
+
+msgid "Enable 'Manage files in active bookmarks...'"
+msgstr ""
+
+msgid ""
+"Enable in menu item for manage movies in all active bookmarks as one list."
 msgstr ""
 
 msgid "List of bookmarks"
