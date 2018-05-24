@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.52"
+VERSION = "1.53"
 #  by ims (c) 2018 ims21@users.sourceforge.net
 #
 #  This program is free software; you can redistribute it and/or
@@ -110,7 +110,12 @@ class MovieManager(Screen, HelpableScreen):
 			"cancel": (self.exit, _("Exit plugin")),
 			"ok": (self.toggleSelection,_("Add or remove item of selection")),
 			})
-
+		### CSFDRunActions can be defined in keytranslation.xml
+		self["CSFDRunActions"] = ActionMap(["CSFDRunActions"],
+			{
+				"csfd": self.csfd,
+			})
+		###
 		tPreview = _("Preview")
 		tFwd = _("Skip forward") + " (" + tPreview +")"
 		tBack= _("Skip backward") + " (" + tPreview +")"
@@ -579,6 +584,21 @@ class MovieManager(Screen, HelpableScreen):
 				return _("%.0f kB") % (filesize / 1024.0)
 			return _("%d B") % filesize
 		return ""
+
+	def csfd(self):
+		def isCSFD():
+			try:
+				from Plugins.Extensions.CSFD.plugin import CSFD
+			except ImportError:
+				self.session.open(MessageBox, _("The CSFD plugin is not installed!\nPlease install it."), type = MessageBox.TYPE_INFO,timeout = 5 )
+				return False
+			else:
+				return True
+		if isCSFD():
+			event = self["config"].getCurrent()
+			if event:
+				from Plugins.Extensions.CSFD.plugin import CSFD
+				self.session.open(CSFD, event[0][0])
 
 def MyMovieLocationBox(session, text, dir, filename = "", minFree = None):
 	config.movielist.videodirs.load()
