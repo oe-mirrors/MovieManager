@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-25 17:11+0200\n"
+"POT-Creation-Date: 2018-05-25 23:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,6 +21,21 @@ msgid "No"
 msgstr ""
 
 msgid "All"
+msgstr ""
+
+msgid "Original list"
+msgstr ""
+
+msgid "A-z sort"
+msgstr ""
+
+msgid "Z-a sort"
+msgstr ""
+
+msgid "Selected top"
+msgstr ""
+
+msgid "Original list - reverted"
 msgstr ""
 
 msgid "List of files"
@@ -110,21 +125,6 @@ msgid "Options..."
 msgstr ""
 
 msgid "Select operation:"
-msgstr ""
-
-msgid "Original list"
-msgstr ""
-
-msgid "A-z sort"
-msgstr ""
-
-msgid "Z-a sort"
-msgstr ""
-
-msgid "Selected top"
-msgstr ""
-
-msgid "Original list - reverted"
 msgstr ""
 
 msgid "Sort list:"

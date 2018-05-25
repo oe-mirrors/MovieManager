@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.57"
+VERSION = "1.58"
 #  by ims (c) 2018 ims21@users.sourceforge.net
 #
 #  This program is free software; you can redistribute it and/or
@@ -50,6 +50,7 @@ config.moviemanager.length = ConfigSelection(default = "0", choices = [("0", _("
 config.moviemanager.add_bookmark = ConfigYesNo(default=False)
 config.moviemanager.clear_bookmarks = ConfigYesNo(default=True)
 config.moviemanager.manage_all = ConfigYesNo(default=False)
+config.moviemanager.sort = ConfigSelection(default = "0", choices = [("0", _("Original list")),("1", _("A-z sort")),("2", _("Z-a sort")),("3", _("Selected top")),("4", _("Original list - reverted"))])
 cfg = config.moviemanager
 
 class MovieManager(Screen, HelpableScreen):
@@ -98,6 +99,7 @@ class MovieManager(Screen, HelpableScreen):
 		self.size = 0
 		self.list = SelectionList([])
 		self["config"] = self.parseMovieList( list, self.list)
+		self.sortList(int(cfg.sort.value))
 
 		self["description"] = Label()
 
@@ -145,7 +147,6 @@ class MovieManager(Screen, HelpableScreen):
 		self["key_blue"] = Button(_("Inversion"))
 
 		self.playingRef = self.session.nav.getCurrentlyPlayingServiceOrGroup()
-		self.sort = 0
 		self["description"].setText(_("Select files with 'OK' or use 'CH+/CH-' and then use 'Menu' or 'Action' for select operation."))
 
 		self["Service"] = ServiceEvent()
@@ -298,19 +299,16 @@ class MovieManager(Screen, HelpableScreen):
 
 	def selectSortby(self):
 		menu = []
-		menu.append((_("Original list"), "0"))
-		menu.append((_("A-z sort"), "1"))
-		menu.append((_("Z-a sort"), "2"))
-		if len(self.list.getSelectionsList()):
-			menu.append((_("Selected top"), "3"))
-		menu.append((_("Original list - reverted"), "4"))
-		self.session.openWithCallback(self.sortbyCallback, ChoiceBox, title=_("Sort list:"), list=menu, selection=self.sort)
+		for x in cfg.sort.choices.choices:
+			if x[0] == "3" and not len(self.list.getSelectionsList()):
+				continue
+			menu.append((x[1], x[0]))
+		self.session.openWithCallback(self.sortbyCallback, ChoiceBox, title=_("Sort list:"), list=menu, selection=int(cfg.sort.value))
 
 	def sortbyCallback(self, choice):
 		if choice is None:
 			return
-		self.sort = int(choice[1])
-		self.sortList(self.sort)
+		self.sortList(int(choice[1]))
 
 	def renameItem(self):
 		# item ... (name, (service, size), index, status)
@@ -373,6 +371,7 @@ class MovieManager(Screen, HelpableScreen):
 				self.list = renameItem(item, name, self.list)
 				self["config"].moveToIndex(idx)
 				reloadMainList(item)
+				self.sortList(cfg.sort.value)
 
 			except OSError, e:
 				print "Error %s:" % e.errno, e
@@ -477,11 +476,12 @@ class MovieManager(Screen, HelpableScreen):
 		self.l.setList([])
 
 	def sortIndex(self):
-		self.sort +=1
-		if self.sort == 3 and  not len(self.list.getSelectionsList()):
-			self.sort +=1
-		self.sort %=5
-		self.sortList(self.sort)
+		sort = int(config.moviemanager.sort.value)
+		sort +=1
+		if sort == 3 and  not len(self.list.getSelectionsList()):
+			sort +=1
+		sort %=5
+		self.sortList(sort)
 
 	def sortList(self, sort):
 		item = self["config"].getCurrent()[0]
@@ -497,6 +497,7 @@ class MovieManager(Screen, HelpableScreen):
 			self.list.sort(sortType=2, flag=True)
 		idx = self.getItemIndex(item)
 		self["config"].moveToIndex(idx)
+		config.moviemanager.sort.value = str(sort)
 
 	def deleteSelected(self):
 		def firstConfirmForDelete(choice):
@@ -644,6 +645,7 @@ class MovieManager(Screen, HelpableScreen):
 			self.displaySelectionPars()
 
 	def exit(self):
+		config.moviemanager.sort.save()
 		if self.original_selectionpng:
 			import Components.SelectionList
 			Components.SelectionList.selectionpng = self.original_selectionpng
@@ -739,7 +741,6 @@ class MovieManagerCfg(Screen, ConfigListScreen):
 		self.MovieManagerCfg.append(getConfigListEntry(_("Use target directory as bookmark"), cfg.add_bookmark, _("Set 'yes' if You want add target directories into bookmarks.")))
 		self.MovieManagerCfg.append(getConfigListEntry(_("Enable 'Clear bookmark...'"), cfg.clear_bookmarks, _("Enable in menu utility for delete bookmarks in menu.")))
 		self.MovieManagerCfg.append(getConfigListEntry(_("Enable 'Manage files in active bookmarks...'"), cfg.manage_all, _("Enable in menu item for manage movies in all active bookmarks as one list.")))
-
 		ConfigListScreen.__init__(self, self.MovieManagerCfg, on_change = self.changedEntry)
 		self.onChangedEntry = []
 
@@ -835,11 +836,15 @@ class MovieManagerClearBookmarks(Screen, HelpableScreen):
 	def sortList(self):
 		if self.sort == 0:	# z-a
 			self.list.sort(sortType=0, flag=True)
-			self.sort += 1
-		elif self.sort == 1 and len(self.list.getSelectionsList()):	# selected top
-			self.list.sort(sortType=3, flag=True)
-			self.sort += 1
-		else:			# a-z
+			self.sort = 1
+		elif self.sort == 1:
+			if len(self.list.getSelectionsList()):	# selected top
+				self.list.sort(sortType=3, flag=True)
+				self.sort = 2
+			else:		# a-z
+				self.list.sort(sortType=0)
+				self.sort = 0
+		elif self.sort == 2:	# a-z
 			self.list.sort(sortType=0)
 			self.sort = 0
 
