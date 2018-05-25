@@ -395,7 +395,7 @@ class MovieManager(Screen, HelpableScreen):
 			self.current_ref.setName('16384:jpg 16384:png 16384:gif 16384:bmp')
 		def readDirectory(bookmark):
 			selected_tags = []
-			list = MovieList(None, sort_type=MovieList.SORT_ALPHANUMERIC)
+			list = MovieList(None, sort_type=MovieList.SORT_GROUPWISE)
 			list.reload(self.current_ref, selected_tags)
 			return list
 		def readLists():
@@ -404,7 +404,7 @@ class MovieManager(Screen, HelpableScreen):
 				setCurrentRef(path)
 				files += readDirectory(path)
 				print "[MovieManager] + added files from %s" % path
-			print "[MovieManager] readed items accross bookmarks"
+			print "[MovieManager] readed items from directories in bookmarks"
 			return files
 
 		self.clearList()
