@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.53"
+VERSION = "1.54"
 #  by ims (c) 2018 ims21@users.sourceforge.net
 #
 #  This program is free software; you can redistribute it and/or
@@ -253,19 +253,21 @@ class MovieManager(Screen, HelpableScreen):
 		menu.append((_("Copy to..."),5))
 		menu.append((_("Move to..."),6))
 		keys = ["5","6"]
+		menu.append((_("Rename"),2))
+		keys += ["2"]
 		if config.usage.setup_level.index == 2:
 			menu.append((_("Delete"),8))
-			keys+=["8"]
+			keys += ["8"]
 		if cfg.clear_bookmarks.value:
 			menu.append((_("Clear bookmarks..."),10))
-			keys+=[""]
+			keys += [""]
 		menu.append((_("Reset playback position"),15))
 		keys+=[""]
 		if cfg.manage_all.value:
 			menu.append((_("Manage files in active bookmarks..."), 18))
-			keys+=[""]
+			keys += [""]
 		menu.append((_("Options..."),20))
-		keys+=["menu"]
+		keys += ["menu"]
 
 		text = _("Select operation:")
 		self.session.openWithCallback(self.menuCallback, ChoiceBox, title=text, list=menu, keys=keys)
@@ -273,6 +275,8 @@ class MovieManager(Screen, HelpableScreen):
 	def menuCallback(self, choice):
 		if choice is None:
 			return
+		if choice[1] == 2:
+			self.renameItem()
 		if choice[1] == 5:
 			self.copySelected()
 		elif choice[1] == 6:
@@ -289,6 +293,86 @@ class MovieManager(Screen, HelpableScreen):
 		elif choice[1] == 20:
 			self.session.open(MovieManagerCfg)
 
+	def renameItem(self):
+		# item ... (name, (service, size), index, status)
+		self.extension = ""
+		item = self["config"].getCurrent()[0]
+		if item:
+			name = item[0]
+			full_name = os.path.split(item[1][0].getPath())
+			if full_name == name: # split extensions for files without metafile
+				name, self.extension = os.path.splitext(name)
+		self.session.openWithCallback(self.renameCallback, VirtualKeyBoard, title = _("Rename"), text = name)
+
+	def renameCallback(self, name):
+		def renameItemInList(list, item, newname):
+			a = []
+			for list_item in list.list:
+				if list_item[0] == item:
+					list_item[0] = (newname,) + list_item[0][1:]
+				a.append(list_item)
+			return a
+		def reloadNewList(newlist, list):
+			index = 0
+			for item in newlist:
+				list.addSelection(item[0][0], item[0][1], index, item[0][3])
+				index+=1
+			return list
+		def clearList():
+			self.l = self.list
+			self.l.setList([])
+		def renameItem(item, newname, list):
+			new = renameItemInList(list, item, newname)
+			clearList()
+			return reloadNewList(new, self.list)
+		def reloadMainListList(item):
+			if item[1][0].getPath().rpartition('/')[0] == config.movielist.last_videodir.value[0:-1]:
+				self.mainList.reload()
+
+		if not name:
+			return
+		name = "".join((name.strip(), self.extension))
+		item = self["config"].getCurrent()[0]
+		if item and item[1][0]:
+			try:
+				path = item[1][0].getPath().rstrip('/')
+				meta = path + '.meta'
+				if os.path.isfile(meta):
+					metafile = open(meta, "r+")
+					sid = metafile.readline()
+					oldtitle = metafile.readline()
+					rest = metafile.read()
+					metafile.seek(0)
+					metafile.write("%s%s\n%s" %(sid, name, rest))
+					metafile.truncate()
+					metafile.close()
+
+					self.list = renameItem(item, name, self.list)
+					reloadMainListList(item)
+					return
+				pathname,filename = os.path.split(path)
+				newpath = os.path.join(pathname, name)
+				msg = None
+				print "[ML] rename", path, "to", newpath
+				os.rename(path, newpath)
+
+				self.list = renameItem(item, name, self.list)
+				reloadMainListList(item)
+
+			except OSError, e:
+				print "Error %s:" % e.errno, e
+				if e.errno == 17:
+					msg = _("The path %s already exists.") % name
+				else:
+					msg = _("Error") + '\n' + str(e)
+			except Exception, e:
+				import traceback
+				print "[ML] Unexpected error:", e
+				traceback.print_exc()
+				msg = _("Error") + '\n' + str(e)
+			if msg:
+				self.session.open(MessageBox, msg, type = MessageBox.TYPE_ERROR, timeout = 5)
+
 	def runManageAll(self):
 		def setCurrentRef(path):
 			self.current_ref = eServiceReference("2:0:1:0:0:0:0:0:0:0:" + path)
@@ -301,18 +385,17 @@ class MovieManager(Screen, HelpableScreen):
 		def clearList():
 			self.l = self.list
 			self.l.setList([])
-			print "[MovieManager] current list erased"
+		def readLists():
+			files = []
+			for path in eval(config.movielist.videodirs.saved_value):
+				setCurrentRef(path)
+				files += readDirectory(path)
+				print "[MovieManager] + added files from %s" % path
+			print "[MovieManager] readed items accross bookmarks"
+			return files
 
 		clearList()
-		files = []
-		for path in eval(config.movielist.videodirs.saved_value):
-			setCurrentRef(path)
-			files += readDirectory(path)
-			print "[MovieManager] + added files from %s" % path
-		print "[MovieManager] readed items accross bookmarks"
-
-		self.list = self.parseMovieList(files, self.list)
-		del files
+		self.list = self.parseMovieList(readLists(), self.list)
 
 	def toggleAllSelection(self):
 		self.list.toggleAllSelection()

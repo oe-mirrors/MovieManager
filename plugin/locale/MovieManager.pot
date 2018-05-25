@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-24 19:43+0200\n"
+"POT-Creation-Date: 2018-05-25 12:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -88,6 +88,9 @@ msgstr ""
 msgid "Move to..."
 msgstr ""
 
+msgid "Rename"
+msgstr ""
+
 msgid "Delete"
 msgstr ""
 
@@ -104,6 +107,13 @@ msgid "Options..."
 msgstr ""
 
 msgid "Select operation:"
+msgstr ""
+
+#, python-format
+msgid "The path %s already exists."
+msgstr ""
+
+msgid "Error"
 msgstr ""
 
 #, python-format
@@ -165,6 +175,11 @@ msgstr ""
 
 #, python-format
 msgid "%d B"
+msgstr ""
+
+msgid ""
+"The CSFD plugin is not installed!\n"
+"Please install it."
 msgstr ""
 
 msgid "OK"
