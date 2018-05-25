@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.54"
+VERSION = "1.56"
 #  by ims (c) 2018 ims21@users.sourceforge.net
 #
 #  This program is free software; you can redistribute it and/or
@@ -49,7 +49,6 @@ choicelist.append(("20","20"))
 config.moviemanager.length = ConfigSelection(default = "0", choices = [("0", _("No"))] + choicelist + [("255", _("All"))])
 config.moviemanager.add_bookmark = ConfigYesNo(default=False)
 config.moviemanager.clear_bookmarks = ConfigYesNo(default=True)
-config.moviemanager.current_item = ConfigYesNo(default=True)
 config.moviemanager.manage_all = ConfigYesNo(default=False)
 cfg = config.moviemanager
 
@@ -162,7 +161,7 @@ class MovieManager(Screen, HelpableScreen):
 			if record:
 				item = record[0]
 				if not item.flags & eServiceReference.mustDescent:
-					if cfg.current_item.value and item == self.current:
+					if item == self.current:
 						self.position = index
 					info = record[1]
 					name = info and info.getName(item)
@@ -319,14 +318,11 @@ class MovieManager(Screen, HelpableScreen):
 				list.addSelection(item[0][0], item[0][1], index, item[0][3])
 				index+=1
 			return list
-		def clearList():
-			self.l = self.list
-			self.l.setList([])
 		def renameItem(item, newname, list):
 			new = renameItemInList(list, item, newname)
-			clearList()
+			self.clearList()
 			return reloadNewList(new, self.list)
-		def reloadMainListList(item):
+		def reloadMainList(item):
 			if item[1][0].getPath().rpartition('/')[0] == config.movielist.last_videodir.value[0:-1]:
 				self.mainList.reload()
 
@@ -347,20 +343,16 @@ class MovieManager(Screen, HelpableScreen):
 					metafile.write("%s%s\n%s" %(sid, name, rest))
 					metafile.truncate()
 					metafile.close()
-
-					self.list = renameItem(item, name, self.list)
-					reloadMainListList(item)
-					self.moveSelector()
-					return
-				pathname,filename = os.path.split(path)
-				newpath = os.path.join(pathname, name)
+				else:
+					pathname,filename = os.path.split(path)
+					newpath = os.path.join(pathname, name)
+					print "[ML] rename", path, "to", newpath
+					os.rename(path, newpath)
 				msg = None
-				print "[ML] rename", path, "to", newpath
-				os.rename(path, newpath)
-
+				idx = self.getItemIndex(item)
 				self.list = renameItem(item, name, self.list)
-				reloadMainListList(item)
-				self.moveSelector()
+				self["config"].moveToIndex(idx)
+				reloadMainList(item)
 
 			except OSError, e:
 				print "Error %s:" % e.errno, e
@@ -377,6 +369,7 @@ class MovieManager(Screen, HelpableScreen):
 				self.session.open(MessageBox, msg, type = MessageBox.TYPE_ERROR, timeout = 5)
 
 	def runManageAll(self):
+		self.current = self["config"].getCurrent()[0][1][0]
 		def setCurrentRef(path):
 			self.current_ref = eServiceReference("2:0:1:0:0:0:0:0:0:0:" + path)
 			self.current_ref.setName('16384:jpg 16384:png 16384:gif 16384:bmp')
@@ -385,9 +378,6 @@ class MovieManager(Screen, HelpableScreen):
 			list = MovieList(None, sort_type=MovieList.SORT_ALPHANUMERIC)
 			list.reload(self.current_ref, selected_tags)
 			return list
-		def clearList():
-			self.l = self.list
-			self.l.setList([])
 		def readLists():
 			files = []
 			for path in eval(config.movielist.videodirs.saved_value):
@@ -397,8 +387,9 @@ class MovieManager(Screen, HelpableScreen):
 			print "[MovieManager] readed items accross bookmarks"
 			return files
 
-		clearList()
+		self.clearList()
 		self.list = self.parseMovieList(readLists(), self.list)
+		self.moveSelector()
 
 	def toggleAllSelection(self):
 		self.list.toggleAllSelection()
@@ -453,8 +444,21 @@ class MovieManager(Screen, HelpableScreen):
 			self.original_selectionpng = Components.SelectionList.selectionpng
 			Components.SelectionList.selectionpng = LoadPixmap(cached=True, path=path)
 
+	def getItemIndex(self,item):
+		index = 0
+		for i in self["config"].list:
+			if i[0] == item:
+				return index
+			index += 1
+		return 0
+
+	def clearList(self):
+		self.l = self.list
+		self.l.setList([])
+
 	def sortList(self):
-		if self.sort == 0:	# reversed
+		item = self["config"].getCurrent()[0]
+		if self.sort == 0:	# input list reversed
 			self.list.sort(sortType=2, flag=True)
 			self.sort += 1
 		elif self.sort == 1:	# a-z
@@ -468,11 +472,13 @@ class MovieManager(Screen, HelpableScreen):
 				self.list.sort(sortType=3, flag=True)
 				self.sort += 1
 			else: 		# if selected is empty, sort as default
-				self.list.sort(sortType=2, flag=False)
+				self.list.sort(sortType=2)
 				self.sort = 0 # next be reversed
-		else:			# default
+		else:			# original input list
 			self.list.sort(sortType=2)
 			self.sort = 0
+		idx = self.getItemIndex(item)
+		self["config"].moveToIndex(idx)
 
 	def deleteSelected(self):
 		def firstConfirmForDelete(choice):
@@ -713,9 +719,9 @@ class MovieManagerCfg(Screen, ConfigListScreen):
 		self.MovieManagerCfg.append(getConfigListEntry(_("Compare case sensitive"), cfg.sensitive, _("Sets whether to distinguish between uper case and lower case for searching.")))
 		self.MovieManagerCfg.append(getConfigListEntry(_("Pre-fill first 'n' filename chars to virtual keyboard"), cfg.length, _("You can set the number of letters from the beginning of the current file name as the text pre-filled into virtual keyboard for easier input via group selection. For 'group selection' use 'CH+/CH-' buttons.")))
 		self.MovieManagerCfg.append(getConfigListEntry(_("Use target directory as bookmark"), cfg.add_bookmark, _("Set 'yes' if You want add target directories into bookmarks.")))
-		self.MovieManagerCfg.append(getConfigListEntry(_("Cursor on start to current item"), cfg.current_item, _("If You want on plugin start set cursor to same item as it was on current file in movieplayer list.")))
 		self.MovieManagerCfg.append(getConfigListEntry(_("Enable 'Clear bookmark...'"), cfg.clear_bookmarks, _("Enable in menu utility for delete bookmarks in menu.")))
 		self.MovieManagerCfg.append(getConfigListEntry(_("Enable 'Manage files in active bookmarks...'"), cfg.manage_all, _("Enable in menu item for manage movies in all active bookmarks as one list.")))
+
 		ConfigListScreen.__init__(self, self.MovieManagerCfg, on_change = self.changedEntry)
 		self.onChangedEntry = []
 

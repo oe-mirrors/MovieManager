@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-25 12:03+0200\n"
+"POT-Creation-Date: 2018-05-25 15:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -205,14 +205,6 @@ msgid "Use target directory as bookmark"
 msgstr ""
 
 msgid "Set 'yes' if You want add target directories into bookmarks."
-msgstr ""
-
-msgid "Cursor on start to current item"
-msgstr ""
-
-msgid ""
-"If You want on plugin start set cursor to same item as it was on current "
-"file in movieplayer list."
 msgstr ""
 
 msgid "Enable 'Clear bookmark...'"
