@@ -93,7 +93,7 @@ class MovieManager(Screen, HelpableScreen):
 		self.original_selectionpng = None
 		self.changePng()
 
-		self.ACCROSS = False
+		self.accross = False
 		self.position = 0
 		self.size = 0
 		self.list = SelectionList([])
@@ -287,7 +287,8 @@ class MovieManager(Screen, HelpableScreen):
 		elif choice[1] == 15:
 			self.resetSelected()
 		elif choice[1] == 18:
-			self.ACCROSS = True
+			self.accross = True
+			self.sort = 1
 			self.runManageAll()
 		elif choice[1] == 20:
 			self.session.open(MovieManagerCfg)
@@ -432,7 +433,7 @@ class MovieManager(Screen, HelpableScreen):
 		item = self["config"].getCurrent()
 		if item:
 			self["Service"].newService(item[0][1][0])
-			if self.ACCROSS:
+			if self.accross:
 				self.setTitle(_("List of files") + ":  %s" % os.path.realpath(item[0][1][0].getPath()).rpartition('/')[0])
 		else:
 			self["Service"].newService(None)
