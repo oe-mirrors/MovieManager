@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-25 15:30+0200\n"
+"POT-Creation-Date: 2018-05-25 17:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -100,6 +100,9 @@ msgstr ""
 msgid "Reset playback position"
 msgstr ""
 
+msgid "Sort by..."
+msgstr ""
+
 msgid "Manage files in active bookmarks..."
 msgstr ""
 
@@ -107,6 +110,24 @@ msgid "Options..."
 msgstr ""
 
 msgid "Select operation:"
+msgstr ""
+
+msgid "Original list"
+msgstr ""
+
+msgid "A-z sort"
+msgstr ""
+
+msgid "Z-a sort"
+msgstr ""
+
+msgid "Selected top"
+msgstr ""
+
+msgid "Original list - reverted"
+msgstr ""
+
+msgid "Sort list:"
 msgstr ""
 
 #, python-format

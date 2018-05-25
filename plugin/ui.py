@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.56"
+VERSION = "1.57"
 #  by ims (c) 2018 ims21@users.sourceforge.net
 #
 #  This program is free software; you can redistribute it and/or
@@ -127,7 +127,7 @@ class MovieManager(Screen, HelpableScreen):
 			"menu": (self.selectAction, _("Select action")),
 			"red": (self.exit, _("Exit plugin")),
 			"green": (self.selectAction, _("Select action")),
-			"yellow": (self.sortList, _("Sort list")),
+			"yellow": (self.sortIndex, _("Sort list")),
 			"blue": (self.toggleAllSelection, _("Invert selection")),
 			"preview": (self.preview, _("Preview")),
 			"stop": (self.stop, _("Stop")),
@@ -262,9 +262,11 @@ class MovieManager(Screen, HelpableScreen):
 			keys += [""]
 		menu.append((_("Reset playback position"),15))
 		keys+=[""]
+		menu.append((_("Sort by..."),17))
+		keys+=["yellow"]
 		if cfg.manage_all.value:
-			menu.append((_("Manage files in active bookmarks..."), 18))
-			keys += [""]
+			menu.append((_("Manage files in active bookmarks..."),18))
+			keys += ["red"]
 		menu.append((_("Options..."),20))
 		keys += ["menu"]
 
@@ -286,12 +288,29 @@ class MovieManager(Screen, HelpableScreen):
 			self.session.open(MovieManagerClearBookmarks)
 		elif choice[1] == 15:
 			self.resetSelected()
+		elif choice[1] == 17:
+			self.selectSortby()
 		elif choice[1] == 18:
 			self.accross = True
-			self.sort = 1
 			self.runManageAll()
 		elif choice[1] == 20:
 			self.session.open(MovieManagerCfg)
+
+	def selectSortby(self):
+		menu = []
+		menu.append((_("Original list"), "0"))
+		menu.append((_("A-z sort"), "1"))
+		menu.append((_("Z-a sort"), "2"))
+		if len(self.list.getSelectionsList()):
+			menu.append((_("Selected top"), "3"))
+		menu.append((_("Original list - reverted"), "4"))
+		self.session.openWithCallback(self.sortbyCallback, ChoiceBox, title=_("Sort list:"), list=menu, selection=self.sort)
+
+	def sortbyCallback(self, choice):
+		if choice is None:
+			return
+		self.sort = int(choice[1])
+		self.sortList(self.sort)
 
 	def renameItem(self):
 		# item ... (name, (service, size), index, status)
@@ -457,27 +476,25 @@ class MovieManager(Screen, HelpableScreen):
 		self.l = self.list
 		self.l.setList([])
 
-	def sortList(self):
+	def sortIndex(self):
+		self.sort +=1
+		if self.sort == 3 and  not len(self.list.getSelectionsList()):
+			self.sort +=1
+		self.sort %=5
+		self.sortList(self.sort)
+
+	def sortList(self, sort):
 		item = self["config"].getCurrent()[0]
-		if self.sort == 0:	# input list reversed
-			self.list.sort(sortType=2, flag=True)
-			self.sort += 1
-		elif self.sort == 1:	# a-z
-			self.list.sort(sortType=0)
-			self.sort += 1
-		elif self.sort == 2:	# z-a
-			self.list.sort(sortType=0, flag=True)
-			self.sort += 1
-		elif self.sort == 3:	# selected top
-			if len(self.list.getSelectionsList()):
-				self.list.sort(sortType=3, flag=True)
-				self.sort += 1
-			else: 		# if selected is empty, sort as default
-				self.list.sort(sortType=2)
-				self.sort = 0 # next be reversed
-		else:			# original input list
+		if sort == 0:	# original input list
 			self.list.sort(sortType=2)
-			self.sort = 0
+		elif sort == 1:	# a-z
+			self.list.sort(sortType=0)
+		elif sort == 2:	# z-a
+			self.list.sort(sortType=0, flag=True)
+		elif sort == 3:	# selected top
+			self.list.sort(sortType=3, flag=True)
+		elif sort == 4:	# original input list reverted
+			self.list.sort(sortType=2, flag=True)
 		idx = self.getItemIndex(item)
 		self["config"].moveToIndex(idx)
 
