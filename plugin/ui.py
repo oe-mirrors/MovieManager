@@ -310,6 +310,7 @@ class MovieManager(Screen, HelpableScreen):
 			for list_item in list.list:
 				if list_item[0] == item:
 					list_item[0] = (newname,) + list_item[0][1:]
+					self.position = list_item[0][2]
 				a.append(list_item)
 			return a
 		def reloadNewList(newlist, list):
@@ -349,6 +350,7 @@ class MovieManager(Screen, HelpableScreen):
 
 					self.list = renameItem(item, name, self.list)
 					reloadMainListList(item)
+					self.moveSelector()
 					return
 				pathname,filename = os.path.split(path)
 				newpath = os.path.join(pathname, name)
@@ -358,6 +360,7 @@ class MovieManager(Screen, HelpableScreen):
 
 				self.list = renameItem(item, name, self.list)
 				reloadMainListList(item)
+				self.moveSelector()
 
 			except OSError, e:
 				print "Error %s:" % e.errno, e
