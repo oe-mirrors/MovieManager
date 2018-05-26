@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.60"
+VERSION = "1.61"
 #  by ims (c) 2018 ims21@users.sourceforge.net
 #
 #  This program is free software; you can redistribute it and/or
@@ -404,11 +404,14 @@ class MovieManager(Screen, HelpableScreen):
 			return list
 		def readLists():
 			files = []
-			for path in eval(config.movielist.videodirs.saved_value):
-				setCurrentRef(path)
-				files += readDirectory(path)
-				print "[MovieManager] + added files from %s" % path
-			print "[MovieManager] readed items from directories in bookmarks"
+			if config.movielist.videodirs.saved_value:
+				for path in eval(config.movielist.videodirs.saved_value):
+					setCurrentRef(path)
+					files += readDirectory(path)
+					print "[MovieManager] + added files from %s" % path
+				print "[MovieManager] readed items from directories in bookmarks."
+			else:
+				print "[MovieManager] no valid bookmarks!"
 			return files
 
 		if len(self["config"].list):
@@ -797,11 +800,12 @@ class MovieManagerClearBookmarks(Screen, HelpableScreen):
 		self.setTitle(_("List of bookmarks"))
 
 		self.list = SelectionList([])
-		index = 0
-		self.loadAllMovielistVideodirs()
-		for bookmark in eval(config.movielist.videodirs.saved_value):
-			self.list.addSelection(bookmark, bookmark, index, False)
-			index += 1
+		exist = self.loadAllMovielistVideodirs()
+		if exist:
+			index = 0
+			for bookmark in eval(config.movielist.videodirs.saved_value):
+				self.list.addSelection(bookmark, bookmark, index, False)
+				index += 1
 		self["config"] = self.list
 
 		self["OkCancelActions"] = HelpableActionMap(self, "OkCancelActions",
@@ -827,19 +831,25 @@ class MovieManagerClearBookmarks(Screen, HelpableScreen):
 		self["config"].onSelectionChanged.append(self.bookmark)
 
 	def loadAllMovielistVideodirs(self):
-		sv = config.movielist.videodirs.saved_value
-		tmp = eval(sv)
-		locations = [[x, None, False, False] for x in tmp]
-		for x in locations:
-			x[1] = x[0]
-			x[2] = True
-		config.movielist.videodirs.locations = locations
+		if config.movielist.videodirs.saved_value:
+			sv = config.movielist.videodirs.saved_value
+			tmp = eval(sv)
+			locations = [[x, None, False, False] for x in tmp]
+			for x in locations:
+				x[1] = x[0]
+				x[2] = True
+			config.movielist.videodirs.locations = locations
+			return True
+		return False
 
 	def bookmark(self):
-		item = self["config"].getCurrent()
-		if item:
-			text = "%s" % item[0][0]
-			self["description"].setText(text)
+		if len(self["config"].list):
+			item = self["config"].getCurrent()
+			if item:
+				text = "%s" % item[0][0]
+				self["description"].setText(text)
+		else:
+			self["description"].setText("")
 
 	def sortList(self):
 		if self.sort == 0:	# z-a
