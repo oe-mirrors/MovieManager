@@ -171,10 +171,12 @@ class MovieManager(Screen, HelpableScreen):
 						if isinstance(info, StubInfo): # picture
 							size = info.getInfo(item, iServiceInformation.sFileSize)
 						else:
-							size = info.getInfoObject(item, iServiceInformation.sFileSize)
-					list.addSelection(name, (item, size), index, False) # movie
+							size = info.getInfoObject(item, iServiceInformation.sFileSize) # movie
+					list.list.append(SelectionEntryComponent(name, (item, size), index, False))
 					index += 1
 					suma+=size
+		self.l = SelectionList(list)
+		self.l.setList(list)
 		print "[MovieMnager} list filled with %s items. Size: %s" % (index, self.convertSize(suma))
 		self.size = 0
 		return list
@@ -397,9 +399,8 @@ class MovieManager(Screen, HelpableScreen):
 			self.current_ref = eServiceReference("2:0:1:0:0:0:0:0:0:0:" + path)
 			self.current_ref.setName('16384:jpg 16384:png 16384:gif 16384:bmp')
 		def readDirectory(bookmark):
-			selected_tags = []
 			list = MovieList(None, sort_type=MovieList.SORT_GROUPWISE)
-			list.reload(self.current_ref, selected_tags)
+			list.reload(self.current_ref, [])
 			return list
 		def readLists():
 			files = []
