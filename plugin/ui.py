@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.58"
+VERSION = "1.60"
 #  by ims (c) 2018 ims21@users.sourceforge.net
 #
 #  This program is free software; you can redistribute it and/or
@@ -29,7 +29,7 @@ from Components.ActionMap import ActionMap, HelpableActionMap
 from Screens.HelpMenu import HelpableScreen
 from Components.ConfigList import ConfigListScreen
 from enigma import eServiceReference, iServiceInformation, eServiceCenter
-from Components.SelectionList import SelectionList
+from Components.SelectionList import SelectionList, SelectionEntryComponent
 from Components.Sources.ServiceEvent import ServiceEvent
 from Screens.ChoiceBox import ChoiceBox
 from Screens.VirtualKeyBoard import VirtualKeyBoard
@@ -311,6 +311,8 @@ class MovieManager(Screen, HelpableScreen):
 		self.sortList(int(choice[1]))
 
 	def renameItem(self):
+		if not len(self["config"].list):
+			return
 		# item ... (name, (service, size), index, status)
 		self.extension = ""
 		item = self["config"].getCurrent()[0]
@@ -332,9 +334,12 @@ class MovieManager(Screen, HelpableScreen):
 			return a
 		def reloadNewList(newlist, list):
 			index = 0
-			for item in newlist:
-				list.addSelection(item[0][0], item[0][1], index, item[0][3])
+			for n in newlist:
+				item = n[0]
+				list.list.append(SelectionEntryComponent(item[0], item[1], index, item[3]))
 				index+=1
+			self.l = SelectionList(list)
+			self.l.setList(list)
 			return list
 		def renameItem(item, newname, list):
 			new = renameItemInList(list, item, newname)
@@ -388,7 +393,6 @@ class MovieManager(Screen, HelpableScreen):
 				self.session.open(MessageBox, msg, type = MessageBox.TYPE_ERROR, timeout = 5)
 
 	def runManageAll(self):
-		self.current = self["config"].getCurrent()[0][1][0]
 		def setCurrentRef(path):
 			self.current_ref = eServiceReference("2:0:1:0:0:0:0:0:0:0:" + path)
 			self.current_ref.setName('16384:jpg 16384:png 16384:gif 16384:bmp')
@@ -406,6 +410,8 @@ class MovieManager(Screen, HelpableScreen):
 			print "[MovieManager] readed items from directories in bookmarks"
 			return files
 
+		if len(self["config"].list):
+			self.current = self["config"].getCurrent()[0][1][0]
 		self.clearList()
 		self.list = self.parseMovieList(readLists(), self.list)
 		self.moveSelector()
@@ -484,20 +490,21 @@ class MovieManager(Screen, HelpableScreen):
 		self.sortList(sort)
 
 	def sortList(self, sort):
-		item = self["config"].getCurrent()[0]
-		if sort == 0:	# original input list
-			self.list.sort(sortType=2)
-		elif sort == 1:	# a-z
-			self.list.sort(sortType=0)
-		elif sort == 2:	# z-a
-			self.list.sort(sortType=0, flag=True)
-		elif sort == 3:	# selected top
-			self.list.sort(sortType=3, flag=True)
-		elif sort == 4:	# original input list reverted
-			self.list.sort(sortType=2, flag=True)
-		idx = self.getItemIndex(item)
-		self["config"].moveToIndex(idx)
-		config.moviemanager.sort.value = str(sort)
+		if len(self["config"].list):
+			item = self["config"].getCurrent()[0]
+			if sort == 0:	# original input list
+				self.list.sort(sortType=2)
+			elif sort == 1:	# a-z
+				self.list.sort(sortType=0)
+			elif sort == 2:	# z-a
+				self.list.sort(sortType=0, flag=True)
+			elif sort == 3:	# selected top
+				self.list.sort(sortType=3, flag=True)
+			elif sort == 4:	# original input list reverted
+				self.list.sort(sortType=2, flag=True)
+			idx = self.getItemIndex(item)
+			self["config"].moveToIndex(idx)
+			config.moviemanager.sort.value = str(sort)
 
 	def deleteSelected(self):
 		def firstConfirmForDelete(choice):
