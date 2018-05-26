@@ -800,8 +800,7 @@ class MovieManagerClearBookmarks(Screen, HelpableScreen):
 		self.setTitle(_("List of bookmarks"))
 
 		self.list = SelectionList([])
-		exist = self.loadAllMovielistVideodirs()
-		if exist:
+		if self.loadAllMovielistVideodirs():
 			index = 0
 			for bookmark in eval(config.movielist.videodirs.saved_value):
 				self.list.addSelection(bookmark, bookmark, index, False)
