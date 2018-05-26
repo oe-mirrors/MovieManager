@@ -302,8 +302,6 @@ class MovieManager(Screen, HelpableScreen):
 	def selectSortby(self):
 		menu = []
 		for x in cfg.sort.choices.choices:
-			if x[0] == "3" and not len(self.list.getSelectionsList()):
-				continue
 			menu.append((x[1], x[0]))
 		self.session.openWithCallback(self.sortbyCallback, ChoiceBox, title=_("Sort list:"), list=menu, selection=int(cfg.sort.value))
 
