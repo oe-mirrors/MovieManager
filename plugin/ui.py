@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.61"
+VERSION = "1.62"
 #  by ims (c) 2018 ims21@users.sourceforge.net
 #
 #  This program is free software; you can redistribute it and/or
@@ -139,6 +139,7 @@ class MovieManager(Screen, HelpableScreen):
 			"seekBackManual": (ssback, tBack),	
 			"groupSelect": (boundFunction(self.selectGroup, True), _("Group selection - add")),
 			"groupUnselect": (boundFunction(self.selectGroup, False), _("Group selection - remove")),
+			"text": (self.saveList, _("Save list to '/tmp/movies.txt'")),
 			}, -2)
 
 		self["key_red"] = Button(_("Cancel"))
@@ -298,6 +299,13 @@ class MovieManager(Screen, HelpableScreen):
 			self.runManageAll()
 		elif choice[1] == 20:
 			self.session.open(MovieManagerCfg)
+
+	def saveList(self):
+		fo = open('/tmp/movies.txt', "w")
+		for item in self.list.list:
+			line = "%s\t%s\t%s\n" % (item[0][0], self.convertSize(item[0][1][1]), os.path.split(item[0][1][0].getPath())[0])
+			fo.write(line)
+		fo.close()
 
 	def selectSortby(self):
 		menu = []
