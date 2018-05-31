@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.62"
+VERSION = "1.63"
 #  by ims (c) 2018 ims21@users.sourceforge.net
 #
 #  This program is free software; you can redistribute it and/or
@@ -50,8 +50,16 @@ config.moviemanager.length = ConfigSelection(default = "0", choices = [("0", _("
 config.moviemanager.add_bookmark = ConfigYesNo(default=False)
 config.moviemanager.clear_bookmarks = ConfigYesNo(default=True)
 config.moviemanager.manage_all = ConfigYesNo(default=False)
-config.moviemanager.sort = ConfigSelection(default = "0", choices = [("0", _("Original list")),("1", _("A-z sort")),("2", _("Z-a sort")),("3", _("Selected top")),("4", _("Original list - reverted"))])
+config.moviemanager.sort = ConfigSelection(default = "0", choices = [
+	("0", _("Original list")),
+	("1", _("A-z sort")),
+	("2", _("Z-a sort")),
+	("3", _("Selected top")),
+	("4", _("Original list - reverted"))
+	])
 cfg = config.moviemanager
+
+LISTFILE = '/tmp/movies.csv'
 
 class MovieManager(Screen, HelpableScreen):
 	skin="""
@@ -131,15 +139,15 @@ class MovieManager(Screen, HelpableScreen):
 			"green": (self.selectAction, _("Select action")),
 			"yellow": (self.sortIndex, _("Sort list")),
 			"blue": (self.toggleAllSelection, _("Invert selection")),
-			"preview": (self.preview, _("Preview")),
-			"stop": (self.stop, _("Stop")),
+			"preview": (self.playPreview, _("Preview")),
+			"stop": (self.stopPreview, _("Stop")),
 			"seekFwd": (sfwd, tFwd),
 			"seekFwdManual": (ssfwd, tFwd),
 			"seekBack": (sback, tBack),
 			"seekBackManual": (ssback, tBack),	
 			"groupSelect": (boundFunction(self.selectGroup, True), _("Group selection - add")),
 			"groupUnselect": (boundFunction(self.selectGroup, False), _("Group selection - remove")),
-			"text": (self.saveList, _("Save list to '/tmp/movies.txt'")),
+			"text": (self.saveList, _("Save list to '%s'" % LISTFILE)),
 			}, -2)
 
 		self["key_red"] = Button(_("Cancel"))
@@ -201,7 +209,7 @@ class MovieManager(Screen, HelpableScreen):
 			return None
 		return seek
 
-	def preview(self):
+	def playPreview(self):
 		item = self["config"].getCurrent()
 		if item:
 			path = item[0][1][0].getPath()
@@ -216,7 +224,7 @@ class MovieManager(Screen, HelpableScreen):
 			else:
 				self.session.nav.playService(item[0][1][0])
 
-	def stop(self):
+	def stopPreview(self):
 		self.session.nav.playService(self.playingRef)
 
 	def selectGroup(self, mark=True):
@@ -301,9 +309,14 @@ class MovieManager(Screen, HelpableScreen):
 			self.session.open(MovieManagerCfg)
 
 	def saveList(self):
-		fo = open('/tmp/movies.txt', "w")
+		import codecs
+		fo = open("%s" % LISTFILE, "w")
+		fo.write(codecs.BOM_UTF8)
 		for item in self.list.list:
-			line = "%s\t%s\t%s\n" % (item[0][0], self.convertSize(item[0][1][1]), os.path.split(item[0][1][0].getPath())[0])
+			name = item[0][0]
+			size = self.convertSize(item[0][1][1])
+			path = os.path.split(item[0][1][0].getPath())[0]
+			line = "%s;%s;%s\n" % (name, size, path)
 			fo.write(line)
 		fo.close()
 
@@ -384,7 +397,6 @@ class MovieManager(Screen, HelpableScreen):
 				self.list = renameItem(item, name, self.list)
 				self["config"].moveToIndex(idx)
 				reloadMainList(item)
-				self.sortList(cfg.sort.value)
 
 			except OSError, e:
 				print "Error %s:" % e.errno, e
@@ -424,6 +436,7 @@ class MovieManager(Screen, HelpableScreen):
 			self.current = self["config"].getCurrent()[0][1][0]
 		self.clearList()
 		self.list = self.parseMovieList(readLists(), self.list)
+		self.sortList(int(cfg.sort.value))
 		self.moveSelector()
 
 	def toggleAllSelection(self):
