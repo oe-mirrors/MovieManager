@@ -312,6 +312,7 @@ class MovieManager(Screen, HelpableScreen):
 		import codecs
 		fo = open("%s" % LISTFILE, "w")
 		fo.write(codecs.BOM_UTF8)
+		fo.write("%s;%s;%s\n" % (_("name"),_("size"),_("path")))
 		for item in self.list.list:
 			name = item[0][0]
 			size = self.convertSize(item[0][1][1])
@@ -750,7 +751,7 @@ class MovieManagerCfg(Screen, ConfigListScreen):
 	def __init__(self, session):
 		Screen.__init__(self, session)
 		self.skinName = ["MovieManagerCfg", "Setup"]
-		self.setup_title = _("Options...")
+		self.setup_title = _("Options...") + "\t" + _("v.%s") % VERSION
 		self.setTitle(self.setup_title)
 
 		self["key_red"] = Label(_("Cancel"))

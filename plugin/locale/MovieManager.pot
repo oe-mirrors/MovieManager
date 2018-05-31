@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-31 15:27+0200\n"
+"POT-Creation-Date: 2018-05-31 18:17+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -131,6 +131,15 @@ msgstr ""
 msgid "Select operation:"
 msgstr ""
 
+msgid "name"
+msgstr ""
+
+msgid "size"
+msgstr ""
+
+msgid "path"
+msgstr ""
+
 msgid "Sort list:"
 msgstr ""
 
@@ -205,6 +214,10 @@ msgstr ""
 msgid ""
 "The CSFD plugin is not installed!\n"
 "Please install it."
+msgstr ""
+
+#, python-format
+msgid "v.%s"
 msgstr ""
 
 msgid "OK"
