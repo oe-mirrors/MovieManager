@@ -419,7 +419,6 @@ class MovieManager(Screen, HelpableScreen):
 	def runManageAll(self):
 		def lookDirs(path):
 			paths = []
-			lastdir = path
 			for path, dirs, files in os.walk(path):
 				if path.find("BDMV") == -1 and path.find("VIDEO_TS") == -1 and path.find("AUDIO_TS") == -1: # and path.find(".Trash") == -1:
 					paths.append(path + '/')
