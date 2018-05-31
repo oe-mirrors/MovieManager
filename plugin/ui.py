@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.63"
+VERSION = "1.65"
 #  by ims (c) 2018 ims21@users.sourceforge.net
 #
 #  This program is free software; you can redistribute it and/or
@@ -50,6 +50,8 @@ config.moviemanager.length = ConfigSelection(default = "0", choices = [("0", _("
 config.moviemanager.add_bookmark = ConfigYesNo(default=False)
 config.moviemanager.clear_bookmarks = ConfigYesNo(default=True)
 config.moviemanager.manage_all = ConfigYesNo(default=False)
+config.moviemanager.subdirs = ConfigYesNo(default=False)
+config.moviemanager.pictures = ConfigYesNo(default=False)
 config.moviemanager.sort = ConfigSelection(default = "0", choices = [
 	("0", _("Original list")),
 	("1", _("A-z sort")),
@@ -57,6 +59,7 @@ config.moviemanager.sort = ConfigSelection(default = "0", choices = [
 	("3", _("Selected top")),
 	("4", _("Original list - reverted"))
 	])
+
 cfg = config.moviemanager
 
 LISTFILE = '/tmp/movies.csv'
@@ -414,9 +417,17 @@ class MovieManager(Screen, HelpableScreen):
 				self.session.open(MessageBox, msg, type = MessageBox.TYPE_ERROR, timeout = 5)
 
 	def runManageAll(self):
+		def lookDirs(path):
+			paths = []
+			lastdir = path
+			for path, dirs, files in os.walk(path):
+				if path.find("BDMV") == -1 and path.find("VIDEO_TS") == -1 and path.find("AUDIO_TS") == -1: # and path.find(".Trash") == -1:
+					paths.append(path + '/')
+			return paths
 		def setCurrentRef(path):
 			self.current_ref = eServiceReference("2:0:1:0:0:0:0:0:0:0:" + path)
-			self.current_ref.setName('16384:jpg 16384:png 16384:gif 16384:bmp')
+			if cfg.pictures.value:
+				self.current_ref.setName('16384:jpg 16384:png 16384:gif 16384:bmp')
 		def readDirectory(bookmark):
 			list = MovieList(None, sort_type=MovieList.SORT_GROUPWISE)
 			list.reload(self.current_ref, [])
@@ -425,9 +436,16 @@ class MovieManager(Screen, HelpableScreen):
 			files = []
 			if config.movielist.videodirs.saved_value:
 				for path in eval(config.movielist.videodirs.saved_value):
-					setCurrentRef(path)
-					files += readDirectory(path)
-					print "[MovieManager] + added files from %s" % path
+					print "p ", path
+					if cfg.subdirs.value:
+						for subdir in lookDirs(path):
+							setCurrentRef(subdir)
+							files += readDirectory(subdir)
+							print "[MovieManager] + added files from %s" % subdir
+					else:
+						setCurrentRef(path)
+						files += readDirectory(path)
+						print "[MovieManager] + added files from %s" % path
 				print "[MovieManager] readed items from directories in bookmarks."
 			else:
 				print "[MovieManager] no valid bookmarks!"
@@ -765,20 +783,31 @@ class MovieManagerCfg(Screen, ConfigListScreen):
 			"red": self.exit,
 			"cancel": self.exit
 		}, -2)
-
-		self.MovieManagerCfg = []
-		self.MovieManagerCfg.append(getConfigListEntry(_("Compare case sensitive"), cfg.sensitive, _("Sets whether to distinguish between uper case and lower case for searching.")))
-		self.MovieManagerCfg.append(getConfigListEntry(_("Pre-fill first 'n' filename chars to virtual keyboard"), cfg.length, _("You can set the number of letters from the beginning of the current file name as the text pre-filled into virtual keyboard for easier input via group selection. For 'group selection' use 'CH+/CH-' buttons.")))
-		self.MovieManagerCfg.append(getConfigListEntry(_("Use target directory as bookmark"), cfg.add_bookmark, _("Set 'yes' if You want add target directories into bookmarks.")))
-		self.MovieManagerCfg.append(getConfigListEntry(_("Enable 'Clear bookmark...'"), cfg.clear_bookmarks, _("Enable in menu utility for delete bookmarks in menu.")))
-		self.MovieManagerCfg.append(getConfigListEntry(_("Enable 'Manage files in active bookmarks...'"), cfg.manage_all, _("Enable in menu item for manage movies in all active bookmarks as one list.")))
-		ConfigListScreen.__init__(self, self.MovieManagerCfg, on_change = self.changedEntry)
+		self.list = []
 		self.onChangedEntry = []
+		ConfigListScreen.__init__(self, self.list, session = session, on_change = self.changedEntry)
+		self.loadMenu()
 
-	# for summary:
+	def loadMenu(self):
+		self.list = []
+		self.list.append(getConfigListEntry(_("Compare case sensitive"), cfg.sensitive, _("Sets whether to distinguish between uper case and lower case for searching.")))
+		self.list.append(getConfigListEntry(_("Pre-fill first 'n' filename chars to virtual keyboard"), cfg.length, _("You can set the number of letters from the beginning of the current file name as the text pre-filled into virtual keyboard for easier input via group selection. For 'group selection' use 'CH+/CH-' buttons.")))
+		self.list.append(getConfigListEntry(_("Use target directory as bookmark"), cfg.add_bookmark, _("Set 'yes' if You want add target directories into bookmarks.")))
+		self.list.append(getConfigListEntry(_("Enable 'Clear bookmark...'"), cfg.clear_bookmarks, _("Enable in menu utility for delete bookmarks in menu.")))
+		self.manage_all = _("Enable 'Manage files in active bookmarks...'")
+		self.list.append(getConfigListEntry(self.manage_all, cfg.manage_all, _("Enable in menu item for manage movies in all active bookmarks as one list.")))
+		if cfg.manage_all.value:
+			x = 2*" "
+			self.list.append(getConfigListEntry(x + _("Including subdirectories"), cfg.subdirs, _("If enabled, then will be used active bookmarks subdirectories too (It will spend more time).")))
+			self.list.append(getConfigListEntry(x + _("Include pictures"), cfg.pictures, _("If enabled, then will be added pictures to list too.")))
+		self["config"].list = self.list
+
+	# for summary (LCD):
 	def changedEntry(self):
 		for x in self.onChangedEntry:
 			x()
+		if self["config"].getCurrent()[0] == self.manage_all:
+			self.loadMenu()
 	def getCurrentEntry(self):
 		self["description"].setText(self["config"].getCurrent()[2])
 		return self["config"].getCurrent()[0]

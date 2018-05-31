@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-31 18:17+0200\n"
+"POT-Creation-Date: 2018-05-31 21:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -256,6 +256,20 @@ msgstr ""
 
 msgid ""
 "Enable in menu item for manage movies in all active bookmarks as one list."
+msgstr ""
+
+msgid "Including subdirectories"
+msgstr ""
+
+msgid ""
+"If enabled, then will be used active bookmarks subdirectories too (It will "
+"spend more time)."
+msgstr ""
+
+msgid "Include pictures"
+msgstr ""
+
+msgid "If enabled, then will be added pictures to list too."
 msgstr ""
 
 msgid "List of bookmarks"
