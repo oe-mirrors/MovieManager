@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Enigma2 ManagerAutofs Plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-31 21:55+0200\n"
-"PO-Revision-Date: 2018-05-31 22:00+0200\n"
+"POT-Creation-Date: 2018-06-01 08:43+0200\n"
+"PO-Revision-Date: 2018-06-01 08:46+0200\n"
 "Last-Translator: ims <ims21@users.sourceforge.net>\n"
 "Language-Team: PLi\n"
 "Language: cs_CZ\n"
@@ -269,7 +269,7 @@ msgstr ""
 "jednom seznamu."
 
 msgid "Including subdirectories"
-msgstr "Včetně podadresářů"
+msgstr "Zahrnout podadresáře"
 
 msgid ""
 "If enabled, then will be used active bookmarks subdirectories too (It will "
@@ -278,10 +278,28 @@ msgstr ""
 "Pokud je povoleno, použijí se také  podadresáře aktivních záložek "
 "(spotřebuje více času)."
 
-msgid "Include pictures"
-msgstr "Zahrnout obrázky"
+msgid "Include movie files"
+msgstr "Včetně video souborů"
 
-msgid "If enabled, then will be added pictures to list too."
+msgid "If enabled, then will be added movie files into list."
+msgstr "Jestliže je povoleno, jsou do seznamu přidávány i filmy."
+
+msgid "Include audio files"
+msgstr "Včetně audio souborů"
+
+msgid "If enabled, then will be added audio files into list."
+msgstr "Jestliže je povoleno, jsou do seznamu přidávány i audio soubory."
+
+msgid "Include dvds files"
+msgstr "Včetně dvd souborů"
+
+msgid "If enabled, then will be added dvd files into list."
+msgstr "Jestliže je povoleno, jsou do seznamu přidávány i dvd soubory."
+
+msgid "Include pictures"
+msgstr "Včetně obrázků"
+
+msgid "If enabled, then will be added pictures into list."
 msgstr "Jestliže je povoleno, jsou do seznamu přidávány i obrázky."
 
 msgid "List of bookmarks"

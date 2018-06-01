@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.65"
+VERSION = "1.68"
 #  by ims (c) 2018 ims21@users.sourceforge.net
 #
 #  This program is free software; you can redistribute it and/or
@@ -35,9 +35,12 @@ from Screens.ChoiceBox import ChoiceBox
 from Screens.VirtualKeyBoard import VirtualKeyBoard
 from Screens.MovieSelection import buildMovieLocationList, copyServiceFiles, moveServiceFiles, last_selected_dest
 from Screens.LocationBox import LocationBox, defaultInhibitDirs
-from Components.MovieList import MovieList, StubInfo, IMAGE_EXTENSIONS, resetMoviePlayState
+from Components.MovieList import MovieList, StubInfo, IMAGE_EXTENSIONS, resetMoviePlayState, AUDIO_EXTENSIONS, MOVIE_EXTENSIONS, DVD_EXTENSIONS
 from Tools.BoundFunction import boundFunction
 import os
+
+MOVIE_EXTENSIONS1 = frozenset((".ts", ".mp4", ".mts", ".mkv", ".avi", ".mpg", ".webm"))
+MOVIES_EXTENSIONS = MOVIE_EXTENSIONS.union(MOVIE_EXTENSIONS1)
 
 config.moviemanager = ConfigSubsection()
 config.moviemanager.sensitive = ConfigYesNo(default=False)
@@ -51,7 +54,10 @@ config.moviemanager.add_bookmark = ConfigYesNo(default=False)
 config.moviemanager.clear_bookmarks = ConfigYesNo(default=True)
 config.moviemanager.manage_all = ConfigYesNo(default=False)
 config.moviemanager.subdirs = ConfigYesNo(default=False)
+config.moviemanager.movies = ConfigYesNo(default=True)
 config.moviemanager.pictures = ConfigYesNo(default=False)
+config.moviemanager.audios = ConfigYesNo(default=False)
+config.moviemanager.dvds = ConfigYesNo(default=False)
 config.moviemanager.sort = ConfigSelection(default = "0", choices = [
 	("0", _("Original list")),
 	("1", _("A-z sort")),
@@ -174,6 +180,15 @@ class MovieManager(Screen, HelpableScreen):
 			if record:
 				item = record[0]
 				if not item.flags & eServiceReference.mustDescent:
+					ext = os.path.splitext(item.getPath())[1].lower()
+					if not cfg.movies.value and ext in MOVIES_EXTENSIONS:
+						continue
+					if not cfg.pictures.value and ext in IMAGE_EXTENSIONS:
+						continue
+					if not cfg.audios.value and ext in AUDIO_EXTENSIONS:
+						continue
+					if not cfg.dvds.value and ext in DVD_EXTENSIONS:
+						continue
 					if item == self.current:
 						self.position = index
 					info = record[1]
@@ -426,7 +441,7 @@ class MovieManager(Screen, HelpableScreen):
 		def setCurrentRef(path):
 			self.current_ref = eServiceReference("2:0:1:0:0:0:0:0:0:0:" + path)
 			if cfg.pictures.value:
-				self.current_ref.setName('16384:jpg 16384:png 16384:gif 16384:bmp')
+				self.current_ref.setName('16384:jpg 16384:png 16384:gif 16384:bmp 16384:jpeg')
 		def readDirectory(bookmark):
 			list = MovieList(None, sort_type=MovieList.SORT_GROUPWISE)
 			list.reload(self.current_ref, [])
@@ -798,7 +813,11 @@ class MovieManagerCfg(Screen, ConfigListScreen):
 		if cfg.manage_all.value:
 			x = 2*" "
 			self.list.append(getConfigListEntry(x + _("Including subdirectories"), cfg.subdirs, _("If enabled, then will be used active bookmarks subdirectories too (It will spend more time).")))
-			self.list.append(getConfigListEntry(x + _("Include pictures"), cfg.pictures, _("If enabled, then will be added pictures to list too.")))
+		self.list.append(getConfigListEntry(_("Include movie files"), cfg.movies, _("If enabled, then will be added movie files into list.")))
+		self.list.append(getConfigListEntry(_("Include audio files"), cfg.audios, _("If enabled, then will be added audio files into list.")))
+		self.list.append(getConfigListEntry(_("Include dvds files"), cfg.dvds, _("If enabled, then will be added dvd files into list.")))
+		self.list.append(getConfigListEntry(_("Include pictures"), cfg.pictures, _("If enabled, then will be added pictures into list.")))
+
 		self["config"].list = self.list
 
 	# for summary (LCD):

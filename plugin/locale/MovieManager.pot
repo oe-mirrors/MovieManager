@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-31 21:54+0200\n"
+"POT-Creation-Date: 2018-06-01 08:42+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -266,10 +266,28 @@ msgid ""
 "spend more time)."
 msgstr ""
 
+msgid "Include movie files"
+msgstr ""
+
+msgid "If enabled, then will be added movie files into list."
+msgstr ""
+
+msgid "Include audio files"
+msgstr ""
+
+msgid "If enabled, then will be added audio files into list."
+msgstr ""
+
+msgid "Include dvds files"
+msgstr ""
+
+msgid "If enabled, then will be added dvd files into list."
+msgstr ""
+
 msgid "Include pictures"
 msgstr ""
 
-msgid "If enabled, then will be added pictures to list too."
+msgid "If enabled, then will be added pictures into list."
 msgstr ""
 
 msgid "List of bookmarks"
