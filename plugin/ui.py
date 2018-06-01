@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.68"
+VERSION = "1.69"
 #  by ims (c) 2018 ims21@users.sourceforge.net
 #
 #  This program is free software; you can redistribute it and/or
@@ -111,12 +111,19 @@ class MovieManager(Screen, HelpableScreen):
 		self.original_selectionpng = None
 		self.changePng()
 
+		self["Service"] = ServiceEvent()
+
 		self.accross = False
 		self.position = 0
 		self.size = 0
 		self.list = SelectionList([])
-		self["config"] = self.parseMovieList( list, self.list)
-		self.sortList(int(cfg.sort.value))
+
+		if cfg.subdirs.value:	# can be used for all (then it could be called as standallone plugin)
+			self["config"] = self.list
+			self.getData(config.movielist.last_videodir.value)
+		else:			# only for list without subdirs - used forwarded list => fastest ... why not
+			self["config"] = self.parseMovieList(list, self.list)
+			self.sortList(int(cfg.sort.value))
 
 		self["description"] = Label()
 
@@ -167,7 +174,6 @@ class MovieManager(Screen, HelpableScreen):
 		self.playingRef = self.session.nav.getCurrentlyPlayingServiceOrGroup()
 		self["description"].setText(_("Select files with 'OK' or use 'CH+/CH-' and then use 'Menu' or 'Action' for select operation."))
 
-		self["Service"] = ServiceEvent()
 		self["config"].onSelectionChanged.append(self.setService)
 		self.onShown.append(self.setService)
 		self.onLayoutFinish.append(self.moveSelector)
@@ -321,10 +327,29 @@ class MovieManager(Screen, HelpableScreen):
 		elif choice[1] == 17:
 			self.selectSortby()
 		elif choice[1] == 18:
-			self.accross = True
-			self.runManageAll()
+			self.accross = cfg.manage_all.value
+			self.getData()
 		elif choice[1] == 20:
-			self.session.open(MovieManagerCfg)
+			def cfgCallBack(choice=False):
+				cfg_after = self.getCfgStatus()
+				if self.cfg_before != cfg_after:
+					if cfg_after & 0x20 - self.cfg_before & 0x20 < 0: # all => single
+						self.accross = cfg.manage_all.value
+					path = config.movielist.last_videodir.value
+					if self.accross:
+						path = None
+					self.getData(path)
+			self.cfg_before = self.getCfgStatus()
+			self.session.openWithCallback(cfgCallBack, MovieManagerCfg)
+
+	def getCfgStatus(self):
+		s =  0x01 if cfg.subdirs.value else 0
+		s += 0x02 if cfg.movies.value else 0
+		s += 0x04 if cfg.audios.value else 0
+		s += 0x08 if cfg.pictures.value else 0
+		s += 0x10 if cfg.dvds.value else 0
+		s += 0x20 if cfg.manage_all.value else 0
+		return s
 
 	def saveList(self):
 		import codecs
@@ -431,7 +456,7 @@ class MovieManager(Screen, HelpableScreen):
 			if msg:
 				self.session.open(MessageBox, msg, type = MessageBox.TYPE_ERROR, timeout = 5)
 
-	def runManageAll(self):
+	def getData(self, current_dir=None):
 		def lookDirs(path):
 			paths = []
 			for path, dirs, files in os.walk(path):
@@ -442,25 +467,34 @@ class MovieManager(Screen, HelpableScreen):
 			self.current_ref = eServiceReference("2:0:1:0:0:0:0:0:0:0:" + path)
 			if cfg.pictures.value:
 				self.current_ref.setName('16384:jpg 16384:png 16384:gif 16384:bmp 16384:jpeg')
-		def readDirectory(bookmark):
+		def readDirectory(path):
+			setCurrentRef(path)
 			list = MovieList(None, sort_type=MovieList.SORT_GROUPWISE)
 			list.reload(self.current_ref, [])
 			return list
-		def readLists():
+		def readSubdirs(path):
 			files = []
-			if config.movielist.videodirs.saved_value:
+			for subdir in lookDirs(path):
+				setCurrentRef(subdir)
+				files += readDirectory(subdir)
+				print "[MovieManager] + added files from %s" % subdir
+			return files
+		def readLists(current_dir=None):
+			files = []
+			if config.movielist.videodirs.saved_value and not current_dir:
 				for path in eval(config.movielist.videodirs.saved_value):
-					print "p ", path
 					if cfg.subdirs.value:
-						for subdir in lookDirs(path):
-							setCurrentRef(subdir)
-							files += readDirectory(subdir)
-							print "[MovieManager] + added files from %s" % subdir
+						files += readSubdirs(path)
 					else:
-						setCurrentRef(path)
 						files += readDirectory(path)
-						print "[MovieManager] + added files from %s" % path
+					print "[MovieManager] + added files from %s" % path
 				print "[MovieManager] readed items from directories in bookmarks."
+			elif current_dir:
+				if cfg.subdirs.value:
+					files = readSubdirs(current_dir)
+				else:
+					files += readDirectory(current_dir)
+				print "[MovieManager] + added files from %s" % current_dir
 			else:
 				print "[MovieManager] no valid bookmarks!"
 			return files
@@ -468,7 +502,7 @@ class MovieManager(Screen, HelpableScreen):
 		if len(self["config"].list):
 			self.current = self["config"].getCurrent()[0][1][0]
 		self.clearList()
-		self.list = self.parseMovieList(readLists(), self.list)
+		self.list = self.parseMovieList(readLists(current_dir), self.list)
 		self.sortList(int(cfg.sort.value))
 		self.moveSelector()
 
@@ -808,24 +842,18 @@ class MovieManagerCfg(Screen, ConfigListScreen):
 		self.list.append(getConfigListEntry(_("Pre-fill first 'n' filename chars to virtual keyboard"), cfg.length, _("You can set the number of letters from the beginning of the current file name as the text pre-filled into virtual keyboard for easier input via group selection. For 'group selection' use 'CH+/CH-' buttons.")))
 		self.list.append(getConfigListEntry(_("Use target directory as bookmark"), cfg.add_bookmark, _("Set 'yes' if You want add target directories into bookmarks.")))
 		self.list.append(getConfigListEntry(_("Enable 'Clear bookmark...'"), cfg.clear_bookmarks, _("Enable in menu utility for delete bookmarks in menu.")))
-		self.manage_all = _("Enable 'Manage files in active bookmarks...'")
-		self.list.append(getConfigListEntry(self.manage_all, cfg.manage_all, _("Enable in menu item for manage movies in all active bookmarks as one list.")))
-		if cfg.manage_all.value:
-			x = 2*" "
-			self.list.append(getConfigListEntry(x + _("Including subdirectories"), cfg.subdirs, _("If enabled, then will be used active bookmarks subdirectories too (It will spend more time).")))
-		self.list.append(getConfigListEntry(_("Include movie files"), cfg.movies, _("If enabled, then will be added movie files into list.")))
-		self.list.append(getConfigListEntry(_("Include audio files"), cfg.audios, _("If enabled, then will be added audio files into list.")))
-		self.list.append(getConfigListEntry(_("Include dvds files"), cfg.dvds, _("If enabled, then will be added dvd files into list.")))
-		self.list.append(getConfigListEntry(_("Include pictures"), cfg.pictures, _("If enabled, then will be added pictures into list.")))
-
+		self.list.append(getConfigListEntry(_("Enable 'Manage files in active bookmarks...'"), cfg.manage_all, _("Enable in menu item for manage movies in all active bookmarks as one list.")))
+		self.list.append(getConfigListEntry(_("Including subdirectories"), cfg.subdirs, _("If enabled, then will be used subdirectories too (it will take longer).")))
+		self.list.append(getConfigListEntry(_("Movie files"), cfg.movies, _("If enabled, then will be added movie files into list.")))
+		self.list.append(getConfigListEntry(_("Audio files"), cfg.audios, _("If enabled, then will be added audio files into list.")))
+		self.list.append(getConfigListEntry(_("DVD files"), cfg.dvds, _("If enabled, then will be added dvd files into list.")))
+		self.list.append(getConfigListEntry(_("Pictures"), cfg.pictures, _("If enabled, then will be added pictures into list.")))
 		self["config"].list = self.list
 
-	# for summary (LCD):
+	# Summary - for (LCD):
 	def changedEntry(self):
 		for x in self.onChangedEntry:
 			x()
-		if self["config"].getCurrent()[0] == self.manage_all:
-			self.loadMenu()
 	def getCurrentEntry(self):
 		self["description"].setText(self["config"].getCurrent()[2])
 		return self["config"].getCurrent()[0]
