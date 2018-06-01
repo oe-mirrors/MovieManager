@@ -24,6 +24,22 @@ msgstr "Nee"
 msgid "All"
 msgstr "Alle"
 
+msgid "Original list"
+msgstr ""
+
+msgid "A-z sort"
+msgstr ""
+
+msgid "Z-a sort"
+msgstr ""
+
+#, fuzzy
+msgid "Selected top"
+msgstr "Geselecteerd: %s"
+
+msgid "Original list - reverted"
+msgstr ""
+
 msgid "List of files"
 msgstr "Lijst met bestanden"
 
@@ -60,6 +76,10 @@ msgstr "Groepsselectie - voeg toe"
 msgid "Group selection - remove"
 msgstr "Groepsselectie - verwijder"
 
+#, python-format
+msgid "Save list to '%s'"
+msgstr ""
+
 msgid "Cancel"
 msgstr "Annuleer"
 
@@ -91,17 +111,51 @@ msgstr "Kopieer naar..."
 msgid "Move to..."
 msgstr "Verplaats naar..."
 
+msgid "Rename"
+msgstr ""
+
 msgid "Delete"
 msgstr "Verwijder"
 
 msgid "Clear bookmarks..."
 msgstr "Verwijder bookmarks..."
 
+msgid "Reset playback position"
+msgstr ""
+
+msgid "Sort by..."
+msgstr ""
+
+#, fuzzy
+msgid "Manage files in active bookmarks..."
+msgstr "Schakel 'Bookmarks verwijderen...' in"
+
 msgid "Options..."
 msgstr "Opties..."
 
 msgid "Select operation:"
 msgstr "Kies uitvoering:"
+
+#, fuzzy
+msgid "name"
+msgstr "Negeer het 1e niet standaard karakter in de naam"
+
+msgid "size"
+msgstr ""
+
+msgid "path"
+msgstr ""
+
+#, fuzzy
+msgid "Sort list:"
+msgstr "Sorteer lijst"
+
+#, python-format
+msgid "The path %s already exists."
+msgstr ""
+
+msgid "Error"
+msgstr ""
 
 #, python-format
 msgid "Size: %s"
@@ -166,6 +220,15 @@ msgstr "%.0f kB"
 msgid "%d B"
 msgstr "%d B"
 
+msgid ""
+"The CSFD plugin is not installed!\n"
+"Please install it."
+msgstr ""
+
+#, python-format
+msgid "v.%s"
+msgstr ""
+
 msgid "OK"
 msgstr "OK"
 
@@ -198,20 +261,58 @@ msgstr "Gebruik doel als bookmark"
 msgid "Set 'yes' if You want add target directories into bookmarks."
 msgstr "Kies 'Ja' als u de doellocatie als bookmark wilt toevoegen."
 
-msgid "Cursor on start to current item"
-msgstr "Cursor begint met huidige item"
-
-msgid ""
-"If You want on plugin start set cursor to same item as it was on current "
-"file in movieplayer list."
-msgstr ""
-"Als u wilt dat de cursor start op dezelfde positie als in de opnamelijst."
-
 msgid "Enable 'Clear bookmark...'"
 msgstr "Schakel 'Bookmarks verwijderen...' in"
 
-msgid "Enable utility for delete bookmarks in menu."
+#, fuzzy
+msgid "Enable in menu utility for delete bookmarks in menu."
 msgstr "Geeft de mogelijkheid bookmarks in het menu te verwijderen."
+
+#, fuzzy
+msgid "Enable 'Manage files in active bookmarks...'"
+msgstr "Schakel 'Bookmarks verwijderen...' in"
+
+msgid ""
+"Enable in menu item for manage movies in all active bookmarks as one list."
+msgstr ""
+
+msgid "Including subdirectories"
+msgstr ""
+
+msgid "If enabled, then will be used subdirectories too (it will take longer)."
+msgstr ""
+
+msgid "Movie files"
+msgstr ""
+
+msgid "If enabled, then will be added movie files into list."
+msgstr ""
+
+#, fuzzy
+msgid "Audio files"
+msgstr "Lijst met bestanden"
+
+msgid "If enabled, then will be added audio files into list."
+msgstr ""
+
+msgid "DVD files"
+msgstr ""
+
+msgid "If enabled, then will be added dvd files into list."
+msgstr ""
+
+msgid "Pictures"
+msgstr ""
+
+msgid "If enabled, then will be added pictures into list."
+msgstr ""
+
+msgid "To maintain selector position"
+msgstr ""
+
+msgid ""
+"If enabled, then will be on start maintained selector position in items list."
+msgstr ""
 
 msgid "List of bookmarks"
 msgstr "Lijst met bookmarks"
@@ -228,3 +329,12 @@ msgstr "Selecteer met 'OK' en deselecteer met 'Verwijder'."
 #, python-format
 msgid "Are You sure to delete %s selected bookmark(s)?"
 msgstr "Weet u zeker de %s geselecteerde bookmarks te verwijderen?"
+
+#~ msgid "Cursor on start to current item"
+#~ msgstr "Cursor begint met huidige item"
+
+#~ msgid ""
+#~ "If You want on plugin start set cursor to same item as it was on current "
+#~ "file in movieplayer list."
+#~ msgstr ""
+#~ "Als u wilt dat de cursor start op dezelfde positie als in de opnamelijst."

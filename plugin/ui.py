@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.70"
+VERSION = "1.71"
 #  by ims (c) 2018 ims21@users.sourceforge.net
 #
 #  This program is free software; you can redistribute it and/or
@@ -65,6 +65,7 @@ config.moviemanager.sort = ConfigSelection(default = "0", choices = [
 	("3", _("Selected top")),
 	("4", _("Original list - reverted"))
 	])
+config.moviemanager.position = ConfigYesNo(default=False)
 
 cfg = config.moviemanager
 
@@ -114,18 +115,22 @@ class MovieManager(Screen, HelpableScreen):
 		self["Service"] = ServiceEvent()
 
 		self.accross = False
-		self.position = 0
+		self.position = -1
 		self.size = 0
 		self.list = SelectionList([])
 		self.name = ""
 		if cfg.subdirs.value:	# can be used for all (then it could be called as standallone plugin)
 			self["config"] = self.list
-			self. name = current[1] and current[1].getName(current[0])
+			info = current[1]
+			self. name = info and info.getName(current[0])
 			self.getData(config.movielist.last_videodir.value)
 		else:			# only for list without subdirs - used forwarded list => fastest ... why not
 			self["config"] = self.parseMovieList(list, self.list)
 			self.sortList(int(cfg.sort.value))
-			self.position = self.newPositionIndex(self.position)
+			if cfg.position.value:
+				self.position = self.newPositionIndex(self.position)
+			else:
+				self.position = -1
 
 		self["description"] = Label()
 
@@ -512,8 +517,11 @@ class MovieManager(Screen, HelpableScreen):
 		self.clearList()
 		self.list = self.parseMovieList(readLists(current_dir), self.list)
 		self.sortList(int(cfg.sort.value))
-		if self.position >= 0:
-			self.position = self.newPositionIndex(self.position)
+		if cfg.position.value:
+			if self.position >= 0:
+				self.position = self.newPositionIndex(self.position)
+		else:
+			self.position = -1
 		self["config"].moveToIndex(self.position)
 
 	def toggleAllSelection(self):
@@ -866,6 +874,7 @@ class MovieManagerCfg(Screen, ConfigListScreen):
 		self.list.append(getConfigListEntry(_("Audio files"), cfg.audios, _("If enabled, then will be added audio files into list.")))
 		self.list.append(getConfigListEntry(_("DVD files"), cfg.dvds, _("If enabled, then will be added dvd files into list.")))
 		self.list.append(getConfigListEntry(_("Pictures"), cfg.pictures, _("If enabled, then will be added pictures into list.")))
+		self.list.append(getConfigListEntry(_("To maintain selector position"), cfg.position, _("If enabled, then will be on start maintained selector position in items list.")))
 		self["config"].list = self.list
 
 	# Summary - for (LCD):
