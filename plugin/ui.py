@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.69"
+VERSION = "1.70"
 #  by ims (c) 2018 ims21@users.sourceforge.net
 #
 #  This program is free software; you can redistribute it and/or
@@ -104,7 +104,7 @@ class MovieManager(Screen, HelpableScreen):
 		Screen.__init__(self, session)
 		HelpableScreen.__init__(self)
 		self.session = session
-		self.current = current
+		self.current = current[0]
 		self.mainList = list
 		self.setTitle(_("List of files") + ":  %s" % config.movielist.last_videodir.value)
 
@@ -117,13 +117,15 @@ class MovieManager(Screen, HelpableScreen):
 		self.position = 0
 		self.size = 0
 		self.list = SelectionList([])
-
+		self.name = ""
 		if cfg.subdirs.value:	# can be used for all (then it could be called as standallone plugin)
 			self["config"] = self.list
+			self. name = current[1] and current[1].getName(current[0])
 			self.getData(config.movielist.last_videodir.value)
 		else:			# only for list without subdirs - used forwarded list => fastest ... why not
 			self["config"] = self.parseMovieList(list, self.list)
 			self.sortList(int(cfg.sort.value))
+			self.position = self.newPositionIndex(self.position)
 
 		self["description"] = Label()
 
@@ -179,7 +181,7 @@ class MovieManager(Screen, HelpableScreen):
 		self.onLayoutFinish.append(self.moveSelector)
 
 	def parseMovieList(self, movielist, list):
-		self.position = 0
+		self.position = -1
 		index = 0
 		suma=0
 		for i, record in enumerate(movielist):
@@ -197,8 +199,12 @@ class MovieManager(Screen, HelpableScreen):
 						continue
 					if item == self.current:
 						self.position = index
+						print "[MovieManager] position found"
 					info = record[1]
 					name = info and info.getName(item)
+					if name == self.name:
+						self.position = index
+						print "[MovieManager] name found"
 					size = 0
 					if info:
 						if isinstance(info, StubInfo): # picture
@@ -210,7 +216,7 @@ class MovieManager(Screen, HelpableScreen):
 					suma+=size
 		self.l = SelectionList(list)
 		self.l.setList(list)
-		print "[MovieMnager} list filled with %s items. Size: %s" % (index, self.convertSize(suma))
+		print "[MovieMnager} list filled with %s items. Size: %s, position %s" % (index, self.convertSize(suma), self.position)
 		self.size = 0
 		return list
 
@@ -333,7 +339,7 @@ class MovieManager(Screen, HelpableScreen):
 			def cfgCallBack(choice=False):
 				cfg_after = self.getCfgStatus()
 				if self.cfg_before != cfg_after:
-					if cfg_after & 0x20 - self.cfg_before & 0x20 < 0: # all => single
+					if (cfg_after & 0x20) - (self.cfg_before & 0x20) < 0: # all -> single
 						self.accross = cfg.manage_all.value
 					path = config.movielist.last_videodir.value
 					if self.accross:
@@ -500,11 +506,15 @@ class MovieManager(Screen, HelpableScreen):
 			return files
 
 		if len(self["config"].list):
-			self.current = self["config"].getCurrent()[0][1][0]
+			item = self["config"].getCurrent()[0]
+			self.current = item[1][0]
+			self.name = item[0]
 		self.clearList()
 		self.list = self.parseMovieList(readLists(current_dir), self.list)
 		self.sortList(int(cfg.sort.value))
-		self.moveSelector()
+		if self.position >= 0:
+			self.position = self.newPositionIndex(self.position)
+		self["config"].moveToIndex(self.position)
 
 	def toggleAllSelection(self):
 		self.list.toggleAllSelection()
@@ -547,7 +557,7 @@ class MovieManager(Screen, HelpableScreen):
 		item = self["config"].getCurrent()
 		if item:
 			self["Service"].newService(item[0][1][0])
-			if self.accross:
+			if self.accross or cfg.subdirs.value:
 				self.setTitle(_("List of files") + ":  %s" % os.path.realpath(item[0][1][0].getPath()).rpartition('/')[0])
 		else:
 			self["Service"].newService(None)
@@ -559,11 +569,19 @@ class MovieManager(Screen, HelpableScreen):
 			self.original_selectionpng = Components.SelectionList.selectionpng
 			Components.SelectionList.selectionpng = LoadPixmap(cached=True, path=path)
 
-	def getItemIndex(self,item):
+	def getItemIndex(self, item):
 		index = 0
 		for i in self["config"].list:
 			if i[0] == item:
 				return index
+			index += 1
+		return 0
+
+	def newPositionIndex(self, old_position):
+		index = 0
+		for i in self["config"].list:
+			if i[0][2] == old_position:
+					return index
 			index += 1
 		return 0
 
