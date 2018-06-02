@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-04-20 11:33+0200\n"
-"PO-Revision-Date: 2018-04-28 10:20+0200\n"
+"PO-Revision-Date: 2018-06-02 18:09+0200\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,20 +25,19 @@ msgid "All"
 msgstr "Alle"
 
 msgid "Original list"
-msgstr ""
+msgstr "Originele lijst"
 
 msgid "A-z sort"
-msgstr ""
+msgstr "A-z sorteren"
 
 msgid "Z-a sort"
-msgstr ""
+msgstr "Z-a sorteren"
 
-#, fuzzy
 msgid "Selected top"
-msgstr "Geselecteerd: %s"
+msgstr "Geselecteerde top"
 
 msgid "Original list - reverted"
-msgstr ""
+msgstr "Originele lijst - omgekeerd"
 
 msgid "List of files"
 msgstr "Lijst met bestanden"
@@ -59,7 +58,7 @@ msgid "Skip backward"
 msgstr "Skip backward"
 
 msgid "Select action"
-msgstr "Kies actie "
+msgstr "Kies actie"
 
 msgid "Sort list"
 msgstr "Sorteer lijst"
@@ -78,7 +77,7 @@ msgstr "Groepsselectie - verwijder"
 
 #, python-format
 msgid "Save list to '%s'"
-msgstr ""
+msgstr "Sla lijst op als '%s'"
 
 msgid "Cancel"
 msgstr "Annuleer"
@@ -112,7 +111,7 @@ msgid "Move to..."
 msgstr "Verplaats naar..."
 
 msgid "Rename"
-msgstr ""
+msgstr "Hernoem"
 
 msgid "Delete"
 msgstr "Verwijder"
@@ -121,14 +120,13 @@ msgid "Clear bookmarks..."
 msgstr "Verwijder bookmarks..."
 
 msgid "Reset playback position"
-msgstr ""
+msgstr "Zet afspeelpositie terug"
 
 msgid "Sort by..."
-msgstr ""
+msgstr "Sorteer op..."
 
-#, fuzzy
 msgid "Manage files in active bookmarks..."
-msgstr "Schakel 'Bookmarks verwijderen...' in"
+msgstr "Beheer de bestanden in actieve bladwijzers..."
 
 msgid "Options..."
 msgstr "Opties..."
@@ -136,26 +134,24 @@ msgstr "Opties..."
 msgid "Select operation:"
 msgstr "Kies uitvoering:"
 
-#, fuzzy
 msgid "name"
-msgstr "Negeer het 1e niet standaard karakter in de naam"
+msgstr "naam"
 
 msgid "size"
-msgstr ""
+msgstr "grootte"
 
 msgid "path"
-msgstr ""
+msgstr "pad"
 
-#, fuzzy
 msgid "Sort list:"
-msgstr "Sorteer lijst"
+msgstr "Sorteer lijst:"
 
 #, python-format
 msgid "The path %s already exists."
-msgstr ""
+msgstr "Het pad %s bestaat al."
 
 msgid "Error"
-msgstr ""
+msgstr "Fout"
 
 #, python-format
 msgid "Size: %s"
@@ -224,10 +220,12 @@ msgid ""
 "The CSFD plugin is not installed!\n"
 "Please install it."
 msgstr ""
+"De CSFD plugin is niet geïnstalleerd!\n"
+"Installeer die."
 
 #, python-format
 msgid "v.%s"
-msgstr ""
+msgstr "v.%s"
 
 msgid "OK"
 msgstr "OK"
@@ -262,57 +260,58 @@ msgid "Set 'yes' if You want add target directories into bookmarks."
 msgstr "Kies 'Ja' als u de doellocatie als bookmark wilt toevoegen."
 
 msgid "Enable 'Clear bookmark...'"
-msgstr "Schakel 'Bookmarks verwijderen...' in"
+msgstr "Schakel 'Bookmarks verwijderen...' in."
 
-#, fuzzy
 msgid "Enable in menu utility for delete bookmarks in menu."
 msgstr "Geeft de mogelijkheid bookmarks in het menu te verwijderen."
 
-#, fuzzy
 msgid "Enable 'Manage files in active bookmarks...'"
-msgstr "Schakel 'Bookmarks verwijderen...' in"
+msgstr "Schakel 'Beheer de bestanden in actieve bladwijzers...' in."
 
 msgid ""
 "Enable in menu item for manage movies in all active bookmarks as one list."
-msgstr ""
+msgstr "Schakel dit in om opnames in actieve bladwijzers te beheren."
 
 msgid "Including subdirectories"
-msgstr ""
+msgstr "Inclusief subdirectories"
 
 msgid "If enabled, then will be used subdirectories too (it will take longer)."
 msgstr ""
+"Indien ingeschakeld, zullen subdirectories ook worden gebruikt (duurt "
+"langer)."
 
 msgid "Movie files"
-msgstr ""
+msgstr "Opnames"
 
 msgid "If enabled, then will be added movie files into list."
-msgstr ""
+msgstr "Indien ingeschakeld, zullen opnames aan de lijst worden toegevoegd."
 
-#, fuzzy
 msgid "Audio files"
-msgstr "Lijst met bestanden"
+msgstr "Audiobestanden"
 
 msgid "If enabled, then will be added audio files into list."
 msgstr ""
+"Indien ingeschakeld, zullen audiobestanden aan de lijst worden toegevoegd."
 
 msgid "DVD files"
-msgstr ""
+msgstr "DVD-bestanden"
 
 msgid "If enabled, then will be added dvd files into list."
 msgstr ""
+"Indien ingeschakeld, zullen DVD-bestanden aan de lijst worden toegevoegd."
 
 msgid "Pictures"
-msgstr ""
+msgstr "Plaatjes"
 
 msgid "If enabled, then will be added pictures into list."
-msgstr ""
+msgstr "Indien ingeschakeld, zullen plaatjes aan de lijst worden toegevoegd."
 
 msgid "To maintain selector position"
-msgstr ""
+msgstr "Om de selectiepositie te behouden"
 
 msgid ""
 "If enabled, then will be on start maintained selector position in items list."
-msgstr ""
+msgstr "Indien ingeschakeld, zal de selector op de positie in de lijst staan."
 
 msgid "List of bookmarks"
 msgstr "Lijst met bookmarks"
