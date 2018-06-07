@@ -170,7 +170,7 @@ class MovieManager(Screen, HelpableScreen):
 			"seekBackManual": (ssback, tBack),	
 			"groupSelect": (boundFunction(self.selectGroup, True), _("Group selection - add")),
 			"groupUnselect": (boundFunction(self.selectGroup, False), _("Group selection - remove")),
-			"text": (self.saveList, _("Save list to '%s'" % LISTFILE)),
+			"text": (self.saveList, _("Save list to '%s'") % LISTFILE),
 			}, -2)
 
 		self["key_red"] = Button(_("Cancel"))
