@@ -101,11 +101,11 @@ class MovieManager(Screen, HelpableScreen):
 		<widget name="description" position="140,368" zPosition="2" size="470,46" valign="center" halign="left" font="Regular;16" foregroundColor="white"/>
 	</screen>
 	"""
-	def __init__(self, session, list, current=None):
+	def __init__(self, session, list=None, current=None):
 		Screen.__init__(self, session)
 		HelpableScreen.__init__(self)
 		self.session = session
-		self.current = current[0]
+		self.current = current[0] if current else None
 		self.mainList = list
 		self.setTitle(_("List of files") + ":  %s" % config.movielist.last_videodir.value)
 
@@ -119,10 +119,11 @@ class MovieManager(Screen, HelpableScreen):
 		self.size = 0
 		self.list = SelectionList([])
 		self.name = ""
-		if cfg.subdirs.value:	# can be used for all (then it could be called as standallone plugin)
+		if cfg.subdirs.value or not list:	# can be used for all (then it could be called as standallone plugin)
 			self["config"] = self.list
-			info = current[1]
-			self. name = info and info.getName(current[0])
+			info = current[1] if current else None
+			if info:
+				self. name = info and info.getName(current[0])
 			self.getData(config.movielist.last_videodir.value)
 		else:			# only for list without subdirs - used forwarded list => fastest ... why not
 			self["config"] = self.parseMovieList(list, self.list)
@@ -202,7 +203,7 @@ class MovieManager(Screen, HelpableScreen):
 						continue
 					if not cfg.dvds.value and ext in DVD_EXTENSIONS:
 						continue
-					if item == self.current:
+					if self.current and item == self.current:
 						self.position = index
 						print "[MovieManager] position found"
 					info = record[1]
