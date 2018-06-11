@@ -254,8 +254,6 @@ class MovieManager(Screen, HelpableScreen):
 			return None
 		return seek
 
-
-
 	def playPreview(self):
 		item = self["config"].getCurrent()
 		if item:
@@ -415,7 +413,7 @@ class MovieManager(Screen, HelpableScreen):
 		def renameItemInList(list, item, newname):
 			a = []
 			for list_item in list.list:
-				if list_item[0] == item:
+				if list_item[0] == item[0]:
 					list_item[0] = (newname,) + list_item[0][1:]
 					self.position = list_item[0][2]
 				a.append(list_item)
@@ -434,16 +432,17 @@ class MovieManager(Screen, HelpableScreen):
 			self.clearList()
 			return reloadNewList(new, self.list)
 		def reloadMainList(item):
-			if item[1][0].getPath().rpartition('/')[0] == config.movielist.last_videodir.value[0:-1]:
+			if ITEM(item).getPath().rpartition('/')[0] == config.movielist.last_videodir.value[0:-1]:
 				self.mainList.reload()
 
 		if not name:
 			return
+		msg = None
 		name = "".join((name.strip(), self.extension))
-		item = self["config"].getCurrent()[0]
-		if item and item[1][0]:
+		item = self["config"].getCurrent()
+		if item and ITEM(item):
 			try:
-				path = item[1][0].getPath().rstrip('/')
+				path = ITEM(item).getPath().rstrip('/')
 				meta = path + '.meta'
 				if os.path.isfile(meta):
 					metafile = open(meta, "r+")
@@ -459,7 +458,7 @@ class MovieManager(Screen, HelpableScreen):
 					newpath = os.path.join(pathname, name)
 					print "[ML] rename", path, "to", newpath
 					os.rename(path, newpath)
-				msg = None
+
 				idx = self.getItemIndex(item)
 				self.list = renameItem(item, name, self.list)
 				self["config"].moveToIndex(idx)
@@ -590,7 +589,7 @@ class MovieManager(Screen, HelpableScreen):
 	def getItemIndex(self, item):
 		index = 0
 		for i in self["config"].list:
-			if i[0] == item:
+			if i[0] == item[0]:
 				return index
 			index += 1
 		return 0
@@ -617,7 +616,7 @@ class MovieManager(Screen, HelpableScreen):
 
 	def sortList(self, sort):
 		if len(self["config"].list):
-			item = self["config"].getCurrent()[0]
+			item = self["config"].getCurrent()
 			if sort == 0:	# original input list
 				self.list.sort(sortType=2)
 			elif sort == 1:	# a-z
