@@ -71,6 +71,15 @@ cfg = config.moviemanager
 
 LISTFILE = '/tmp/movies.csv'
 
+def NAME(item):
+	return item[0][0]
+def ITEM(item):
+	return item[0][1][0]
+def SIZE(item):
+	return item[0][1][1]
+def SELECTED(item):
+	return item[0][3]
+
 class MovieManager(Screen, HelpableScreen):
 	skin="""
 	<screen name="MovieManager" position="center,center" size="600,415" title="List of files">
@@ -108,7 +117,6 @@ class MovieManager(Screen, HelpableScreen):
 		self.current = current[0] if current else None
 		self.mainList = list
 		self.setTitle(_("List of files") + ":  %s" % config.movielist.last_videodir.value)
-
 		self.original_selectionpng = None
 		self.changePng()
 
@@ -245,10 +253,12 @@ class MovieManager(Screen, HelpableScreen):
 			return None
 		return seek
 
+
+
 	def playPreview(self):
 		item = self["config"].getCurrent()
 		if item:
-			path = item[0][1][0].getPath()
+			path = ITEM(item).getPath()
 			ext = os.path.splitext(path)[1].lower()
 			if ext in IMAGE_EXTENSIONS:
 				try:
@@ -258,7 +268,7 @@ class MovieManager(Screen, HelpableScreen):
 					print "[MovieManager] Cannot display", str(ex)
 					return
 			else:
-				self.session.nav.playService(item[0][1][0])
+				self.session.nav.playService(ITEM(item))
 
 	def stopPreview(self):
 		self.session.nav.playService(self.playingRef)
@@ -272,7 +282,7 @@ class MovieManager(Screen, HelpableScreen):
 		length = int(cfg.length.value)
 		name = ""
 		if item and length:
-			name = item[0][0].decode('UTF-8', 'replace')[0:length]
+			name = NAME(item).decode('UTF-8', 'replace')[0:length]
 			txt += "\t%s" % length
 		self.session.openWithCallback(boundFunction(self.changeItems, mark), VirtualKeyBoard, title = txt, text = name)
 
@@ -283,15 +293,15 @@ class MovieManager(Screen, HelpableScreen):
 				searchString = searchString.lower()
 			for item in self.list.list:
 				if cfg.sensitive.value:
-					exist = item[0][0].decode('UTF-8', 'replace').startswith(searchString)
+					exist = NAME(item).decode('UTF-8', 'replace').startswith(searchString)
 				else:
-					exist = item[0][0].decode('UTF-8', 'replace').lower().startswith(searchString)
+					exist = NAME(item).decode('UTF-8', 'replace').lower().startswith(searchString)
 				if exist:
 					if mark:
-						if not item[0][3]:
+						if not SELECTED(item):
 							self.list.toggleItemSelection(item[0])
 					else:
-						if item[0][3]:
+						if SELECTED(item):
 							self.list.toggleItemSelection(item[0])
 		self.displaySelectionPars()
 
@@ -369,9 +379,9 @@ class MovieManager(Screen, HelpableScreen):
 		fo.write(codecs.BOM_UTF8)
 		fo.write("%s;%s;%s\n" % (_("name"),_("size"),_("path")))
 		for item in self.list.list:
-			name = item[0][0]
-			size = self.convertSize(item[0][1][1])
-			path = os.path.split(item[0][1][0].getPath())[0]
+			name = NAME(item)
+			size = self.convertSize(SIZE(item))
+			path = os.path.split(ITEM(item).getPath())[0]
 			line = "%s;%s;%s\n" % (name, size, path)
 			fo.write(line)
 		fo.close()
@@ -392,10 +402,10 @@ class MovieManager(Screen, HelpableScreen):
 			return
 		# item ... (name, (service, size), index, status)
 		self.extension = ""
-		item = self["config"].getCurrent()[0]
+		item = self["config"].getCurrent()
 		if item:
-			name = item[0]
-			full_name = os.path.split(item[1][0].getPath())
+			name = NAME(item)
+			full_name = os.path.split(ITEM(item).getPath())
 			if full_name == name: # split extensions for files without metafile
 				name, self.extension = os.path.splitext(name)
 		self.session.openWithCallback(self.renameCallback, VirtualKeyBoard, title = _("Rename"), text = name)
@@ -511,9 +521,9 @@ class MovieManager(Screen, HelpableScreen):
 			return files
 
 		if len(self["config"].list):
-			item = self["config"].getCurrent()[0]
-			self.current = item[1][0]
-			self.name = item[0]
+			item = self["config"].getCurrent()
+			self.current = ITEM(item)
+			self.name = NAME(item)
 		self.clearList()
 		self.list = self.parseMovieList(readLists(current_dir), self.list)
 		self.sortList(int(cfg.sort.value))
@@ -532,8 +542,8 @@ class MovieManager(Screen, HelpableScreen):
 		self.list.toggleSelection()
 		item = self["config"].getCurrent()
 		if item:
-			size = item[0][1][1]
-			selected = item[0][3]
+			size = SIZE(item)
+			selected = SELECTED(item)
 			self.size = self.size + size if selected else self.size - size
 		self.displaySelectionPars(True)
 
@@ -563,9 +573,9 @@ class MovieManager(Screen, HelpableScreen):
 	def setService(self):
 		item = self["config"].getCurrent()
 		if item:
-			self["Service"].newService(item[0][1][0])
+			self["Service"].newService(ITEM(item))
 			if self.accross or cfg.subdirs.value:
-				self.setTitle(_("List of files") + ":  %s" % os.path.realpath(item[0][1][0].getPath()).rpartition('/')[0])
+				self.setTitle(_("List of files") + ":  %s" % os.path.realpath(ITEM(item).getPath()).rpartition('/')[0])
 		else:
 			self["Service"].newService(None)
 
@@ -637,7 +647,7 @@ class MovieManager(Screen, HelpableScreen):
 			selected = len(data)
 			if not selected:
 				data = [self["config"].getCurrent()[0]]
-				self.size = data[0][1][1]
+				self.size = SIZE(data)
 				selected = 1
 			deleted = 0
 			for item in data:
@@ -685,7 +695,7 @@ class MovieManager(Screen, HelpableScreen):
 		data = self.list.getSelectionsList()
 		if len(data) == 0:
 			data = [self["config"].getCurrent()[0]]
-			self.size = data[0][1][1]
+			self.size = SIZE(data)
 			toggle = False
 		if not self.isFreeSpace(dest):
 			return
@@ -715,7 +725,7 @@ class MovieManager(Screen, HelpableScreen):
 		data = self.list.getSelectionsList()
 		if len(data) == 0:
 			data = [self["config"].getCurrent()[0]]
-			self.size = data[0][1][1]
+			self.size = SIZE(data)
 		if not self.isSameDevice(src, dest):
 			if not self.isFreeSpace(dest):
 				return
@@ -965,7 +975,7 @@ class MovieManagerClearBookmarks(Screen, HelpableScreen):
 		if len(self["config"].list):
 			item = self["config"].getCurrent()
 			if item:
-				text = "%s" % item[0][0]
+				text = "%s" % NAME(item)
 				self["description"].setText(text)
 		else:
 			self["description"].setText("")
