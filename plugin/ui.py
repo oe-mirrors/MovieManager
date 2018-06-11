@@ -532,10 +532,9 @@ class MovieManager(Screen, HelpableScreen):
 		self.list.toggleSelection()
 		item = self["config"].getCurrent()
 		if item:
-			if item[0][3]:
-				self.size += item[0][1][1]
-			else:
-				self.size -= item[0][1][1]
+			size = item[0][1][1]
+			selected = item[0][3]
+			self.size = self.size + size if selected else self.size - size
 		self.displaySelectionPars(True)
 
 	def displaySelectionPars(self, singleToggle=False):
@@ -697,7 +696,6 @@ class MovieManager(Screen, HelpableScreen):
 					copyServiceFiles(item[1][0], dest, item[0])
 					if toggle:
 						self.list.toggleItemSelection(item)
-
 				except Exception, e:
 					self.session.open(MessageBox, str(e), MessageBox.TYPE_ERROR, timeout=2)
 		self.displaySelectionPars()
