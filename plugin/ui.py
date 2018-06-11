@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.71"
+VERSION = "1.72"
 #  by ims (c) 2018 ims21@users.sourceforge.net
 #
 #  This program is free software; you can redistribute it and/or
@@ -119,13 +119,13 @@ class MovieManager(Screen, HelpableScreen):
 		self.size = 0
 		self.list = SelectionList([])
 		self.name = ""
-		if cfg.subdirs.value or not list:	# can be used for all (then it could be called as standallone plugin)
+		if cfg.subdirs.value or not list:
 			self["config"] = self.list
 			info = current[1] if current else None
 			if info:
 				self. name = info and info.getName(current[0])
 			self.getData(config.movielist.last_videodir.value)
-		else:			# only for list without subdirs - used forwarded list => fastest ... why not
+		else:
 			self["config"] = self.parseMovieList(list, self.list)
 			self.sortList(int(cfg.sort.value))
 			if cfg.position.value:
@@ -487,7 +487,6 @@ class MovieManager(Screen, HelpableScreen):
 		def readSubdirs(path):
 			files = []
 			for subdir in lookDirs(path):
-				setCurrentRef(subdir)
 				files += readDirectory(subdir)
 				print "[MovieManager] + added files from %s" % subdir
 			return files
