@@ -132,15 +132,12 @@ class MovieManager(Screen, HelpableScreen):
 			self["config"] = self.list
 			info = current[1] if current else None
 			if info:
-				self. name = info and info.getName(current[0])
+				self.name = info and info.getName(current[0])
 			self.getData(config.movielist.last_videodir.value)
 		else:
 			self["config"] = self.parseMovieList(list, self.list)
 			self.sortList(int(cfg.sort.value))
-			if cfg.position.value:
-				self.position = self.newPositionIndex(self.position)
-			else:
-				self.position = -1
+			self.position = self.newPositionIndex(self.position) if cfg.position.value else -1
 
 		self["description"] = Label()
 
@@ -158,9 +155,9 @@ class MovieManager(Screen, HelpableScreen):
 				"csfd": self.csfd,
 			})
 		###
-		tPreview = _("Preview")
-		tFwd = _("Skip forward") + " (" + tPreview +")"
-		tBack= _("Skip backward") + " (" + tPreview +")"
+		textPreview = _("Preview")
+		textForward = _("Skip forward") + " (" + textPreview +")"
+		textBack = _("Skip backward") + " (" + textPreview +")"
 		sfwd = lambda: self.seekRelative(1, config.seek.selfdefined_46.value * 90000)
 		ssfwd = lambda: self.seekRelative(1, config.seek.selfdefined_79.value * 90000)
 		sback = lambda: self.seekRelative(-1, config.seek.selfdefined_46.value * 90000)
@@ -174,10 +171,10 @@ class MovieManager(Screen, HelpableScreen):
 			"blue": (self.toggleAllSelection, _("Invert selection")),
 			"preview": (self.playPreview, _("Preview")),
 			"stop": (self.stopPreview, _("Stop")),
-			"seekFwd": (sfwd, tFwd),
-			"seekFwdManual": (ssfwd, tFwd),
-			"seekBack": (sback, tBack),
-			"seekBackManual": (ssback, tBack),	
+			"seekFwd": (sfwd, textForward),
+			"seekFwdManual": (ssfwd, textForward),
+			"seekBack": (sback, textBack),
+			"seekBackManual": (ssback, textBack),
 			"groupSelect": (boundFunction(self.selectGroup, True), _("Group selection - add")),
 			"groupUnselect": (boundFunction(self.selectGroup, False), _("Group selection - remove")),
 			"text": (self.saveList, _("Save list to '%s'") % LISTFILE),
@@ -456,14 +453,12 @@ class MovieManager(Screen, HelpableScreen):
 				else:
 					pathname,filename = os.path.split(path)
 					newpath = os.path.join(pathname, name)
-					print "[ML] rename", path, "to", newpath
+					print "[MovieManager] rename", path, "to", newpath
 					os.rename(path, newpath)
-
 				idx = self.getItemIndex(item)
 				self.list = renameItem(item, name, self.list)
 				self["config"].moveToIndex(idx)
 				reloadMainList(item)
-
 			except OSError, e:
 				print "Error %s:" % e.errno, e
 				if e.errno == 17:
@@ -472,7 +467,7 @@ class MovieManager(Screen, HelpableScreen):
 					msg = _("Error") + '\n' + str(e)
 			except Exception, e:
 				import traceback
-				print "[ML] Unexpected error:", e
+				print "[MovieManager] Unexpected error:", e
 				traceback.print_exc()
 				msg = _("Error") + '\n' + str(e)
 			if msg:
