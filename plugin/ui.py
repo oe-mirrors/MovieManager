@@ -186,7 +186,7 @@ class MovieManager(Screen, HelpableScreen):
 		self["key_blue"] = Button(_("Inversion"))
 
 		self.playingRef = self.session.nav.getCurrentlyPlayingServiceOrGroup()
-		self["description"].setText(_("Select files with 'OK' or use 'CH+/CH-' and then use 'Menu' or 'Action' for select operation."))
+		self["description"].setText(_("Use 'Menu' or 'Action' for select operation. Multiple files mark with 'OK' or use 'CH+/CH-'."))
 
 		self["config"].onSelectionChanged.append(self.setService)
 		self.onShown.append(self.setService)
