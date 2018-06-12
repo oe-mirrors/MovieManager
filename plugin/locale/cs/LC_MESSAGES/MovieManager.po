@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Enigma2 ManagerAutofs Plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-12 10:06+0200\n"
-"PO-Revision-Date: 2018-06-12 10:11+0200\n"
+"POT-Creation-Date: 2018-06-12 10:15+0200\n"
+"PO-Revision-Date: 2018-06-12 10:15+0200\n"
 "Last-Translator: ims <ims21@users.sourceforge.net>\n"
 "Language-Team: PLi\n"
 "Language: cs_CZ\n"
@@ -14,104 +14,79 @@ msgstr ""
 "|| n%100>=20) ? 1 : 2;\n"
 "X-Generator: Poedit 1.8.7.1\n"
 
-#: ui.py:53
 msgid "No"
 msgstr "Ne"
 
-#: ui.py:53
 msgid "All"
 msgstr "Vše"
 
-#: ui.py:63
 msgid "Original list"
 msgstr "Jako původní seznam"
 
-#: ui.py:64
 msgid "A-z sort"
 msgstr "A-z"
 
-#: ui.py:65
 msgid "Z-a sort"
 msgstr "Z-a"
 
-#: ui.py:66
 msgid "Selected top"
 msgstr "Označené nahoru"
 
-#: ui.py:67
 msgid "Original list - reverted"
 msgstr "Jako původní seznam - opačně"
 
-#: ui.py:120 ui.py:573
 msgid "List of files"
 msgstr "Seznam souborů"
 
-#: ui.py:149 ui.py:168
 msgid "Exit plugin"
 msgstr "Zavřít plugin"
 
-#: ui.py:150 ui.py:938
 msgid "Add or remove item of selection"
 msgstr "Přidat nebo odebrat z výběru"
 
-#: ui.py:158 ui.py:172
 msgid "Preview"
 msgstr "Náhled"
 
-#: ui.py:159
 msgid "Skip forward"
 msgstr "Přeskočit dopředu"
 
-#: ui.py:160
 msgid "Skip backward"
 msgstr "Přeskočit dozadu"
 
-#: ui.py:167 ui.py:169
 msgid "Select action"
 msgstr "Zvolte akci"
 
-#: ui.py:170 ui.py:944
 msgid "Sort list"
 msgstr "Setřídit seznam"
 
-#: ui.py:171 ui.py:945
 msgid "Invert selection"
 msgstr "Inverze výběru"
 
-#: ui.py:173
 msgid "Stop"
 msgstr "Zastavit"
 
-#: ui.py:178
 msgid "Group selection - add"
 msgstr "Skupinový výběr - přidat"
 
-#: ui.py:179
 msgid "Group selection - remove"
 msgstr "Skupinový výběr - odebrat"
 
-#: ui.py:180
 #, python-format
 msgid "Save list to '%s'"
 msgstr "Uložit seznam do '%s'"
 
-#: ui.py:183 ui.py:852 ui.py:948
 msgid "Cancel"
 msgstr "Zavřít"
 
-#: ui.py:184
 msgid "Action"
 msgstr "Výběr akce"
 
-#: ui.py:185 ui.py:950
 msgid "Sort"
 msgstr "Třídění"
 
-#: ui.py:186 ui.py:951
 msgid "Inversion"
 msgstr "Inverze"
 
-#: ui.py:189
 msgid ""
 "Use 'Menu' or 'Action' for select operation. Multiple files mark with 'OK' "
 "or use 'CH+/CH-'."
@@ -119,90 +94,69 @@ msgstr ""
 "Zvolte 'Menu' nebo 'Výběr akce'. Pro označení více souborů použijte 'OK' "
 "nebo Ch+/Ch-'."
 
-#: ui.py:274
 msgid "Add to selection (starts with...)"
 msgstr "Přidat do výběru (začíná na...)"
 
-#: ui.py:276
 msgid "Remove from selection (starts with...)"
 msgstr "Odebrat z výběru (začíná na...)"
 
-#: ui.py:306
 msgid "Copy to..."
 msgstr "Kopírovat do..."
 
-#: ui.py:307
 msgid "Move to..."
 msgstr "Přesunout do..."
 
-#: ui.py:309 ui.py:407
 msgid "Rename"
 msgstr "Přejmenovat"
 
-#: ui.py:312 ui.py:949
 msgid "Delete"
 msgstr "Smazat"
 
-#: ui.py:315
 msgid "Clear bookmarks..."
 msgstr "Čistit záložky..."
 
-#: ui.py:317
 msgid "Reset playback position"
 msgstr "Resetovat pozici přehrávání"
 
-#: ui.py:319
 msgid "Sort by..."
 msgstr "Třídit podle..."
 
-#: ui.py:322
 msgid "Manage files in active bookmarks..."
 msgstr "Správa souborů v aktivních záložkách..."
 
-#: ui.py:324 ui.py:849
 msgid "Options..."
 msgstr "Možnosti..."
 
-#: ui.py:327
 msgid "Select operation:"
 msgstr "Zvolte operaci:"
 
-#: ui.py:376
 msgid "name"
 msgstr "název"
 
-#: ui.py:376
 msgid "size"
 msgstr "velikost"
 
-#: ui.py:376
 msgid "path"
 msgstr "umístění"
 
-#: ui.py:389
 msgid "Sort list:"
 msgstr "Třídit seznam:"
 
-#: ui.py:465
 #, python-format
 msgid "The path %s already exists."
 msgstr "Cesta %s již existuje."
 
-#: ui.py:467 ui.py:472
 msgid "Error"
 msgstr "Chyba"
 
-#: ui.py:554
 #, python-format
 msgid "Size: %s"
 msgstr "Velikost: %s"
 
-#: ui.py:555
 #, python-format
 msgid "Selected: %s"
 msgstr "Označeno: %s"
 
-#: ui.py:632
 #, python-format
 msgid ""
 "Plugin does not use the trash or check a running recording!\n"
@@ -211,67 +165,53 @@ msgstr ""
 "Plugin nepoužívá koš ani nekontroluje probíhající nahrávání!\n"
 "Chcete přesto pokračovat a smazat %s vybraných souborů?"
 
-#: ui.py:637
 #, python-format
 msgid "Are You sure to delete %s selected file(s)?"
 msgstr "Opravdu chctete smazat %s označený(ch)  soubor(ů)?"
 
-#: ui.py:653
 #, python-format
 msgid "Sucessfuly deleted %s of %s files..."
 msgstr "Úspěšně smazáno %s z %s souborů..."
 
-#: ui.py:674
 msgid "Delete failed!"
 msgstr "Smazání selhalo!"
 
-#: ui.py:679
 msgid "Select destination for copy selected files..."
 msgstr "Zvolte umístění pro kopírování vybraných souborů..."
 
-#: ui.py:686 ui.py:718
 msgid "Same source and target directory!"
 msgstr "Stejný zdrojový a cílový adresář!"
 
-#: ui.py:710
 msgid "Select destination for move selected files..."
 msgstr "Zvolte umístění pro přemístění vybraných souborů..."
 
-#: ui.py:752
 #, python-format
 msgid "On destination '%s' is %s free space only!"
 msgstr "Zařízení '%s' má k dispozici pouze %s volného místa!"
 
-#: ui.py:782
 msgid "Other"
 msgstr "Další"
 
-#: ui.py:816
 #, python-format
 msgid "%.0f GB"
 msgstr ""
 
-#: ui.py:818
 #, python-format
 msgid "%.2f GB"
 msgstr ""
 
-#: ui.py:820
 #, python-format
 msgid "%.0f MB"
 msgstr ""
 
-#: ui.py:822
 #, python-format
 msgid "%.0f kB"
 msgstr ""
 
-#: ui.py:823
 #, python-format
 msgid "%d B"
 msgstr ""
 
-#: ui.py:831
 msgid ""
 "The CSFD plugin is not installed!\n"
 "Please install it."
@@ -279,31 +219,25 @@ msgstr ""
 "CSFD plugin není nainstalovaný!\n"
 "Prosím, nainstalujte plugin."
 
-#: ui.py:849
 #, python-format
 msgid "v.%s"
 msgstr "verze %s"
 
-#: ui.py:853
 msgid "OK"
 msgstr "OK"
 
-#: ui.py:870
 msgid "Compare case sensitive"
 msgstr "Rozlišovat velikost písmen"
 
-#: ui.py:870
 msgid ""
 "Sets whether to distinguish between uper case and lower case for searching."
 msgstr ""
 "Nastavuje, zda chcete  při vyhledávání rozlišovat mezi velkými a malými "
 "písmeny."
 
-#: ui.py:871
 msgid "Pre-fill first 'n' filename chars to virtual keyboard"
 msgstr "Předvyplnit prvních 'n' znaků názvu do virtuální klávesnice"
 
-#: ui.py:871
 msgid ""
 "You can set the number of letters from the beginning of the current file "
 "name as the text pre-filled into virtual keyboard for easier input via group "
@@ -313,101 +247,78 @@ msgstr ""
 "předvyplněný text do virtuální klávesnice pro snadnější zadávání pomocí "
 "skupinového výběru. Pro 'skupinový výběr' použijte tlačítka \"CH+/CH-\"."
 
-#: ui.py:872
 msgid "Use target directory as bookmark"
 msgstr "Použít cílový adresář jako záložku"
 
-#: ui.py:872
 msgid "Set 'yes' if You want add target directories into bookmarks."
 msgstr "Jestliže chcete přidávat cílové adresáře do záložek, zvolte 'Ano' ."
 
-#: ui.py:873
 msgid "Enable 'Clear bookmark...'"
 msgstr "Povolit 'Čistit záložky...'"
 
-#: ui.py:873
 msgid "Enable in menu utility for delete bookmarks in menu."
 msgstr "Povolít v menu nástroj pro mazání záložek."
 
-#: ui.py:874
 msgid "Enable 'Manage files in active bookmarks...'"
 msgstr "Povolit 'Správu souborů v aktivních záložkách...'"
 
-#: ui.py:874
 msgid ""
 "Enable in menu item for manage movies in all active bookmarks as one list."
 msgstr ""
 "Povoluje v menu položku pro správu souborů ze všech aktivních záložek v "
 "jednom seznamu."
 
-#: ui.py:875
 msgid "Including subdirectories"
 msgstr "Zahrnout podadresáře"
 
-#: ui.py:875
 msgid "If enabled, then will be used subdirectories too (it will take longer)."
 msgstr ""
 "Pokud je povoleno, použijí se také  podadresáře (spotřebuje více času)."
 
-#: ui.py:876
 msgid "Movie files"
 msgstr "Filmy"
 
-#: ui.py:876
 msgid "If enabled, then will be added movie files into list."
 msgstr "Jestliže je povoleno, jsou do seznamu přidávány filmy."
 
-#: ui.py:877
 msgid "Audio files"
 msgstr "Audio soubory"
 
-#: ui.py:877
 msgid "If enabled, then will be added audio files into list."
 msgstr "Jestliže je povoleno, jsou do seznamu přidávány audio soubory."
 
-#: ui.py:878
 msgid "DVD files"
 msgstr "DVD soubory"
 
-#: ui.py:878
 msgid "If enabled, then will be added dvd files into list."
 msgstr "Jestliže je povoleno, jsou do seznamu přidávány dvd soubory."
 
-#: ui.py:879
 msgid "Pictures"
 msgstr "Obrázky"
 
-#: ui.py:879
 msgid "If enabled, then will be added pictures into list."
 msgstr "Jestliže je povoleno, jsou do seznamu přidávány obrázky."
 
-#: ui.py:880
 msgid "To maintain selector position"
 msgstr "Zachovávat pozici"
 
-#: ui.py:880
 msgid ""
 "If enabled, then will be on start maintained selector position in items list."
 msgstr ""
 "Jestliže je povoleno, je po startu zachovávána pozice kurzoru v seznamu."
 
-#: ui.py:925
 msgid "List of bookmarks"
 msgstr "Seznam záložek"
 
-#: ui.py:937 ui.py:942
 msgid "Close"
 msgstr "Zavřít"
 
-#: ui.py:943
 msgid "Delete selected"
 msgstr "Smazat vybrané"
 
-#: ui.py:954
 msgid "Select with 'OK' and then remove with 'Delete'."
 msgstr "Vyberte pomocí 'OK' a pak odstraňte pomocí 'Smazat'."
 
-#: ui.py:998
 #, python-format
 msgid "Are You sure to delete %s selected bookmark(s)?"
 msgstr "Opravdu chctete smazat %s označených  záložek?"

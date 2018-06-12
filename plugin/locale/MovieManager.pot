@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-12 10:05+0200\n"
+"POT-Creation-Date: 2018-06-12 10:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,385 +17,296 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ui.py:53
 msgid "No"
 msgstr ""
 
-#: ui.py:53
 msgid "All"
 msgstr ""
 
-#: ui.py:63
 msgid "Original list"
 msgstr ""
 
-#: ui.py:64
 msgid "A-z sort"
 msgstr ""
 
-#: ui.py:65
 msgid "Z-a sort"
 msgstr ""
 
-#: ui.py:66
 msgid "Selected top"
 msgstr ""
 
-#: ui.py:67
 msgid "Original list - reverted"
 msgstr ""
 
-#: ui.py:120 ui.py:573
 msgid "List of files"
 msgstr ""
 
-#: ui.py:149 ui.py:168
 msgid "Exit plugin"
 msgstr ""
 
-#: ui.py:150 ui.py:938
 msgid "Add or remove item of selection"
 msgstr ""
 
-#: ui.py:158 ui.py:172
 msgid "Preview"
 msgstr ""
 
-#: ui.py:159
 msgid "Skip forward"
 msgstr ""
 
-#: ui.py:160
 msgid "Skip backward"
 msgstr ""
 
-#: ui.py:167 ui.py:169
 msgid "Select action"
 msgstr ""
 
-#: ui.py:170 ui.py:944
 msgid "Sort list"
 msgstr ""
 
-#: ui.py:171 ui.py:945
 msgid "Invert selection"
 msgstr ""
 
-#: ui.py:173
 msgid "Stop"
 msgstr ""
 
-#: ui.py:178
 msgid "Group selection - add"
 msgstr ""
 
-#: ui.py:179
 msgid "Group selection - remove"
 msgstr ""
 
-#: ui.py:180
 #, python-format
 msgid "Save list to '%s'"
 msgstr ""
 
-#: ui.py:183 ui.py:852 ui.py:948
 msgid "Cancel"
 msgstr ""
 
-#: ui.py:184
 msgid "Action"
 msgstr ""
 
-#: ui.py:185 ui.py:950
 msgid "Sort"
 msgstr ""
 
-#: ui.py:186 ui.py:951
 msgid "Inversion"
 msgstr ""
 
-#: ui.py:189
 msgid ""
 "Use 'Menu' or 'Action' for select operation. Multiple files mark with 'OK' "
 "or use 'CH+/CH-'."
 msgstr ""
 
-#: ui.py:274
 msgid "Add to selection (starts with...)"
 msgstr ""
 
-#: ui.py:276
 msgid "Remove from selection (starts with...)"
 msgstr ""
 
-#: ui.py:306
 msgid "Copy to..."
 msgstr ""
 
-#: ui.py:307
 msgid "Move to..."
 msgstr ""
 
-#: ui.py:309 ui.py:407
 msgid "Rename"
 msgstr ""
 
-#: ui.py:312 ui.py:949
 msgid "Delete"
 msgstr ""
 
-#: ui.py:315
 msgid "Clear bookmarks..."
 msgstr ""
 
-#: ui.py:317
 msgid "Reset playback position"
 msgstr ""
 
-#: ui.py:319
 msgid "Sort by..."
 msgstr ""
 
-#: ui.py:322
 msgid "Manage files in active bookmarks..."
 msgstr ""
 
-#: ui.py:324 ui.py:849
 msgid "Options..."
 msgstr ""
 
-#: ui.py:327
 msgid "Select operation:"
 msgstr ""
 
-#: ui.py:376
 msgid "name"
 msgstr ""
 
-#: ui.py:376
 msgid "size"
 msgstr ""
 
-#: ui.py:376
 msgid "path"
 msgstr ""
 
-#: ui.py:389
 msgid "Sort list:"
 msgstr ""
 
-#: ui.py:465
 #, python-format
 msgid "The path %s already exists."
 msgstr ""
 
-#: ui.py:467 ui.py:472
 msgid "Error"
 msgstr ""
 
-#: ui.py:554
 #, python-format
 msgid "Size: %s"
 msgstr ""
 
-#: ui.py:555
 #, python-format
 msgid "Selected: %s"
 msgstr ""
 
-#: ui.py:632
 #, python-format
 msgid ""
 "Plugin does not use the trash or check a running recording!\n"
 "Do You want continue and delete %s selected files?"
 msgstr ""
 
-#: ui.py:637
 #, python-format
 msgid "Are You sure to delete %s selected file(s)?"
 msgstr ""
 
-#: ui.py:653
 #, python-format
 msgid "Sucessfuly deleted %s of %s files..."
 msgstr ""
 
-#: ui.py:674
 msgid "Delete failed!"
 msgstr ""
 
-#: ui.py:679
 msgid "Select destination for copy selected files..."
 msgstr ""
 
-#: ui.py:686 ui.py:718
 msgid "Same source and target directory!"
 msgstr ""
 
-#: ui.py:710
 msgid "Select destination for move selected files..."
 msgstr ""
 
-#: ui.py:752
 #, python-format
 msgid "On destination '%s' is %s free space only!"
 msgstr ""
 
-#: ui.py:782
 msgid "Other"
 msgstr ""
 
-#: ui.py:816
 #, python-format
 msgid "%.0f GB"
 msgstr ""
 
-#: ui.py:818
 #, python-format
 msgid "%.2f GB"
 msgstr ""
 
-#: ui.py:820
 #, python-format
 msgid "%.0f MB"
 msgstr ""
 
-#: ui.py:822
 #, python-format
 msgid "%.0f kB"
 msgstr ""
 
-#: ui.py:823
 #, python-format
 msgid "%d B"
 msgstr ""
 
-#: ui.py:831
 msgid ""
 "The CSFD plugin is not installed!\n"
 "Please install it."
 msgstr ""
 
-#: ui.py:849
 #, python-format
 msgid "v.%s"
 msgstr ""
 
-#: ui.py:853
 msgid "OK"
 msgstr ""
 
-#: ui.py:870
 msgid "Compare case sensitive"
 msgstr ""
 
-#: ui.py:870
 msgid ""
 "Sets whether to distinguish between uper case and lower case for searching."
 msgstr ""
 
-#: ui.py:871
 msgid "Pre-fill first 'n' filename chars to virtual keyboard"
 msgstr ""
 
-#: ui.py:871
 msgid ""
 "You can set the number of letters from the beginning of the current file "
 "name as the text pre-filled into virtual keyboard for easier input via group "
 "selection. For 'group selection' use 'CH+/CH-' buttons."
 msgstr ""
 
-#: ui.py:872
 msgid "Use target directory as bookmark"
 msgstr ""
 
-#: ui.py:872
 msgid "Set 'yes' if You want add target directories into bookmarks."
 msgstr ""
 
-#: ui.py:873
 msgid "Enable 'Clear bookmark...'"
 msgstr ""
 
-#: ui.py:873
 msgid "Enable in menu utility for delete bookmarks in menu."
 msgstr ""
 
-#: ui.py:874
 msgid "Enable 'Manage files in active bookmarks...'"
 msgstr ""
 
-#: ui.py:874
 msgid ""
 "Enable in menu item for manage movies in all active bookmarks as one list."
 msgstr ""
 
-#: ui.py:875
 msgid "Including subdirectories"
 msgstr ""
 
-#: ui.py:875
 msgid "If enabled, then will be used subdirectories too (it will take longer)."
 msgstr ""
 
-#: ui.py:876
 msgid "Movie files"
 msgstr ""
 
-#: ui.py:876
 msgid "If enabled, then will be added movie files into list."
 msgstr ""
 
-#: ui.py:877
 msgid "Audio files"
 msgstr ""
 
-#: ui.py:877
 msgid "If enabled, then will be added audio files into list."
 msgstr ""
 
-#: ui.py:878
 msgid "DVD files"
 msgstr ""
 
-#: ui.py:878
 msgid "If enabled, then will be added dvd files into list."
 msgstr ""
 
-#: ui.py:879
 msgid "Pictures"
 msgstr ""
 
-#: ui.py:879
 msgid "If enabled, then will be added pictures into list."
 msgstr ""
 
-#: ui.py:880
 msgid "To maintain selector position"
 msgstr ""
 
-#: ui.py:880
 msgid ""
 "If enabled, then will be on start maintained selector position in items list."
 msgstr ""
 
-#: ui.py:925
 msgid "List of bookmarks"
 msgstr ""
 
-#: ui.py:937 ui.py:942
 msgid "Close"
 msgstr ""
 
-#: ui.py:943
 msgid "Delete selected"
 msgstr ""
 
-#: ui.py:954
 msgid "Select with 'OK' and then remove with 'Delete'."
 msgstr ""
 
-#: ui.py:998
 #, python-format
 msgid "Are You sure to delete %s selected bookmark(s)?"
 msgstr ""
