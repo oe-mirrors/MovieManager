@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.72"
+VERSION = "1.73"
 #  by ims (c) 2018 ims21@users.sourceforge.net
 #
 #  This program is free software; you can redistribute it and/or
@@ -111,12 +111,12 @@ class MovieManager(Screen, HelpableScreen):
 		<widget name="description" position="140,368" zPosition="2" size="470,46" valign="center" halign="left" font="Regular;16" foregroundColor="white"/>
 	</screen>
 	"""
-	def __init__(self, session, list=None, current=None):
+	def __init__(self, session, service=None):
 		Screen.__init__(self, session)
 		HelpableScreen.__init__(self)
 		self.session = session
-		self.current = current[0] if current else None
-		self.mainList = list
+		self.current = service
+
 		self.setTitle(_("List of files") + ":  %s" % config.movielist.last_videodir.value)
 		self.original_selectionpng = None
 		self.changePng()
@@ -128,16 +128,16 @@ class MovieManager(Screen, HelpableScreen):
 		self.size = 0
 		self.list = SelectionList([])
 		self.name = ""
-		if cfg.subdirs.value or not list:
-			self["config"] = self.list
-			info = current[1] if current else None
-			if info:
-				self.name = info and info.getName(current[0])
-			self.getData(config.movielist.last_videodir.value)
-		else:
-			self["config"] = self.parseMovieList(list, self.list)
-			self.sortList(int(cfg.sort.value))
-			self.position = self.newPositionIndex(self.position) if cfg.position.value else -1
+
+		def getName(service, path):
+			from enigma import eServiceCenter
+			serviceHandler = eServiceCenter.getInstance()
+			info = serviceHandler.info(service)
+			return info.getName(service)
+		path = service.getPath()
+		self.name = getName(service, path)
+		self["config"] = self.list
+		self.getData(config.movielist.last_videodir.value)
 
 		self["description"] = Label()
 
