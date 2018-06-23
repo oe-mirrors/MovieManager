@@ -2,8 +2,8 @@
 	<map context="MovieManagerActions">
 		<device name="dreambox advanced remote control (native)">
 			<key id="KEY_PREVIOUSSONG" mapto="seekBack" flags="b"/>
-			<key id="KEY_NEXTSONG" mapto="seekFwd" flags="b"/>
 			<key id="KEY_PREVIOUSSONG" mapto="seekBackManual" flags="l"/>
+			<key id="KEY_NEXTSONG" mapto="seekFwd" flags="b"/>
 			<key id="KEY_NEXTSONG" mapto="seekFwdManual" flags="l"/>
 		</device>
 		<device name="dreambox remote control (native)">
@@ -14,9 +14,9 @@
 			<key id="KEY_RED" mapto="seekBackManual" flags="l"/>
 			<key id="KEY_BLUE" mapto="seekFwdManual" flags="l"/>
 		</device>
-		<key id="KEY_PLAYPAUSE" mapto="preview" flags="m"/>
 		<key id="KEY_PLAY" mapto="preview" flags="m"/>
-		<key id="KEY_STOP" mapto="stop" flags="b"/>
+		<key id="KEY_PLAYPAUSE" mapto="preview" flags="m"/>
+		<key id="KEY_STOP" mapto="stop" flags="m"/>
 
 		<key id="KEY_REWIND" mapto="seekBack" flags="b"/>
 		<key id="KEY_REWIND" mapto="seekBackManual" flags="l"/>
