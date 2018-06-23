@@ -39,9 +39,29 @@ from Components.MovieList import MovieList, StubInfo, IMAGE_EXTENSIONS, resetMov
 from Screens.About import MemoryInfo
 from Tools.BoundFunction import boundFunction
 import os
+import skin
 
 MOVIE_EXTENSIONS1 = frozenset((".ts", ".mp4", ".mts", ".mkv", ".avi", ".mpg", ".webm"))
 MOVIES_EXTENSIONS = MOVIE_EXTENSIONS.union(MOVIE_EXTENSIONS1)
+
+def hex2strColor(argb):
+	out = ""
+	for i in range(28,-1,-4):
+		out += "%s" % chr(0x30 + (argb>>i & 0xf))
+	return out
+
+try:
+	yC = "\c%s" % hex2strColor(int(skin.parseColor("selectedFG").argb()))
+except:
+	yC = "\c%s" % hex2strColor(int(skin.parseColor("#00fcc000").argb()))
+try:
+	fC = "\c%s" % hex2strColor(int(skin.parseColor("foreground").argb()))
+except:
+	fC = "\c%s" % hex2strColor(int(skin.parseColor("#00f0f0f0").argb()))
+
+greyC = "\c%s" % hex2strColor(int(skin.parseColor("#00a0a0a0").argb()))
+gC = "\c%s" % hex2strColor(int(skin.parseColor("#0000ff80").argb()))
+bC = "\c%s" % hex2strColor(int(skin.parseColor("#000080ff").argb()))
 
 config.moviemanager = ConfigSubsection()
 config.moviemanager.sensitive = ConfigYesNo(default=False)
@@ -177,7 +197,7 @@ class MovieManager(Screen, HelpableScreen):
 			"seekBackManual": (ssback, textBack),
 			"groupSelect": (boundFunction(self.selectGroup, True), _("Group selection - add")),
 			"groupUnselect": (boundFunction(self.selectGroup, False), _("Group selection - remove")),
-			"text": (self.saveList, _("Save list to '%s'") % LISTFILE),
+			"text": (self.saveList, _("Save list to '%s'") % "%s%s%s" % (gC,LISTFILE,fC)),
 			}, -2)
 
 		self["key_red"] = Button(_("Cancel"))
