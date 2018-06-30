@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Enigma2 ManagerAutofs Plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-12 10:15+0200\n"
-"PO-Revision-Date: 2018-06-12 10:15+0200\n"
+"POT-Creation-Date: 2018-06-30 22:45+0200\n"
+"PO-Revision-Date: 2018-06-30 22:46+0200\n"
 "Last-Translator: ims <ims21@users.sourceforge.net>\n"
 "Language-Team: PLi\n"
 "Language: cs_CZ\n"
@@ -13,6 +13,9 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
 "X-Generator: Poedit 1.8.7.1\n"
+
+msgid "Movie manager"
+msgstr "Správce souborů"
 
 msgid "No"
 msgstr "Ne"
@@ -118,6 +121,9 @@ msgstr "Čistit záložky..."
 msgid "Reset playback position"
 msgstr "Resetovat pozici přehrávání"
 
+msgid "Create directory"
+msgstr "Založit adresář"
+
 msgid "Sort by..."
 msgstr "Třídit podle..."
 
@@ -130,6 +136,17 @@ msgstr "Možnosti..."
 msgid "Select operation:"
 msgstr "Zvolte operaci:"
 
+#, python-format
+msgid "New directory name in '%s'"
+msgstr "Název nového adresáře v '%s'"
+
+#, python-format
+msgid "The path %s already exists."
+msgstr "Cesta %s již existuje."
+
+msgid "Error"
+msgstr "Chyba"
+
 msgid "name"
 msgstr "název"
 
@@ -141,13 +158,6 @@ msgstr "umístění"
 
 msgid "Sort list:"
 msgstr "Třídit seznam:"
-
-#, python-format
-msgid "The path %s already exists."
-msgstr "Cesta %s již existuje."
-
-msgid "Error"
-msgstr "Chyba"
 
 #, python-format
 msgid "Size: %s"

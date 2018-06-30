@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-12 10:15+0200\n"
+"POT-Creation-Date: 2018-06-30 22:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+msgid "Movie manager"
+msgstr ""
 
 msgid "No"
 msgstr ""
@@ -119,6 +122,9 @@ msgstr ""
 msgid "Reset playback position"
 msgstr ""
 
+msgid "Create directory"
+msgstr ""
+
 msgid "Sort by..."
 msgstr ""
 
@@ -131,6 +137,17 @@ msgstr ""
 msgid "Select operation:"
 msgstr ""
 
+#, python-format
+msgid "New directory name in '%s'"
+msgstr ""
+
+#, python-format
+msgid "The path %s already exists."
+msgstr ""
+
+msgid "Error"
+msgstr ""
+
 msgid "name"
 msgstr ""
 
@@ -141,13 +158,6 @@ msgid "path"
 msgstr ""
 
 msgid "Sort list:"
-msgstr ""
-
-#, python-format
-msgid "The path %s already exists."
-msgstr ""
-
-msgid "Error"
 msgstr ""
 
 #, python-format

@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.74"
+VERSION = "1.75"
 #  by ims (c) 2018 ims21@users.sourceforge.net
 #
 #  This program is free software; you can redistribute it and/or
@@ -318,6 +318,8 @@ class MovieManager(Screen, HelpableScreen):
 			keys += [""]
 		menu.append((_("Reset playback position"),15))
 		keys+=[""]
+		menu.append((_("Create directory"),7))
+		keys+=["7"]
 		menu.append((_("Sort by..."),17))
 		keys+=["yellow"]
 		if cfg.manage_all.value:
@@ -344,6 +346,8 @@ class MovieManager(Screen, HelpableScreen):
 			self.session.open(MovieManagerClearBookmarks)
 		elif choice[1] == 15:
 			self.resetSelected()
+		elif choice[1] == 7:
+			self.createDir()
 		elif choice[1] == 17:
 			self.selectSortby()
 		elif choice[1] == 18:
@@ -361,6 +365,28 @@ class MovieManager(Screen, HelpableScreen):
 					self.getData(path)
 			self.cfg_before = self.getCfgStatus()
 			self.session.openWithCallback(cfgCallBack, MovieManagerCfg)
+
+	def createDir(self):
+		self.session.openWithCallback(self.createDirCallback, VirtualKeyBoard,
+			title = _("New directory name in '%s'") % config.movielist.last_videodir.value, text = "")
+
+	def createDirCallback(self, name):
+		if name:
+			msg = None
+			try:
+				path = os.path.join(config.movielist.last_videodir.value, name)
+				os.mkdir(path)
+			except OSError, e:
+				print "[MovieManager] Error %s:" % e.errno, e
+				if e.errno == 17:
+					msg = _("The path %s already exists.") % name
+				else:
+					msg = _("Error") + '\n' + str(e)
+			except Exception, e:
+				print "[MovieManager] Unexpected error:", e
+				msg = _("Error") + '\n' + str(e)
+			if msg:
+				self.session.open(MessageBox, msg, type = MessageBox.TYPE_ERROR, timeout = 5)
 
 	def getCfgStatus(self):
 		s =  0x01 if cfg.subdirs.value else 0
