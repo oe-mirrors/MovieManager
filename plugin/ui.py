@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.73"
+VERSION = "1.74"
 #  by ims (c) 2018 ims21@users.sourceforge.net
 #
 #  This program is free software; you can redistribute it and/or
@@ -123,11 +123,12 @@ class MovieManager(Screen, HelpableScreen):
 		<widget name="description" position="140,368" zPosition="2" size="470,46" valign="center" halign="left" font="Regular;16" foregroundColor="white"/>
 	</screen>
 	"""
-	def __init__(self, session, service=None):
-		Screen.__init__(self, session)
+	def __init__(self, session, service=None, parent=None):
+		Screen.__init__(self, session, parent = parent)
 		HelpableScreen.__init__(self)
 		self.session = session
 		self.current = service
+		self.parent = parent
 
 		self.setTitle(_("List of files") + ":  %s" % config.movielist.last_videodir.value)
 		self.original_selectionpng = None
@@ -440,9 +441,6 @@ class MovieManager(Screen, HelpableScreen):
 			new = renameItemInList(list, item, newname)
 			self.clearList()
 			return reloadNewList(new, self.list)
-		def reloadMainList(item):
-			if ITEM(item).getPath().rpartition('/')[0] == config.movielist.last_videodir.value[0:-1]:
-				self.mainList.reload()
 
 		if not name:
 			return
@@ -470,7 +468,6 @@ class MovieManager(Screen, HelpableScreen):
 				idx = self.getItemIndex(item)
 				self.list = renameItem(item, name, self.list)
 				self["config"].moveToIndex(idx)
-				reloadMainList(item)
 			except OSError, e:
 				print "Error %s:" % e.errno, e
 				if e.errno == 17:
@@ -678,7 +675,6 @@ class MovieManager(Screen, HelpableScreen):
 				if offline.deleteFromDisk(0):
 					raise Exception, "Offline delete failed"
 			self.list.removeSelection(item)
-			self.mainList.removeService(item[1][0])
 			from Screens.InfoBarGenerics import delResumePoint
 			delResumePoint(item[1][0])
 			return True
@@ -742,7 +738,6 @@ class MovieManager(Screen, HelpableScreen):
 					# item ... (name, (service, size), index, status)
 					moveServiceFiles(item[1][0], dest, item[0])
 					self.list.removeSelection(item)
-					self.mainList.removeService(item[1][0])
 				except Exception, e:
 					self.session.open(MessageBox, str(e), MessageBox.TYPE_ERROR, timeout=3 )
 		self.displaySelectionPars()
@@ -779,7 +774,6 @@ class MovieManager(Screen, HelpableScreen):
 					resetMoviePlayState(current.getPath() + ".cuts", current)
 					if toggle:
 						self.list.toggleItemSelection(item)
-					self.mainList.reload()
 			self.displaySelectionPars()
 
 	def exit(self):
@@ -789,6 +783,7 @@ class MovieManager(Screen, HelpableScreen):
 			Components.SelectionList.selectionpng = self.original_selectionpng
 		self.session.nav.playService(self.playingRef)
 		self.close()
+		self.parent.reloadList()
 
 	def selectMovieLocation(self, title, callback):
 		bookmarks = [("("+_("Other")+"...)", None)]
