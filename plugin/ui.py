@@ -140,15 +140,7 @@ class MovieManager(Screen, HelpableScreen):
 		self.position = -1
 		self.size = 0
 		self.list = SelectionList([])
-		self.name = ""
 
-		def getName(service, path):
-			from enigma import eServiceCenter
-			serviceHandler = eServiceCenter.getInstance()
-			info = serviceHandler.info(service)
-			return info.getName(service)
-		path = service.getPath()
-		self.name = getName(service, path)
 		self["config"] = self.list
 		self.getData(config.movielist.last_videodir.value)
 
@@ -222,14 +214,11 @@ class MovieManager(Screen, HelpableScreen):
 						continue
 					if not cfg.dvds.value and ext in DVD_EXTENSIONS:
 						continue
-					if self.current and item == self.current:
+					if self.current.getPath() == item.getPath():
 						self.position = index
 						print "[MovieManager] position found"
 					info = record[1]
 					name = info and info.getName(item)
-					if name == self.name:
-						self.position = index
-						print "[MovieManager] name found"
 					size = 0
 					if info:
 						if isinstance(info, StubInfo): # picture
@@ -487,7 +476,8 @@ class MovieManager(Screen, HelpableScreen):
 			paths = []
 			for path, dirs, files in os.walk(path):
 				if path.find("BDMV") == -1 and path.find("VIDEO_TS") == -1 and path.find("AUDIO_TS") == -1: # and path.find(".Trash") == -1:
-					paths.append(path + '/')
+					path = (path + '/').replace('//','/')
+					paths.append(path)
 			return paths
 		def setCurrentRef(path):
 			self.current_ref = eServiceReference("2:0:1:0:0:0:0:0:0:0:" + path)
@@ -527,7 +517,6 @@ class MovieManager(Screen, HelpableScreen):
 		if len(self["config"].list):
 			item = self["config"].getCurrent()
 			self.current = ITEM(item)
-			self.name = NAME(item)
 		self.clearList()
 		self.list = self.parseMovieList(readLists(current_dir), self.list)
 		self.sortList(int(cfg.sort.value))
