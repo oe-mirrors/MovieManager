@@ -367,26 +367,8 @@ class MovieManager(Screen, HelpableScreen):
 			self.session.openWithCallback(cfgCallBack, MovieManagerCfg)
 
 	def createDir(self):
-		self.session.openWithCallback(self.createDirCallback, VirtualKeyBoard,
+		self.session.openWithCallback(self.parent.createDirCallback, VirtualKeyBoard,
 			title = _("New directory name in '%s'") % config.movielist.last_videodir.value, text = "")
-
-	def createDirCallback(self, name):
-		if name:
-			msg = None
-			try:
-				path = os.path.join(config.movielist.last_videodir.value, name)
-				os.mkdir(path)
-			except OSError, e:
-				print "[MovieManager] Error %s:" % e.errno, e
-				if e.errno == 17:
-					msg = _("The path %s already exists.") % name
-				else:
-					msg = _("Error") + '\n' + str(e)
-			except Exception, e:
-				print "[MovieManager] Unexpected error:", e
-				msg = _("Error") + '\n' + str(e)
-			if msg:
-				self.session.open(MessageBox, msg, type = MessageBox.TYPE_ERROR, timeout = 5)
 
 	def getCfgStatus(self):
 		s =  0x01 if cfg.subdirs.value else 0
@@ -502,7 +484,8 @@ class MovieManager(Screen, HelpableScreen):
 			paths = []
 			for path, dirs, files in os.walk(path):
 				if path.find("BDMV") == -1 and path.find("VIDEO_TS") == -1 and path.find("AUDIO_TS") == -1: # and path.find(".Trash") == -1:
-					path = (path + '/').replace('//','/')
+					if not path.endswith('/'):
+						path += '/'
 					paths.append(path)
 			return paths
 		def setCurrentRef(path):
