@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-30 22:45+0200\n"
+"POT-Creation-Date: 2018-07-01 15:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -81,6 +81,9 @@ msgstr ""
 msgid "Save list to '%s'"
 msgstr ""
 
+msgid "Current item info"
+msgstr ""
+
 msgid "Cancel"
 msgstr ""
 
@@ -141,13 +144,6 @@ msgstr ""
 msgid "New directory name in '%s'"
 msgstr ""
 
-#, python-format
-msgid "The path %s already exists."
-msgstr ""
-
-msgid "Error"
-msgstr ""
-
 msgid "name"
 msgstr ""
 
@@ -161,11 +157,21 @@ msgid "Sort list:"
 msgstr ""
 
 #, python-format
+msgid "The path %s already exists."
+msgstr ""
+
+msgid "Error"
+msgstr ""
+
+#, python-format
 msgid "Size: %s"
 msgstr ""
 
 #, python-format
 msgid "Selected: %s"
+msgstr ""
+
+msgid "Info"
 msgstr ""
 
 #, python-format

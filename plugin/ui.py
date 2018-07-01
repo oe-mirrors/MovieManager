@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.75"
+VERSION = "1.76"
 #  by ims (c) 2018 ims21@users.sourceforge.net
 #
 #  This program is free software; you can redistribute it and/or
@@ -53,6 +53,14 @@ try:
 	fC = "\c%s" % hex2strColor(int(skin.parseColor("foreground").argb()))
 except:
 	fC = "\c%s" % hex2strColor(int(skin.parseColor("#00f0f0f0").argb()))
+try:
+	bgC = "\c%s" % hex2strColor(int(skin.parseColor("background").argb()))
+except:
+	bgC = "\c%s" % hex2strColor(int(skin.parseColor("#00000000").argb()))
+try:
+	yC = "\c%s" % hex2strColor(int(skin.parseColor("yellow").argb()))
+except:
+	yC = "\c%s" % hex2strColor(int(skin.parseColor("#00c8aa40").argb()))
 gC = "\c%s" % hex2strColor(int(skin.parseColor("#0000ff80").argb()))
 
 config.moviemanager = ConfigSubsection()
@@ -185,6 +193,7 @@ class MovieManager(Screen, HelpableScreen):
 			"groupSelect": (boundFunction(self.selectGroup, True), _("Group selection - add")),
 			"groupUnselect": (boundFunction(self.selectGroup, False), _("Group selection - remove")),
 			"text": (self.saveList, _("Save list to '%s'") % "%s%s%s" % (gC,LISTFILE,fC)),
+			"info": (self.displayInfo, _("Current item info")),
 			}, -2)
 
 		self["key_red"] = Button(_("Cancel"))
@@ -580,9 +589,17 @@ class MovieManager(Screen, HelpableScreen):
 			self["Service"].newService(ITEM(item))
 			if self.accross or cfg.subdirs.value:
 				self.setTitle(_("List of files") + ":  %s" % os.path.realpath(ITEM(item).getPath()).rpartition('/')[0])
-#			TODO: display somewhere return of self.getLastPlayedPosition(item)
 		else:
 			self["Service"].newService(None)
+
+	def displayInfo(self):
+		item = self["config"].getCurrent()
+		if item:
+			path = ITEM(item).getPath()
+			text = "\n".join((_("Info")+':',(bgC+int(1.4*len(path))*"-"+fC),NAME(item),(gC+path+fC),self.convertSize(SIZE(item))))
+			last = self.getLastPlayedPosition(item)
+			text += 5*' ' + yC + last + fC if last else ''
+			self.session.open(MessageBox, text, MessageBox.TYPE_INFO, simple=True)
 
 	def getLastPlayedPosition(self, item):
 		lastposition = moviePlayState(ITEM(item).getPath()+'.cuts' ,ITEM(item), LENGTH(item))
