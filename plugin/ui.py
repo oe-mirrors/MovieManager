@@ -35,7 +35,7 @@ from Screens.ChoiceBox import ChoiceBox
 from Screens.VirtualKeyBoard import VirtualKeyBoard
 from Screens.MovieSelection import buildMovieLocationList, copyServiceFiles, moveServiceFiles, last_selected_dest
 from Screens.LocationBox import LocationBox, defaultInhibitDirs
-from Components.MovieList import MovieList, StubInfo, IMAGE_EXTENSIONS, resetMoviePlayState, AUDIO_EXTENSIONS, MOVIE_EXTENSIONS, DVD_EXTENSIONS
+from Components.MovieList import MovieList, StubInfo, IMAGE_EXTENSIONS, resetMoviePlayState, AUDIO_EXTENSIONS, MOVIE_EXTENSIONS, DVD_EXTENSIONS, moviePlayState
 from Screens.About import MemoryInfo
 from Tools.BoundFunction import boundFunction
 import os
@@ -90,6 +90,8 @@ def ITEM(item):
 	return item[0][1][0]
 def SIZE(item):
 	return item[0][1][1]
+def LENGTH(item):
+	return item[0][1][2]
 def SELECTED(item):
 	return item[0][3]
 
@@ -225,7 +227,7 @@ class MovieManager(Screen, HelpableScreen):
 							size = info.getInfo(item, iServiceInformation.sFileSize)
 						else:
 							size = info.getInfoObject(item, iServiceInformation.sFileSize) # movie
-					list.list.append(SelectionEntryComponent(name, (item, size), index, False))
+					list.list.append(SelectionEntryComponent(name, (item, size, info.getLength(item)), index, False))
 					index += 1
 					suma+=size
 		self.l = SelectionList(list)
@@ -578,8 +580,15 @@ class MovieManager(Screen, HelpableScreen):
 			self["Service"].newService(ITEM(item))
 			if self.accross or cfg.subdirs.value:
 				self.setTitle(_("List of files") + ":  %s" % os.path.realpath(ITEM(item).getPath()).rpartition('/')[0])
+#			TODO: display somewhere return of self.getLastPlayedPosition(item)
 		else:
 			self["Service"].newService(None)
+
+	def getLastPlayedPosition(self, item):
+		lastposition = moviePlayState(ITEM(item).getPath()+'.cuts' ,ITEM(item), LENGTH(item))
+		if lastposition:
+			return "%s%s" % (lastposition, '%')
+		return ""
 
 	def changePng(self):
 		path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/icons/mark_select.png")
@@ -703,7 +712,7 @@ class MovieManager(Screen, HelpableScreen):
 		if len(data):
 			for item in data:
 				try:
-					# item ... (name, (service, size), index, status)
+					# item ... (name, (service, size, length), index, status)
 					copyServiceFiles(item[1][0], dest, item[0])
 					if toggle:
 						self.list.toggleItemSelection(item)
@@ -733,7 +742,7 @@ class MovieManager(Screen, HelpableScreen):
 		if len(data):
 			for item in data:
 				try:
-					# item ... (name, (service, size), index, status)
+					# item ... (name, (service, size, length), index, status)
 					moveServiceFiles(item[1][0], dest, item[0])
 					self.list.removeSelection(item)
 				except Exception, e:
@@ -767,7 +776,7 @@ class MovieManager(Screen, HelpableScreen):
 				toggle = False
 			if len(data):
 				for item in data:
-					# 0 - name, 1(0 - item, 1-size), 2-index
+					# 0 - name, 1 - (0 - item, 1-size, 2-length), 2-index
 					current = item[1][0]
 					resetMoviePlayState(current.getPath() + ".cuts", current)
 					if toggle:
