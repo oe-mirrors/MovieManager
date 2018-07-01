@@ -28,7 +28,7 @@ from Components.Button import Button
 from Components.ActionMap import ActionMap, HelpableActionMap
 from Screens.HelpMenu import HelpableScreen
 from Components.ConfigList import ConfigListScreen
-from enigma import eServiceReference, iServiceInformation, eServiceCenter
+from enigma import eServiceReference, iServiceInformation, eServiceCenter, getDesktop, eSize, ePoint
 from Components.SelectionList import SelectionList, SelectionEntryComponent
 from Components.Sources.ServiceEvent import ServiceEvent
 from Screens.ChoiceBox import ChoiceBox
@@ -1042,7 +1042,6 @@ class MovieManagerClearBookmarks(Screen, HelpableScreen):
 	def exit(self):
 		self.close()
 
-from enigma import getDesktop, gFont, eSize, ePoint
 class MovieManagerFileInfo(Screen):
 	skin="""
 	<screen name="MovieManagerFileInfo" position="fill" title="Info" flags="wfNoBorder" backgroundColor="background">
@@ -1056,11 +1055,9 @@ class MovieManagerFileInfo(Screen):
 		Screen.__init__(self, session)
 		self.session = session
 
-		self["tmp"] = Label("")
-
 		self.path = ITEM(item).getPath()
 		self["name"] = Label("%s" % NAME(item))
-		self["path"] = Label("%s" % self.path)
+		self["path"] = Label()
 		self["size"] = Label("%s" % size)
 		self["play"] = Label("%s" % last)
 
@@ -1075,11 +1072,9 @@ class MovieManagerFileInfo(Screen):
 		self.onLayoutFinish.append(self.setSize)
 
 	def setSize(self):
-		fnt = self["path"].instance.getFont()
-		self["tmp"].instance.setFont(gFont(fnt.family, fnt.pointSize))
-		self["tmp"].instance.setNoWrap(1)
-		self["tmp"].setText("%s" % self.path)
-		x,y = self["tmp"].instance.calculateSize().width(), self["tmp"].instance.calculateSize().height()
+		self["path"].instance.setNoWrap(1)
+		self["path"].setText("%s" % self.path)
+		x,y = self["path"].instance.calculateSize().width(), self["path"].instance.calculateSize().height()
 		wsize = (x+2*10, 4*y)
 		self.instance.resize(eSize(*wsize))
 		desktop = getDesktop(0)
