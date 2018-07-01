@@ -1047,8 +1047,15 @@ class MovieManagerFileInfo(Screen):
 	<screen name="MovieManagerFileInfo" position="fill" title="Info" flags="wfNoBorder" backgroundColor="background">
 		<widget name="name" render="Label" position="10,15" size="1920,30" font="Regular;26"/>
 		<widget name="path" render="Label" position="10,45" size="1920,30" font="Regular;26" foregroundColor="green"/>
-		<widget name="size" render="Label" position="10,75" size="100,30" font="Regular;26"/>
-		<widget name="play" render="Label" position="150,75" size="100,30" font="Regular;26" foregroundColor="yellow"/>
+		<widget source="service" render="Label" position="10,75" size="290,30" font="Regular;26" foregroundColor="grey">
+			<convert type="ServiceTime">StartTime</convert>
+			<convert type="ClockToText">Format:%a %d.%m.%Y, %H:%M</convert>
+		</widget>
+		<widget source="service" render="Label" position="300,75" size="600,30" font="Regular;26" foregroundColor="grey">
+			<convert type="MovieInfo">RecordServiceName</convert>
+		</widget>
+		<widget name="size" render="Label" position="10,105" size="100,30" font="Regular;26" foregroundColor="blue"/>
+		<widget name="play" render="Label" position="150,105" size="100,30" font="Regular;26" foregroundColor="yellow"/>
 	</screen>
 	"""
 	def __init__(self, session, (item, last, size)):
@@ -1060,6 +1067,8 @@ class MovieManagerFileInfo(Screen):
 		self["path"] = Label()
 		self["size"] = Label("%s" % size)
 		self["play"] = Label("%s" % last)
+		self["service"] = ServiceEvent()
+		self["service"].newService(ITEM(item))
 
 		self["actions"] = ActionMap(["MovieManagerActions", "OkCancelActions"],
 		{
@@ -1075,13 +1084,13 @@ class MovieManagerFileInfo(Screen):
 		self["path"].instance.setNoWrap(1)
 		self["path"].setText("%s" % self.path)
 		x,y = self["path"].instance.calculateSize().width(), self["path"].instance.calculateSize().height()
-		wsize = (x+2*10, 4*y)
+		wsize = (x+2*10, 5*y)
 		self.instance.resize(eSize(*wsize))
 		desktop = getDesktop(0)
 		W = desktop.size().width()
 		H = desktop.size().height()
-		xp = (W - x - 2*10)/2
-		yp = (H - 4*y)/2
+		xp = (W - wsize[0])/2
+		yp = (H - wsize[1])/2
 		self.instance.move(ePoint(xp,yp))
 
 	def exit(self):
