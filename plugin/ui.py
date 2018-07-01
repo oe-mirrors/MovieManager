@@ -596,7 +596,7 @@ class MovieManager(Screen, HelpableScreen):
 		item = self["config"].getCurrent()
 		if item:
 			path = ITEM(item).getPath()
-			text = "\n".join((_("Info")+':',(bgC+int(1.4*len(path))*"-"+fC),NAME(item),(gC+path+fC),self.convertSize(SIZE(item))))
+			text = "\n".join((_("Info")+':',(bgC+int(1.25*len(path))*"-"+fC),NAME(item),(gC+path+fC),self.convertSize(SIZE(item))))
 			last = self.getLastPlayedPosition(item)
 			text += 5*' ' + yC + last + fC if last else ''
 			self.session.open(MessageBox, text, MessageBox.TYPE_INFO, simple=True)
