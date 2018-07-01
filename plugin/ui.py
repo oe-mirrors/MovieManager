@@ -595,11 +595,7 @@ class MovieManager(Screen, HelpableScreen):
 	def displayInfo(self):
 		item = self["config"].getCurrent()
 		if item:
-			path = ITEM(item).getPath()
-			text = "\n".join((_("Info")+':',(bgC+int(1.25*len(path))*"-"+fC),NAME(item),(gC+path+fC),self.convertSize(SIZE(item))))
-			last = self.getLastPlayedPosition(item)
-			text += 5*' ' + yC + last + fC if last else ''
-			self.session.open(MessageBox, text, MessageBox.TYPE_INFO, simple=True)
+			self.session.open(MovieManagerFileInfo, (item, self.getLastPlayedPosition(item), self.convertSize(SIZE(item))))
 
 	def getLastPlayedPosition(self, item):
 		lastposition = moviePlayState(ITEM(item).getPath()+'.cuts' ,ITEM(item), LENGTH(item))
@@ -1042,6 +1038,56 @@ class MovieManagerClearBookmarks(Screen, HelpableScreen):
 				bookmarks.remove(item[0])
 			config.movielist.videodirs.value = bookmarks
 			config.movielist.videodirs.save()
+
+	def exit(self):
+		self.close()
+
+from enigma import getDesktop, gFont, eSize, ePoint
+class MovieManagerFileInfo(Screen):
+	skin="""
+	<screen name="MovieManagerFileInfo" position="fill" title="Info" flags="wfNoBorder" backgroundColor="background">
+		<widget name="name" render="Label" position="10,15" size="1920,30" font="Regular;26"/>
+		<widget name="path" render="Label" position="10,45" size="1920,30" font="Regular;26" foregroundColor="green"/>
+		<widget name="size" render="Label" position="10,75" size="100,30" font="Regular;26"/>
+		<widget name="play" render="Label" position="150,75" size="100,30" font="Regular;26" foregroundColor="yellow"/>
+	</screen>
+	"""
+	def __init__(self, session, (item, last, size)):
+		Screen.__init__(self, session)
+		self.session = session
+
+		self["tmp"] = Label("")
+
+		self.path = ITEM(item).getPath()
+		self["name"] = Label("%s" % NAME(item))
+		self["path"] = Label("%s" % self.path)
+		self["size"] = Label("%s" % size)
+		self["play"] = Label("%s" % last)
+
+		self["actions"] = ActionMap(["MovieManagerActions", "OkCancelActions"],
+		{
+			"ok": self.exit,
+			"cancel": self.exit,
+			"green": self.exit,
+			"red": self.exit,
+			"info": self.exit,
+		}, -2)
+		self.onLayoutFinish.append(self.setSize)
+
+	def setSize(self):
+		fnt = self["path"].instance.getFont()
+		self["tmp"].instance.setFont(gFont(fnt.family, fnt.pointSize))
+		self["tmp"].instance.setNoWrap(1)
+		self["tmp"].setText("%s" % self.path)
+		x,y = self["tmp"].instance.calculateSize().width(), self["tmp"].instance.calculateSize().height()
+		wsize = (x+2*10, 4*y)
+		self.instance.resize(eSize(*wsize))
+		desktop = getDesktop(0)
+		W = desktop.size().width()
+		H = desktop.size().height()
+		xp = (W - x - 2*10)/2
+		yp = (H - 4*y)/2
+		self.instance.move(ePoint(xp,yp))
 
 	def exit(self):
 		self.close()
