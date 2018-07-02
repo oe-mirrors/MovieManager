@@ -53,14 +53,6 @@ try:
 	fC = "\c%s" % hex2strColor(int(skin.parseColor("foreground").argb()))
 except:
 	fC = "\c%s" % hex2strColor(int(skin.parseColor("#00f0f0f0").argb()))
-try:
-	bgC = "\c%s" % hex2strColor(int(skin.parseColor("background").argb()))
-except:
-	bgC = "\c%s" % hex2strColor(int(skin.parseColor("#00000000").argb()))
-try:
-	yC = "\c%s" % hex2strColor(int(skin.parseColor("yellow").argb()))
-except:
-	yC = "\c%s" % hex2strColor(int(skin.parseColor("#00c8aa40").argb()))
 gC = "\c%s" % hex2strColor(int(skin.parseColor("#0000ff80").argb()))
 
 config.moviemanager = ConfigSubsection()
@@ -1056,8 +1048,8 @@ class MovieManagerFileInfo(Screen):
 		</widget>
 		<widget name="size" render="Label" position="10,105" size="100,30" font="Regular;26" foregroundColor="blue"/>
 		<widget name="play" render="Label" position="150,105" size="100,30" font="Regular;26" foregroundColor="yellow"/>
-	</screen>
-	"""
+	</screen>"""
+
 	def __init__(self, session, (item, last, size)):
 		Screen.__init__(self, session)
 		self.session = session
@@ -1081,17 +1073,22 @@ class MovieManagerFileInfo(Screen):
 		self.onLayoutFinish.append(self.setSize)
 
 	def setSize(self):
+		x,y = self.getLineSize()
+		wsize = (x + 2*10, 5*y)
+		self.instance.resize(eSize(*wsize))
+		w,h = self.getScreenSize()
+		wx = (w - wsize[0])/2
+		wy = (h - wsize[1])/2
+		self.instance.move(ePoint(wx,wy))
+
+	def getLineSize(self):
 		self["path"].instance.setNoWrap(1)
 		self["path"].setText("%s" % self.path)
-		x,y = self["path"].instance.calculateSize().width(), self["path"].instance.calculateSize().height()
-		wsize = (x+2*10, 5*y)
-		self.instance.resize(eSize(*wsize))
+		return self["path"].instance.calculateSize().width(), self["path"].instance.calculateSize().height()
+
+	def getScreenSize(self):
 		desktop = getDesktop(0)
-		W = desktop.size().width()
-		H = desktop.size().height()
-		xp = (W - wsize[0])/2
-		yp = (H - wsize[1])/2
-		self.instance.move(ePoint(xp,yp))
+		return desktop.size().width(), desktop.size().height()
 
 	def exit(self):
 		self.close()
