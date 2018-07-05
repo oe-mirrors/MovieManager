@@ -52,8 +52,8 @@ def hex2strColor(argb):
 try:
 	fC = "\c%s" % hex2strColor(int(skin.parseColor("foreground").argb()))
 except:
-	fC = "\c%s" % hex2strColor(int(skin.parseColor("#00f0f0f0").argb()))
-gC = "\c%s" % hex2strColor(int(skin.parseColor("#0000ff80").argb()))
+	fC = "\c%s" % hex2strColor(0x00f0f0f0)
+gC = "\c%s" % hex2strColor(0x000ff80)
 
 config.moviemanager = ConfigSubsection()
 config.moviemanager.sensitive = ConfigYesNo(default=False)
