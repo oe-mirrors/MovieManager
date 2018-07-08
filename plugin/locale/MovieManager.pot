@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-01 15:41+0200\n"
+"POT-Creation-Date: 2018-07-08 18:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -171,9 +171,6 @@ msgstr ""
 msgid "Selected: %s"
 msgstr ""
 
-msgid "Info"
-msgstr ""
-
 #, python-format
 msgid ""
 "Plugin does not use the trash or check a running recording!\n"
@@ -292,10 +289,10 @@ msgstr ""
 msgid "If enabled, then will be added audio files into list."
 msgstr ""
 
-msgid "DVD files"
+msgid "DVD images"
 msgstr ""
 
-msgid "If enabled, then will be added dvd files into list."
+msgid "If enabled, then will be added dvd image files into list."
 msgstr ""
 
 msgid "Pictures"
