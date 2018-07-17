@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.76"
+VERSION = "1.77"
 #  by ims (c) 2018 ims21@users.sourceforge.net
 #
 #  This program is free software; you can redistribute it and/or
@@ -57,12 +57,14 @@ gC = "\c%s" % hex2strColor(0x000ff80)
 
 config.moviemanager = ConfigSubsection()
 config.moviemanager.sensitive = ConfigYesNo(default=False)
+config.moviemanager.beginsearch = ConfigYesNo(default=True)
 choicelist = []
 for i in range(1, 11, 1):
 	choicelist.append(("%d" % i))
 choicelist.append(("15","15"))
 choicelist.append(("20","20"))
 config.moviemanager.length = ConfigSelection(default = "0", choices = [("0", _("No"))] + choicelist + [("255", _("All"))])
+config.moviemanager.endlength = ConfigSelection(default = "0", choices = [("0", _("No"))] + choicelist + [("255", _("All"))])
 config.moviemanager.add_bookmark = ConfigYesNo(default=False)
 config.moviemanager.clear_bookmarks = ConfigYesNo(default=True)
 config.moviemanager.manage_all = ConfigYesNo(default=False)
@@ -276,15 +278,20 @@ class MovieManager(Screen, HelpableScreen):
 
 	def selectGroup(self, mark=True):
 		if mark:
-			txt = _("Add to selection (starts with...)")
+			txt = _("Add to selection (%s)") % (_("starts with...") if cfg.beginsearch.value else _("ends with..."))
 		else:
-			txt = _("Remove from selection (starts with...)")
+			txt = _("Remove from selection (%s)") % (_("starts with...") if cfg.beginsearch.value else _("ends with..."))
 		item = self["config"].getCurrent()
 		length = int(cfg.length.value)
+		endlength = int(cfg.endlength.value)
 		name = ""
-		if item and length:
-			name = NAME(item).decode('UTF-8', 'replace')[0:length]
-			txt += "\t%s" % length
+		if item:
+			if cfg.beginsearch.value and length:
+				name = NAME(item).decode('UTF-8', 'replace')[0:length]
+				txt += 10*" " + "%s" % length
+			elif not cfg.beginsearch.value and endlength:
+				name = NAME(item).decode('UTF-8', 'replace')[-endlength:]
+				txt += 10*" " + "%s" % endlength
 		self.session.openWithCallback(boundFunction(self.changeItems, mark), VirtualKeyBoard, title = txt, text = name)
 
 	def changeItems(self, mark, searchString = None):
@@ -294,9 +301,15 @@ class MovieManager(Screen, HelpableScreen):
 				searchString = searchString.lower()
 			for item in self.list.list:
 				if cfg.sensitive.value:
-					exist = NAME(item).decode('UTF-8', 'replace').startswith(searchString)
+					if cfg.beginsearch.value:
+						exist = NAME(item).decode('UTF-8', 'replace').startswith(searchString)
+					else:
+						exist = NAME(item).decode('UTF-8', 'replace').endswith(searchString)
 				else:
-					exist = NAME(item).decode('UTF-8', 'replace').lower().startswith(searchString)
+					if cfg.beginsearch.value:
+						exist = NAME(item).decode('UTF-8', 'replace').lower().startswith(searchString)
+					else:
+						exist = NAME(item).decode('UTF-8', 'replace').lower().endswith(searchString)
 				if exist:
 					if mark:
 						if not SELECTED(item):
@@ -887,7 +900,12 @@ class MovieManagerCfg(Screen, ConfigListScreen):
 	def loadMenu(self):
 		self.list = []
 		self.list.append(getConfigListEntry(_("Compare case sensitive"), cfg.sensitive, _("Sets whether to distinguish between uper case and lower case for searching.")))
-		self.list.append(getConfigListEntry(_("Pre-fill first 'n' filename chars to virtual keyboard"), cfg.length, _("You can set the number of letters from the beginning of the current file name as the text pre-filled into virtual keyboard for easier input via group selection. For 'group selection' use 'CH+/CH-' buttons.")))
+		self.beginsearch = _("Using start title")
+		self.list.append(getConfigListEntry(self.beginsearch, cfg.beginsearch, _("You can set if group selection will use start of title or end of title.")))
+		if cfg.beginsearch.value:
+			self.list.append(getConfigListEntry(_("Pre-fill first 'n' filename chars to virtual keyboard"), cfg.length, _("You can set the number of letters from the beginning of the current file name as the text pre-filled into virtual keyboard for easier input via group selection. For 'group selection' use 'CH+/CH-' buttons.")))
+		else:
+			self.list.append(getConfigListEntry(_("Pre-fill last 'n' filename chars to virtual keyboard"), cfg.endlength, _("You can set the number of letters from the end of the current file name as the text pre-filled into virtual keyboard for easier input via group selection. For 'group selection' use 'CH+/CH-' buttons.")))
 		self.list.append(getConfigListEntry(_("Use target directory as bookmark"), cfg.add_bookmark, _("Set 'yes' if You want add target directories into bookmarks.")))
 		self.list.append(getConfigListEntry(_("Enable 'Clear bookmark...'"), cfg.clear_bookmarks, _("Enable in menu utility for delete bookmarks in menu.")))
 		self.list.append(getConfigListEntry(_("Enable 'Manage files in active bookmarks...'"), cfg.manage_all, _("Enable in menu item for manage movies in all active bookmarks as one list.")))
@@ -901,6 +919,8 @@ class MovieManagerCfg(Screen, ConfigListScreen):
 
 	# Summary - for (LCD):
 	def changedEntry(self):
+		if self["config"].getCurrent()[0] == self.beginsearch:
+			self.loadMenu()
 		for x in self.onChangedEntry:
 			x()
 	def getCurrentEntry(self):

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-08 18:18+0200\n"
+"POT-Creation-Date: 2018-07-17 22:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -101,10 +101,18 @@ msgid ""
 "or use 'CH+/CH-'."
 msgstr ""
 
-msgid "Add to selection (starts with...)"
+#, python-format
+msgid "Add to selection (%s)"
 msgstr ""
 
-msgid "Remove from selection (starts with...)"
+msgid "starts with..."
+msgstr ""
+
+msgid "ends with..."
+msgstr ""
+
+#, python-format
+msgid "Remove from selection (%s)"
 msgstr ""
 
 msgid "Copy to..."
@@ -243,12 +251,27 @@ msgid ""
 "Sets whether to distinguish between uper case and lower case for searching."
 msgstr ""
 
+msgid "Using start title"
+msgstr ""
+
+msgid "You can set if group selection will use start of title or end of title."
+msgstr ""
+
 msgid "Pre-fill first 'n' filename chars to virtual keyboard"
 msgstr ""
 
 msgid ""
 "You can set the number of letters from the beginning of the current file "
 "name as the text pre-filled into virtual keyboard for easier input via group "
+"selection. For 'group selection' use 'CH+/CH-' buttons."
+msgstr ""
+
+msgid "Pre-fill last 'n' filename chars to virtual keyboard"
+msgstr ""
+
+msgid ""
+"You can set the number of letters from the end of the current file name as "
+"the text pre-filled into virtual keyboard for easier input via group "
 "selection. For 'group selection' use 'CH+/CH-' buttons."
 msgstr ""
 
