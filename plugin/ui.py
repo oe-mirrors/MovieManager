@@ -313,16 +313,14 @@ class MovieManager(Screen, HelpableScreen):
 					elif cfg.search.value == "end":
 						exist = NAME(item).decode('UTF-8', 'replace').endswith(searchString)
 					else:
-						exist = NAME(item).decode('UTF-8', 'replace').find(searchString)
-						exist = False if exist == -1 else True
+						exist = False if NAME(item).decode('UTF-8', 'replace').find(searchString)== -1 else True
 				else:
 					if cfg.search.value == "begin":
 						exist = NAME(item).decode('UTF-8', 'replace').lower().startswith(searchString)
 					elif cfg.search.value == "end":
 						exist = NAME(item).decode('UTF-8', 'replace').lower().endswith(searchString)
 					else:
-						exist = NAME(item).decode('UTF-8', 'replace').lower().find(searchString)
-						exist = False if exist == -1 else True
+						exist = False if NAME(item).decode('UTF-8', 'replace').lower().find(searchString)== -1 else True
 				if exist:
 					if mark:
 						if not SELECTED(item):
@@ -912,13 +910,13 @@ class MovieManagerCfg(Screen, ConfigListScreen):
 
 	def loadMenu(self):
 		self.list = []
-		self.list.append(getConfigListEntry(_("Compare case sensitive"), cfg.sensitive, _("Sets whether to distinguish between uper case and lower case for searching.")))
 		self.search = _("Search in group selection by")
 		self.list.append(getConfigListEntry(self.search, cfg.search, _("You can set what will group selection use - start of title, end of title or contains in title.")))
 		if cfg.search.value == "begin":
 			self.list.append(getConfigListEntry(_("Pre-fill first 'n' filename chars to virtual keyboard"), cfg.length, _("You can set the number of letters from the beginning of the current file name as the text pre-filled into virtual keyboard for easier input via group selection. For 'group selection' use 'CH+/CH-' buttons.")))
 		elif cfg.search.value == "end":
 			self.list.append(getConfigListEntry(_("Pre-fill last 'n' filename chars to virtual keyboard"), cfg.endlength, _("You can set the number of letters from the end of the current file name as the text pre-filled into virtual keyboard for easier input via group selection. For 'group selection' use 'CH+/CH-' buttons.")))
+		self.list.append(getConfigListEntry(_("Compare case sensitive"), cfg.sensitive, _("Sets whether to distinguish between uper case and lower case for searching.")))
 		self.list.append(getConfigListEntry(_("Use target directory as bookmark"), cfg.add_bookmark, _("Set 'yes' if You want add target directories into bookmarks.")))
 		self.list.append(getConfigListEntry(_("Enable 'Clear bookmark...'"), cfg.clear_bookmarks, _("Enable in menu utility for delete bookmarks in menu.")))
 		self.list.append(getConfigListEntry(_("Enable 'Manage files in active bookmarks...'"), cfg.manage_all, _("Enable in menu item for manage movies in all active bookmarks as one list.")))
