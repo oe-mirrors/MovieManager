@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Enigma2 ManagerAutofs Plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-17 22:13+0200\n"
-"PO-Revision-Date: 2018-07-17 22:16+0200\n"
+"POT-Creation-Date: 2018-07-18 15:11+0200\n"
+"PO-Revision-Date: 2018-07-18 15:17+0200\n"
 "Last-Translator: ims <ims21@users.sourceforge.net>\n"
 "Language-Team: PLi\n"
 "Language: cs_CZ\n"
@@ -16,6 +16,15 @@ msgstr ""
 
 msgid "Movie manager"
 msgstr "Správce souborů"
+
+msgid "start title"
+msgstr "začátku názvu"
+
+msgid "end title"
+msgstr "konce názvu"
+
+msgid "contains in title"
+msgstr "obsahu v názvu"
 
 msgid "No"
 msgstr "Ne"
@@ -100,15 +109,18 @@ msgstr ""
 "Zvolte 'Menu' nebo 'Výběr akce'. Pro označení více souborů použijte 'OK' "
 "nebo Ch+/Ch-'."
 
-#, python-format
-msgid "Add to selection (%s)"
-msgstr "Přidat do výběru (%s)"
-
 msgid "starts with..."
 msgstr "začíná na..."
 
 msgid "ends with..."
 msgstr "končí na..."
+
+msgid "contains..."
+msgstr "obsahuje..."
+
+#, python-format
+msgid "Add to selection (%s)"
+msgstr "Přidat do výběru (%s)"
 
 #, python-format
 msgid "Remove from selection (%s)"
@@ -256,13 +268,15 @@ msgstr ""
 "Nastavuje, zda chcete  při vyhledávání rozlišovat mezi velkými a malými "
 "písmeny."
 
-msgid "Using start title"
-msgstr "Používat začátek názvu"
+msgid "Search in group selection by"
+msgstr "Skupinový výběr vyhledává podle"
 
-msgid "You can set if group selection will use start of title or end of title."
+msgid ""
+"You can set what will group selection use - start of title, end of title or "
+"contains in title."
 msgstr ""
-"Můžete nastavit, zda skupinový výběr bude vybírat podle začátku nebo konce "
-"názvu."
+"Můžete zvolit podle čeho bude skupinový výběr vybírat -  podle začátku, "
+"podle konce nebo podle zadaného obsahu v názvu."
 
 msgid "Pre-fill first 'n' filename chars to virtual keyboard"
 msgstr "Předvyplnit prvních 'n' znaků názvu do virtuální klávesnice"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-17 22:12+0200\n"
+"POT-Creation-Date: 2018-07-18 15:10+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,6 +18,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "Movie manager"
+msgstr ""
+
+msgid "start title"
+msgstr ""
+
+msgid "end title"
+msgstr ""
+
+msgid "contains in title"
 msgstr ""
 
 msgid "No"
@@ -101,14 +110,17 @@ msgid ""
 "or use 'CH+/CH-'."
 msgstr ""
 
-#, python-format
-msgid "Add to selection (%s)"
-msgstr ""
-
 msgid "starts with..."
 msgstr ""
 
 msgid "ends with..."
+msgstr ""
+
+msgid "contains..."
+msgstr ""
+
+#, python-format
+msgid "Add to selection (%s)"
 msgstr ""
 
 #, python-format
@@ -251,10 +263,12 @@ msgid ""
 "Sets whether to distinguish between uper case and lower case for searching."
 msgstr ""
 
-msgid "Using start title"
+msgid "Search in group selection by"
 msgstr ""
 
-msgid "You can set if group selection will use start of title or end of title."
+msgid ""
+"You can set what will group selection use - start of title, end of title or "
+"contains in title."
 msgstr ""
 
 msgid "Pre-fill first 'n' filename chars to virtual keyboard"

@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.77"
+VERSION = "1.78"
 #  by ims (c) 2018 ims21@users.sourceforge.net
 #
 #  This program is free software; you can redistribute it and/or
@@ -57,7 +57,7 @@ gC = "\c%s" % hex2strColor(0x000ff80)
 
 config.moviemanager = ConfigSubsection()
 config.moviemanager.sensitive = ConfigYesNo(default=False)
-config.moviemanager.beginsearch = ConfigYesNo(default=True)
+config.moviemanager.search = ConfigSelection(default = "begin", choices = [("begin", _("start title")), ("end", _("end title")),("in", _("contains in title"))])
 choicelist = []
 for i in range(1, 11, 1):
 	choicelist.append(("%d" % i))
@@ -277,19 +277,26 @@ class MovieManager(Screen, HelpableScreen):
 		self.session.nav.playService(self.playingRef)
 
 	def selectGroup(self, mark=True):
+		def getSubstring(value):
+			if value == "begin":
+				return _("starts with...")
+			elif value == "end":
+				return _("ends with...")
+			else:
+				return _("contains...")
 		if mark:
-			txt = _("Add to selection (%s)") % (_("starts with...") if cfg.beginsearch.value else _("ends with..."))
+			txt = _("Add to selection (%s)") % getSubstring(cfg.search.value)
 		else:
-			txt = _("Remove from selection (%s)") % (_("starts with...") if cfg.beginsearch.value else _("ends with..."))
+			txt = _("Remove from selection (%s)")  % getSubstring(cfg.search.value)
 		item = self["config"].getCurrent()
 		length = int(cfg.length.value)
 		endlength = int(cfg.endlength.value)
 		name = ""
 		if item:
-			if cfg.beginsearch.value and length:
+			if cfg.search.value == "begin" and length:
 				name = NAME(item).decode('UTF-8', 'replace')[0:length]
 				txt += 10*" " + "%s" % length
-			elif not cfg.beginsearch.value and endlength:
+			elif cfg.search.value == "end" and endlength:
 				name = NAME(item).decode('UTF-8', 'replace')[-endlength:]
 				txt += 10*" " + "%s" % endlength
 		self.session.openWithCallback(boundFunction(self.changeItems, mark), VirtualKeyBoard, title = txt, text = name)
@@ -301,16 +308,20 @@ class MovieManager(Screen, HelpableScreen):
 				searchString = searchString.lower()
 			for item in self.list.list:
 				if cfg.sensitive.value:
-					if cfg.beginsearch.value:
+					if cfg.search.value == "begin":
 						exist = NAME(item).decode('UTF-8', 'replace').startswith(searchString)
-					else:
+					elif cfg.search.value == "end":
 						exist = NAME(item).decode('UTF-8', 'replace').endswith(searchString)
-				else:
-					if cfg.beginsearch.value:
-						exist = NAME(item).decode('UTF-8', 'replace').lower().startswith(searchString)
 					else:
+						exist = NAME(item).decode('UTF-8', 'replace').find(searchString)
+				else:
+					if cfg.search.value == "begin":
+						exist = NAME(item).decode('UTF-8', 'replace').lower().startswith(searchString)
+					elif cfg.search.value == "end":
 						exist = NAME(item).decode('UTF-8', 'replace').lower().endswith(searchString)
-				if exist:
+					else:
+						exist = NAME(item).decode('UTF-8', 'replace').lower().find(searchString)
+				if exist > 0:
 					if mark:
 						if not SELECTED(item):
 							self.list.toggleItemSelection(item[0])
@@ -900,11 +911,11 @@ class MovieManagerCfg(Screen, ConfigListScreen):
 	def loadMenu(self):
 		self.list = []
 		self.list.append(getConfigListEntry(_("Compare case sensitive"), cfg.sensitive, _("Sets whether to distinguish between uper case and lower case for searching.")))
-		self.beginsearch = _("Using start title")
-		self.list.append(getConfigListEntry(self.beginsearch, cfg.beginsearch, _("You can set if group selection will use start of title or end of title.")))
-		if cfg.beginsearch.value:
+		self.search = _("Search in group selection by")
+		self.list.append(getConfigListEntry(self.search, cfg.search, _("You can set what will group selection use - start of title, end of title or contains in title.")))
+		if cfg.search.value == "begin":
 			self.list.append(getConfigListEntry(_("Pre-fill first 'n' filename chars to virtual keyboard"), cfg.length, _("You can set the number of letters from the beginning of the current file name as the text pre-filled into virtual keyboard for easier input via group selection. For 'group selection' use 'CH+/CH-' buttons.")))
-		else:
+		elif cfg.search.value == "end":
 			self.list.append(getConfigListEntry(_("Pre-fill last 'n' filename chars to virtual keyboard"), cfg.endlength, _("You can set the number of letters from the end of the current file name as the text pre-filled into virtual keyboard for easier input via group selection. For 'group selection' use 'CH+/CH-' buttons.")))
 		self.list.append(getConfigListEntry(_("Use target directory as bookmark"), cfg.add_bookmark, _("Set 'yes' if You want add target directories into bookmarks.")))
 		self.list.append(getConfigListEntry(_("Enable 'Clear bookmark...'"), cfg.clear_bookmarks, _("Enable in menu utility for delete bookmarks in menu.")))
@@ -919,7 +930,7 @@ class MovieManagerCfg(Screen, ConfigListScreen):
 
 	# Summary - for (LCD):
 	def changedEntry(self):
-		if self["config"].getCurrent()[0] == self.beginsearch:
+		if self["config"].getCurrent()[0] == self.search:
 			self.loadMenu()
 		for x in self.onChangedEntry:
 			x()
