@@ -314,6 +314,7 @@ class MovieManager(Screen, HelpableScreen):
 						exist = NAME(item).decode('UTF-8', 'replace').endswith(searchString)
 					else:
 						exist = NAME(item).decode('UTF-8', 'replace').find(searchString)
+						exist = False if exist == -1 else True
 				else:
 					if cfg.search.value == "begin":
 						exist = NAME(item).decode('UTF-8', 'replace').lower().startswith(searchString)
@@ -321,7 +322,8 @@ class MovieManager(Screen, HelpableScreen):
 						exist = NAME(item).decode('UTF-8', 'replace').lower().endswith(searchString)
 					else:
 						exist = NAME(item).decode('UTF-8', 'replace').lower().find(searchString)
-				if exist > 0:
+						exist = False if exist == -1 else True
+				if exist:
 					if mark:
 						if not SELECTED(item):
 							self.list.toggleItemSelection(item[0])
