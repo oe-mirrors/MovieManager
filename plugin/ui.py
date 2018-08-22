@@ -36,7 +36,6 @@ from Screens.VirtualKeyBoard import VirtualKeyBoard
 from Screens.MovieSelection import buildMovieLocationList, copyServiceFiles, moveServiceFiles, last_selected_dest
 from Screens.LocationBox import LocationBox, defaultInhibitDirs
 from Components.MovieList import MovieList, StubInfo, IMAGE_EXTENSIONS, resetMoviePlayState, AUDIO_EXTENSIONS, MOVIE_EXTENSIONS, DVD_EXTENSIONS, moviePlayState
-from Screens.About import MemoryInfo
 from Tools.BoundFunction import boundFunction
 import os
 import skin
