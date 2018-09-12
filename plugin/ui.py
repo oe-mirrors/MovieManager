@@ -175,12 +175,19 @@ class MovieManager(Screen, HelpableScreen):
 			})
 		###
 		textPreview = _("Preview")
-		textForward = _("Skip forward") + " (" + textPreview +")"
-		textBack = _("Skip backward") + " (" + textPreview +")"
-		sfwd = lambda: self.seekRelative(1, config.seek.selfdefined_46.value * 90000)
-		ssfwd = lambda: self.seekRelative(1, config.seek.selfdefined_79.value * 90000)
-		sback = lambda: self.seekRelative(-1, config.seek.selfdefined_46.value * 90000)
-		ssback = lambda: self.seekRelative(-1, config.seek.selfdefined_79.value * 90000)
+		seekFwd = _("Skip forward")
+		seekBck = _("Skip backward")
+		textForward = seekFwd + " (" + textPreview +")"
+		textBack =  seekBck + " (" + textPreview +")"
+		t_13 = config.seek.selfdefined_13.value
+		t_46 = config.seek.selfdefined_46.value
+		t_79 = config.seek.selfdefined_79.value
+		fwd = lambda: self.seekRelative(1, t_13 * 90000)
+		sfwd = lambda: self.seekRelative(1, t_46 * 90000)
+		ssfwd = lambda: self.seekRelative(1, t_79 * 90000)
+		back = lambda: self.seekRelative(-1, t_13 * 90000)
+		sback = lambda: self.seekRelative(-1, t_46 * 90000)
+		ssback = lambda: self.seekRelative(-1, t_79 * 90000)
 		self["MovieManagerActions"] = HelpableActionMap(self, "MovieManagerActions",
 			{
 			"menu": (self.selectAction, _("Select action")),
@@ -198,6 +205,12 @@ class MovieManager(Screen, HelpableScreen):
 			"groupUnselect": (boundFunction(self.selectGroup, False), _("Group selection - remove")),
 			"text": (self.saveList, _("Save list to '%s'") % "%s%s%s" % (gC,LISTFILE,fC)),
 			"info": (self.displayInfo, _("Current item info")),
+			"seek_3": (fwd, seekFwd  + _(" (%ss)") % t_13),
+			"seek_6": (sfwd, seekFwd  + _(" (%ss)") % t_46),
+			"seek_9": (ssfwd, seekFwd + _(" (%ss)") % t_79),
+			"seek_1": (back, seekBck + _(" (%ss)") % t_13),
+			"seek_4": (sback, seekBck + _(" (%ss)") % t_46),
+			"seek_7": (ssback, seekBck + _(" (%ss)") % t_79),
 			}, -2)
 
 		self["key_red"] = Button(_("Cancel"))

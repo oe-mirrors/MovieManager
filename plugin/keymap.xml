@@ -23,6 +23,12 @@
 		<key id="KEY_PREVIOUSSONG" mapto="seekBackManual" flags="m"/>
 		<key id="KEY_FASTFORWARD" mapto="seekFwd" flags="b"/>
 		<key id="KEY_FASTFORWARD" mapto="seekFwdManual" flags="l"/>
+		<key id="KEY_1" mapto="seek_1" flags="m"/>
+		<key id="KEY_4" mapto="seek_4" flags="m"/>
+		<key id="KEY_7" mapto="seek_7" flags="m"/>
+		<key id="KEY_3" mapto="seek_3" flags="m"/>
+		<key id="KEY_6" mapto="seek_6" flags="m"/>
+		<key id="KEY_9" mapto="seek_9" flags="m"/>
 		<key id="KEY_NEXTSONG" mapto="seekFwdManual" flags="m"/>
 
 		<key id="KEY_MENU" mapto="menu" flags="m"/>
