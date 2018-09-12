@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.78"
+VERSION = "1.79"
 #  by ims (c) 2018 ims21@users.sourceforge.net
 #
 #  This program is free software; you can redistribute it and/or
@@ -28,7 +28,7 @@ from Components.Button import Button
 from Components.ActionMap import ActionMap, HelpableActionMap
 from Screens.HelpMenu import HelpableScreen
 from Components.ConfigList import ConfigListScreen
-from enigma import eServiceReference, iServiceInformation, eServiceCenter, getDesktop, eSize, ePoint
+from enigma import eServiceReference, iServiceInformation, eServiceCenter, getDesktop, eSize, ePoint, iPlayableService
 from Components.SelectionList import SelectionList, SelectionEntryComponent
 from Components.Sources.ServiceEvent import ServiceEvent
 from Screens.ChoiceBox import ChoiceBox
@@ -37,6 +37,7 @@ from Screens.MovieSelection import buildMovieLocationList, copyServiceFiles, mov
 from Screens.LocationBox import LocationBox, defaultInhibitDirs
 from Components.MovieList import MovieList, StubInfo, IMAGE_EXTENSIONS, resetMoviePlayState, AUDIO_EXTENSIONS, MOVIE_EXTENSIONS, DVD_EXTENSIONS, moviePlayState
 from Tools.BoundFunction import boundFunction
+from Components.ServiceEventTracker import ServiceEventTracker
 import os
 import skin
 
@@ -96,6 +97,11 @@ def LENGTH(item):
 def SELECTED(item):
 	return item[0][3]
 
+class MovieManagerPlayerInfoBar(Screen):
+	def __init__(self, session):
+		Screen.__init__(self, session)
+		self.skinName = "MoviePlayer"
+
 class MovieManager(Screen, HelpableScreen):
 	skin="""
 	<screen name="MovieManager" position="center,center" size="600,415" title="List of files">
@@ -132,6 +138,11 @@ class MovieManager(Screen, HelpableScreen):
 		self.session = session
 		self.current = service
 		self.parent = parent
+
+		self.__event_tracker = ServiceEventTracker(screen=self, eventmap=
+			{
+				iPlayableService.evEOF: self.__endOfFile,
+			})
 
 		self.setTitle(_("List of files") + ":  %s" % config.movielist.last_videodir.value)
 		self.original_selectionpng = None
@@ -346,6 +357,14 @@ class MovieManager(Screen, HelpableScreen):
 		keys+=[""]
 		menu.append((_("Create directory"),7))
 		keys+=["7"]
+# prepared for playback
+#		if len(self.list.getSelectionsList()):
+#			menu.append((_("Play selected..."),30))
+#			keys+=["green"]
+#		elif self["config"].getCurrent():
+#			menu.append((_("Play"),30))
+#			keys+=["green"]
+#
 		menu.append((_("Sort by..."),17))
 		keys+=["yellow"]
 		if cfg.manage_all.value:
@@ -391,6 +410,8 @@ class MovieManager(Screen, HelpableScreen):
 					self.getData(path)
 			self.cfg_before = self.getCfgStatus()
 			self.session.openWithCallback(cfgCallBack, MovieManagerCfg)
+		elif choice[1] == 30:
+			self.playSelected()
 
 	def createDir(self):
 		self.session.openWithCallback(self.parent.createDirCallback, VirtualKeyBoard,
@@ -669,6 +690,42 @@ class MovieManager(Screen, HelpableScreen):
 			idx = self.getItemIndex(item)
 			self["config"].moveToIndex(idx)
 			config.moviemanager.sort.value = str(sort)
+
+	def playSelected(self):
+		data = self.list.getSelectionsList()
+		selected = len(data)
+		self.playList = []
+		if not selected:
+			if self["config"].getCurrent():
+				self.playList.append(ITEM(self["config"].getCurrent()))
+			else:
+				return
+		else:
+			for item in data:
+				self.playList.append(item[1][0])
+		self.hideScreen()
+		self.playListItem()
+
+	def playListItem(self):
+		self.session.nav.playService(self.playList.pop(0))
+
+	def hideScreen(self):
+		self.movieManagerPlayerInfoBar = self.session.instantiateDialog(MovieManagerPlayerInfoBar)
+		self.hide()
+		self.movieManagerPlayerInfoBar.show()
+
+	def showScreen(self):
+		self.movieManagerPlayerInfoBar.hide()
+		del self.movieManagerPlayerInfoBar
+		self.show()
+		self.session.nav.playService(self.playingRef)
+
+	def __endOfFile(self):
+		#TODO toggle 'selected' for finished item, if were data
+		if len(self.playList):
+			self.playListItem()
+		else:
+			self.showScreen()
 
 	def deleteSelected(self):
 		def firstConfirmForDelete(choice):
