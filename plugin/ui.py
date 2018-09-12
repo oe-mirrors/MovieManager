@@ -208,6 +208,7 @@ class MovieManager(Screen, HelpableScreen):
 		self.playingRef = self.session.nav.getCurrentlyPlayingServiceOrGroup()
 		self["description"].setText(_("Use 'Menu' or 'Action' for select operation. Multiple files mark with 'OK' or use 'CH+/CH-'."))
 
+		self.movieManagerPlayerInfoBar = self.session.instantiateDialog(MovieManagerPlayerInfoBar)
 		self["config"].onSelectionChanged.append(self.setService)
 		self.onShown.append(self.setService)
 		self.onLayoutFinish.append(self.moveSelector)
@@ -357,14 +358,12 @@ class MovieManager(Screen, HelpableScreen):
 		keys+=[""]
 		menu.append((_("Create directory"),7))
 		keys+=["7"]
-# prepared for playback
-#		if len(self.list.getSelectionsList()):
-#			menu.append((_("Play selected..."),30))
-#			keys+=["green"]
-#		elif self["config"].getCurrent():
-#			menu.append((_("Play"),30))
-#			keys+=["green"]
-#
+		if len(self.list.getSelectionsList()):
+			menu.append((_("Play selected..."),30))
+			keys+=["green"]
+		elif self["config"].getCurrent():
+			menu.append((_("Play"),30))
+			keys+=["green"]
 		menu.append((_("Sort by..."),17))
 		keys+=["yellow"]
 		if cfg.manage_all.value:
@@ -710,13 +709,11 @@ class MovieManager(Screen, HelpableScreen):
 		self.session.nav.playService(self.playList.pop(0))
 
 	def hideScreen(self):
-		self.movieManagerPlayerInfoBar = self.session.instantiateDialog(MovieManagerPlayerInfoBar)
 		self.hide()
 		self.movieManagerPlayerInfoBar.show()
 
 	def showScreen(self):
 		self.movieManagerPlayerInfoBar.hide()
-		del self.movieManagerPlayerInfoBar
 		self.show()
 		self.session.nav.playService(self.playingRef)
 
@@ -873,6 +870,9 @@ class MovieManager(Screen, HelpableScreen):
 		if self.original_selectionpng:
 			import Components.SelectionList
 			Components.SelectionList.selectionpng = self.original_selectionpng
+		if self.movieManagerPlayerInfoBar.shown:
+			self.movieManagerPlayerInfoBar.hide()
+		self.movieManagerPlayerInfoBar.doClose()
 		self.session.nav.playService(self.playingRef)
 		self.close()
 		self.parent.reloadList()
