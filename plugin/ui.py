@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.79"
+VERSION = "1.80"
 #  by ims (c) 2018 ims21@users.sourceforge.net
 #
 #  This program is free software; you can redistribute it and/or
@@ -28,7 +28,7 @@ from Components.Button import Button
 from Components.ActionMap import ActionMap, HelpableActionMap
 from Screens.HelpMenu import HelpableScreen
 from Components.ConfigList import ConfigListScreen
-from enigma import eServiceReference, iServiceInformation, eServiceCenter, getDesktop, eSize, ePoint, iPlayableService
+from enigma import eServiceReference, iServiceInformation, eServiceCenter, getDesktop, eSize, ePoint, iPlayableService, eTimer
 from Components.SelectionList import SelectionList, SelectionEntryComponent
 from Components.Sources.ServiceEvent import ServiceEvent
 from Screens.ChoiceBox import ChoiceBox
@@ -38,6 +38,7 @@ from Screens.LocationBox import LocationBox, defaultInhibitDirs
 from Components.MovieList import MovieList, StubInfo, IMAGE_EXTENSIONS, resetMoviePlayState, AUDIO_EXTENSIONS, MOVIE_EXTENSIONS, DVD_EXTENSIONS, moviePlayState
 from Tools.BoundFunction import boundFunction
 from Components.ServiceEventTracker import ServiceEventTracker
+from Screens.MinuteInput import MinuteInput
 import os
 import skin
 
@@ -174,20 +175,18 @@ class MovieManager(Screen, HelpableScreen):
 				"csfd": self.csfd,
 			})
 		###
-		textPreview = _("Preview")
+
 		seekFwd = _("Skip forward")
 		seekBck = _("Skip backward")
-		textForward = seekFwd + " (" + textPreview +")"
-		textBack =  seekBck + " (" + textPreview +")"
-		t_13 = config.seek.selfdefined_13.value
-		t_46 = config.seek.selfdefined_46.value
-		t_79 = config.seek.selfdefined_79.value
-		fwd = lambda: self.seekRelative(1, t_13 * 90000)
-		sfwd = lambda: self.seekRelative(1, t_46 * 90000)
-		ssfwd = lambda: self.seekRelative(1, t_79 * 90000)
-		back = lambda: self.seekRelative(-1, t_13 * 90000)
-		sback = lambda: self.seekRelative(-1, t_46 * 90000)
-		ssback = lambda: self.seekRelative(-1, t_79 * 90000)
+		time_13 = config.seek.selfdefined_13.value
+		time_46 = config.seek.selfdefined_46.value
+		time_79 = config.seek.selfdefined_79.value
+		f13 = lambda: self.seekRelative(1,  time_13 * 90000)
+		f46 = lambda: self.seekRelative(1,  time_46 * 90000)
+		f79 = lambda: self.seekRelative(1,  time_79 * 90000)
+		b13 = lambda: self.seekRelative(-1, time_13 * 90000)
+		b46 = lambda: self.seekRelative(-1, time_46 * 90000)
+		b79 = lambda: self.seekRelative(-1, time_79 * 90000)
 		self["MovieManagerActions"] = HelpableActionMap(self, "MovieManagerActions",
 			{
 			"menu": (self.selectAction, _("Select action")),
@@ -197,20 +196,20 @@ class MovieManager(Screen, HelpableScreen):
 			"blue": (self.toggleAllSelection, _("Invert selection")),
 			"preview": (self.playPreview, _("Preview")),
 			"stop": (self.stopPreview, _("Stop")),
-			"seekFwd": (sfwd, textForward),
-			"seekFwdManual": (ssfwd, textForward),
-			"seekBack": (sback, textBack),
-			"seekBackManual": (ssback, textBack),
+			"seekFwd": (f46, seekFwd + _(" (%ss)") % time_46),
+			"seekFwdManual": (self.seekFwdManual, _("Seek forward (enter time)")),
+			"seekBack": (b46, seekBck + _(" (%ss)") % time_46),
+			"seekBackManual": (self.seekBackManual, _("Seek backward (enter time)")),
 			"groupSelect": (boundFunction(self.selectGroup, True), _("Group selection - add")),
 			"groupUnselect": (boundFunction(self.selectGroup, False), _("Group selection - remove")),
 			"text": (self.saveList, _("Save list to '%s'") % "%s%s%s" % (gC,LISTFILE,fC)),
 			"info": (self.displayInfo, _("Current item info")),
-			"seek_3": (fwd, seekFwd  + _(" (%ss)") % t_13),
-			"seek_6": (sfwd, seekFwd  + _(" (%ss)") % t_46),
-			"seek_9": (ssfwd, seekFwd + _(" (%ss)") % t_79),
-			"seek_1": (back, seekBck + _(" (%ss)") % t_13),
-			"seek_4": (sback, seekBck + _(" (%ss)") % t_46),
-			"seek_7": (ssback, seekBck + _(" (%ss)") % t_79),
+			"seek_3": (f13, seekFwd + _(" (%ss)") % time_13),
+			"seek_6": (f46, seekFwd + _(" (%ss)") % time_46),
+			"seek_9": (f79, seekFwd + _(" (%ss)") % time_79),
+			"seek_1": (b13, seekBck + _(" (%ss)") % time_13),
+			"seek_4": (b46, seekBck + _(" (%ss)") % time_46),
+			"seek_7": (b79, seekBck + _(" (%ss)") % time_79),
 			}, -2)
 
 		self["key_red"] = Button(_("Cancel"))
@@ -221,7 +220,8 @@ class MovieManager(Screen, HelpableScreen):
 		self.playingRef = self.session.nav.getCurrentlyPlayingServiceOrGroup()
 		self["description"].setText(_("Use 'Menu' or 'Action' for select operation. Multiple files mark with 'OK' or use 'CH+/CH-'."))
 
-		self.movieManagerPlayerInfoBar = self.session.instantiateDialog(MovieManagerPlayerInfoBar)
+		self.playerInfoBar = self.session.instantiateDialog(MovieManagerPlayerInfoBar)
+		self.played = False
 		self["config"].onSelectionChanged.append(self.setService)
 		self.onShown.append(self.setService)
 		self.onLayoutFinish.append(self.moveSelector)
@@ -267,10 +267,23 @@ class MovieManager(Screen, HelpableScreen):
 		self["config"].moveToIndex(self.position)
 		self.setService()
 
+	def seekFwdManual(self):
+		self.session.openWithCallback(self.fwSeekTo, MinuteInput)
+
+	def fwSeekTo(self, minutes):
+		self.seekRelative(1, minutes * 60 * 90000)
+
+	def seekBackManual(self):
+		self.session.openWithCallback(self.rwSeekTo, MinuteInput)
+
+	def rwSeekTo(self, minutes):
+		self.seekRelative(-1, minutes * 60 * 90000)
+
 	def seekRelative(self, direction, amount):
 		seekable = self.getSeek()
 		if seekable is None:
 			return
+		self.controlPlayerInfoBar(True)
 		seekable.seekRelative(direction, amount)
 
 	def getSeek(self):
@@ -283,6 +296,8 @@ class MovieManager(Screen, HelpableScreen):
 		return seek
 
 	def playPreview(self):
+		if self.played:
+			return
 		item = self["config"].getCurrent()
 		if item:
 			path = ITEM(item).getPath()
@@ -298,9 +313,15 @@ class MovieManager(Screen, HelpableScreen):
 				self.session.nav.playService(ITEM(item))
 
 	def stopPreview(self):
-		self.session.nav.playService(self.playingRef)
+		if self.played:
+			self.exit()
+		else:
+			self.session.nav.playService(self.playingRef)
 
 	def selectGroup(self, mark=True):
+		if self.played:
+			self.controlPlayerInfoBar()
+			return
 		def getSubstring(value):
 			if value == "begin":
 				return _("starts with...")
@@ -355,6 +376,9 @@ class MovieManager(Screen, HelpableScreen):
 		self.displaySelectionPars()
 
 	def selectAction(self):
+		if self.played:
+			self.controlPlayerInfoBar()
+			return
 		menu = []
 		menu.append((_("Copy to..."),5))
 		menu.append((_("Move to..."),6))
@@ -596,10 +620,16 @@ class MovieManager(Screen, HelpableScreen):
 		self["config"].moveToIndex(self.position)
 
 	def toggleAllSelection(self):
+		if self.played:
+			self.controlPlayerInfoBar()
+			return
 		self.list.toggleAllSelection()
 		self.displaySelectionPars()
 
 	def toggleSelection(self):
+		if self.played:
+			self.controlPlayerInfoBar()
+			return
 		self.list.toggleSelection()
 		item = self["config"].getCurrent()
 		if item:
@@ -679,6 +709,9 @@ class MovieManager(Screen, HelpableScreen):
 		self.l.setList([])
 
 	def sortIndex(self):
+		if self.played:
+			self.controlPlayerInfoBar()
+			return
 		sort = int(config.moviemanager.sort.value)
 		sort +=1
 		if sort == 3 and  not len(self.list.getSelectionsList()):
@@ -703,6 +736,10 @@ class MovieManager(Screen, HelpableScreen):
 			self["config"].moveToIndex(idx)
 			config.moviemanager.sort.value = str(sort)
 
+	def timerHidePlayerInfoBar(self):
+		self.hidePlayerInfoBar.stop()
+		self.playerInfoBar.hide()
+
 	def playSelected(self):
 		data = self.list.getSelectionsList()
 		selected = len(data)
@@ -715,23 +752,40 @@ class MovieManager(Screen, HelpableScreen):
 		else:
 			for item in data:
 				self.playList.append(item[1][0])
+		self.hidePlayerInfoBar = eTimer()
+		self.hidePlayerInfoBar.callback.append(self.timerHidePlayerInfoBar)
 		self.hideScreen()
 		self.playListItem()
 
 	def playListItem(self):
-		self.session.nav.playService(self.playList.pop(0))
+		item = self.playList.pop(0)
+		path = item.getPath()
+		ext = os.path.splitext(path)[1].lower()
+		if ext not in IMAGE_EXTENSIONS and ext not in DVD_EXTENSIONS:
+			self.session.nav.playService(item)
+
+	def showPlayerInfobar(self):
+		self.playerInfoBar.show()
+		self.hidePlayerInfoBar.start(5000, True)
+
+	def controlPlayerInfoBar(self, seek=False):
+		if self.playerInfoBar.shown and not seek:
+			self.playerInfoBar.hide()
+		else:
+			self.showPlayerInfobar()
 
 	def hideScreen(self):
 		self.hide()
-		self.movieManagerPlayerInfoBar.show()
+		self.showPlayerInfobar()
+		self.played = True
 
 	def showScreen(self):
-		self.movieManagerPlayerInfoBar.hide()
+		self.playerInfoBar.hide()
 		self.show()
 		self.session.nav.playService(self.playingRef)
+		self.played = False
 
 	def __endOfFile(self):
-		#TODO toggle 'selected' for finished item, if were data
 		if len(self.playList):
 			self.playListItem()
 		else:
@@ -879,16 +933,24 @@ class MovieManager(Screen, HelpableScreen):
 			self.displaySelectionPars()
 
 	def exit(self):
-		config.moviemanager.sort.save()
-		if self.original_selectionpng:
-			import Components.SelectionList
-			Components.SelectionList.selectionpng = self.original_selectionpng
-		if self.movieManagerPlayerInfoBar.shown:
-			self.movieManagerPlayerInfoBar.hide()
-		self.movieManagerPlayerInfoBar.doClose()
-		self.session.nav.playService(self.playingRef)
-		self.close()
-		self.parent.reloadList()
+		if self.played:
+			def confirmExit(choice):
+				if choice:
+					if self.playerInfoBar.shown:
+						self.playerInfoBar.hide()
+					self.show()
+					self.session.nav.playService(self.playingRef)
+					self.played = False
+			self.session.openWithCallback(confirmExit, MessageBox, _("Close playback?"), simple=True)
+		else:
+			self.playerInfoBar.doClose()
+			self.session.nav.playService(self.playingRef)
+			config.moviemanager.sort.save()
+			if self.original_selectionpng:
+				import Components.SelectionList
+				Components.SelectionList.selectionpng = self.original_selectionpng
+			self.close()
+			self.parent.reloadList()
 
 	def selectMovieLocation(self, title, callback):
 		bookmarks = [("("+_("Other")+"...)", None)]
@@ -1146,8 +1208,16 @@ class MovieManagerFileInfo(Screen):
 		<widget source="service" render="Label" position="300,75" size="600,30" font="Regular;26" foregroundColor="grey">
 			<convert type="MovieInfo">RecordServiceName</convert>
 		</widget>
-		<widget name="size" render="Label" position="10,105" size="100,30" font="Regular;26" foregroundColor="blue"/>
-		<widget name="play" render="Label" position="150,105" size="100,30" font="Regular;26" foregroundColor="yellow"/>
+		<widget name="size" render="Label" position="10,105" size="120,30" font="Regular;26" foregroundColor="blue"/>
+		<widget source="service" render="Label" position="130,105" size="80,30" foregroundColor="grey" font="Regular;26">
+			<convert type="ServiceTime">Duration</convert>
+			<convert type="ClockToText">AsLengthHours</convert>
+		</widget>
+		<widget source="service" render="Label" position="210,105" size="80,30" foregroundColor="grey" font="Regular;26">
+			<convert type="ServiceTime">Duration</convert>
+			<convert type="ClockToText">AsLength</convert>
+		</widget>
+		<widget name="play" render="Label" position="350,105" size="100,30" font="Regular;26" foregroundColor="yellow"/>
 	</screen>"""
 
 	def __init__(self, session, (item, last, size)):

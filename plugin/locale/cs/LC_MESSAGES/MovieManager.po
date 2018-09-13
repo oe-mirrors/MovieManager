@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Enigma2 ManagerAutofs Plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-12 23:27+0200\n"
-"PO-Revision-Date: 2018-09-12 23:32+0200\n"
+"POT-Creation-Date: 2018-09-13 20:23+0200\n"
+"PO-Revision-Date: 2018-09-13 20:24+0200\n"
 "Last-Translator: ims <ims21@users.sourceforge.net>\n"
 "Language-Team: PLi\n"
 "Language: cs_CZ\n"
@@ -56,9 +56,6 @@ msgstr "Zavřít plugin"
 msgid "Add or remove item of selection"
 msgstr "Přidat nebo odebrat z výběru"
 
-msgid "Preview"
-msgstr "Náhled"
-
 msgid "Skip forward"
 msgstr "Přeskočit dopředu"
 
@@ -74,8 +71,21 @@ msgstr "Setřídit seznam"
 msgid "Invert selection"
 msgstr "Inverze výběru"
 
+msgid "Preview"
+msgstr "Náhled"
+
 msgid "Stop"
 msgstr "Zastavit"
+
+#, python-format
+msgid " (%ss)"
+msgstr " (%ss)"
+
+msgid "Seek forward (enter time)"
+msgstr "Přeskočit dopředu (zadat čas)"
+
+msgid "Seek backward (enter time)"
+msgstr "Přeskočit dozadu (zadat čas)"
 
 msgid "Group selection - add"
 msgstr "Skupinový výběr - přidat"
@@ -227,6 +237,9 @@ msgstr "Zvolte umístění pro přemístění vybraných souborů..."
 #, python-format
 msgid "On destination '%s' is %s free space only!"
 msgstr "Zařízení '%s' má k dispozici pouze %s volného místa!"
+
+msgid "Close playback?"
+msgstr "Ukončit přehrávání?"
 
 msgid "Other"
 msgstr "Další"
