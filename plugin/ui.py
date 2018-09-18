@@ -1199,8 +1199,8 @@ class MovieManagerClearBookmarks(Screen, HelpableScreen):
 class MovieManagerFileInfo(Screen):
 	skin="""
 	<screen name="MovieManagerFileInfo" position="fill" title="Info" flags="wfNoBorder" backgroundColor="background">
-		<widget name="name" render="Label" position="10,15" size="1920,30" font="Regular;26"/>
-		<widget name="path" render="Label" position="10,45" size="1920,30" font="Regular;26" foregroundColor="green"/>
+		<widget name="name" position="10,15" size="1920,30" font="Regular;26"/>
+		<widget name="path" position="10,45" size="1920,30" font="Regular;26" foregroundColor="green"/>
 		<widget source="service" render="Label" position="10,75" size="290,30" font="Regular;26" foregroundColor="grey">
 			<convert type="ServiceTime">StartTime</convert>
 			<convert type="ClockToText">Format:%a %d.%m.%Y, %H:%M</convert>
@@ -1208,7 +1208,7 @@ class MovieManagerFileInfo(Screen):
 		<widget source="service" render="Label" position="300,75" size="600,30" font="Regular;26" foregroundColor="grey">
 			<convert type="MovieInfo">RecordServiceName</convert>
 		</widget>
-		<widget name="size" render="Label" position="10,105" size="120,30" font="Regular;26" foregroundColor="blue"/>
+		<widget name="size" position="10,105" size="120,30" font="Regular;26" foregroundColor="blue"/>
 		<widget source="service" render="Label" position="130,105" size="80,30" foregroundColor="grey" font="Regular;26">
 			<convert type="ServiceTime">Duration</convert>
 			<convert type="ClockToText">AsLengthHours</convert>
@@ -1217,7 +1217,7 @@ class MovieManagerFileInfo(Screen):
 			<convert type="ServiceTime">Duration</convert>
 			<convert type="ClockToText">AsLength</convert>
 		</widget>
-		<widget name="play" render="Label" position="350,105" size="100,30" font="Regular;26" foregroundColor="yellow"/>
+		<widget name="play" position="350,105" size="100,30" font="Regular;26" foregroundColor="yellow"/>
 	</screen>"""
 
 	def __init__(self, session, (item, last, size)):
