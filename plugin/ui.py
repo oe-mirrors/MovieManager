@@ -474,6 +474,7 @@ class MovieManager(Screen, HelpableScreen):
 			line = "%s;%s;%s\n" % (name, size, path)
 			fo.write(line)
 		fo.close()
+		self.session.open(MessageBox, "List was saved to %s" % LISTFILE, type = MessageBox.TYPE_INFO, timeout = 3)
 
 	def selectSortby(self):
 		menu = []
