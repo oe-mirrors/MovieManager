@@ -447,6 +447,7 @@ class MovieManager(Screen, HelpableScreen):
 					if self.accross:
 						path = None
 					self.getData(path)
+				self.displaySelectionPars()
 			self.cfg_before = self.getCfgStatus()
 			self.session.openWithCallback(cfgCallBack, MovieManagerCfg)
 		elif choice[1] == 30:
