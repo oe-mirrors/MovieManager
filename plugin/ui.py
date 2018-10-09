@@ -1048,6 +1048,7 @@ class MovieManagerCfg(Screen, ConfigListScreen):
 	def loadMenu(self):
 		self.list = []
 		self.search = _("Search in group selection by")
+		note = "\n" + _("(Note: change will cancel all selections.)")
 		self.list.append(getConfigListEntry(self.search, cfg.search, _("You can set what will group selection use - start of title, end of title or contains in title.")))
 		if cfg.search.value == "begin":
 			self.list.append(getConfigListEntry(_("Pre-fill first 'n' filename chars to virtual keyboard"), cfg.length, _("You can set the number of letters from the beginning of the current file name as the text pre-filled into virtual keyboard for easier input via group selection. For 'group selection' use 'CH+/CH-' buttons.")))
@@ -1056,12 +1057,12 @@ class MovieManagerCfg(Screen, ConfigListScreen):
 		self.list.append(getConfigListEntry(_("Compare case sensitive"), cfg.sensitive, _("Sets whether to distinguish between uper case and lower case for searching.")))
 		self.list.append(getConfigListEntry(_("Use target directory as bookmark"), cfg.add_bookmark, _("Set 'yes' if You want add target directories into bookmarks.")))
 		self.list.append(getConfigListEntry(_("Enable 'Clear bookmark...'"), cfg.clear_bookmarks, _("Enable in menu utility for delete bookmarks in menu.")))
-		self.list.append(getConfigListEntry(_("Enable 'Manage files in active bookmarks...'"), cfg.manage_all, _("Enable in menu item for manage movies in all active bookmarks as one list.")))
-		self.list.append(getConfigListEntry(_("Including subdirectories"), cfg.subdirs, _("If enabled, then will be used subdirectories too (it will take longer).")))
-		self.list.append(getConfigListEntry(_("Movie files"), cfg.movies, _("If enabled, then will be added movie files into list.")))
-		self.list.append(getConfigListEntry(_("Audio files"), cfg.audios, _("If enabled, then will be added audio files into list.")))
-		self.list.append(getConfigListEntry(_("DVD images"), cfg.dvds, _("If enabled, then will be added dvd image files into list.")))
-		self.list.append(getConfigListEntry(_("Pictures"), cfg.pictures, _("If enabled, then will be added pictures into list.")))
+		self.list.append(getConfigListEntry(_("Enable 'Manage files in active bookmarks...'"), cfg.manage_all, _("Enable in menu item for manage movies in all active bookmarks as one list.") + note))
+		self.list.append(getConfigListEntry(_("Including subdirectories"), cfg.subdirs, _("If enabled, then will be used subdirectories too (it will take longer).") + note))
+		self.list.append(getConfigListEntry(_("Movie files"), cfg.movies, _("If enabled, then will be added movie files into list.") + note))
+		self.list.append(getConfigListEntry(_("Audio files"), cfg.audios, _("If enabled, then will be added audio files into list.") + note))
+		self.list.append(getConfigListEntry(_("DVD images"), cfg.dvds, _("If enabled, then will be added dvd image files into list.") + note))
+		self.list.append(getConfigListEntry(_("Pictures"), cfg.pictures, _("If enabled, then will be added pictures into list.") + note))
 		self.list.append(getConfigListEntry(_("To maintain selector position"), cfg.position, _("If enabled, then will be on start maintained selector position in items list.")))
 		self["config"].list = self.list
 
