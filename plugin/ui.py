@@ -222,6 +222,7 @@ class MovieManager(Screen, HelpableScreen):
 
 		self.playerInfoBar = self.session.instantiateDialog(MovieManagerPlayerInfoBar)
 		self.played = False
+		self.preview = False
 		self["config"].onSelectionChanged.append(self.setService)
 		self.onShown.append(self.setService)
 		self.onLayoutFinish.append(self.moveSelector)
@@ -311,12 +312,14 @@ class MovieManager(Screen, HelpableScreen):
 					return
 			else:
 				self.session.nav.playService(ITEM(item))
+		self.preview = True
 
 	def stopPreview(self):
 		if self.played:
 			self.exit()
 		else:
 			self.session.nav.playService(self.playingRef)
+		self.preview = False
 
 	def selectGroup(self, mark=True):
 		if self.played:
@@ -766,8 +769,9 @@ class MovieManager(Screen, HelpableScreen):
 			self.session.nav.playService(item)
 
 	def showPlayerInfobar(self):
-		self.playerInfoBar.show()
-		self.hidePlayerInfoBar.start(5000, True)
+		if not self.preview:
+			self.playerInfoBar.show()
+			self.hidePlayerInfoBar.start(5000, True)
 
 	def controlPlayerInfoBar(self, seek=False):
 		if self.playerInfoBar.shown and not seek:
