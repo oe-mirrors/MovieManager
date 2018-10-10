@@ -792,10 +792,13 @@ class MovieManager(Screen, HelpableScreen):
 		self.played = False
 
 	def __endOfFile(self):
-		if len(self.playList):
-			self.playListItem()
-		else:
-			self.showScreen()
+		if self.played:
+			if len(self.playList):
+				self.playListItem()
+			else:
+				self.showScreen()
+		elif self.preview:
+			self.stopPreview()
 
 	def deleteSelected(self):
 		def firstConfirmForDelete(choice):
