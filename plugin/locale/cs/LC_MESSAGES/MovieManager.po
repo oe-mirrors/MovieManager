@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Enigma2 ManagerAutofs Plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-09 22:39+0200\n"
-"PO-Revision-Date: 2018-10-09 22:39+0200\n"
+"POT-Creation-Date: 2018-10-28 11:13+0100\n"
+"PO-Revision-Date: 2018-10-28 11:13+0100\n"
 "Last-Translator: ims <ims21@users.sourceforge.net>\n"
 "Language-Team: PLi\n"
 "Language: cs_CZ\n"
@@ -106,9 +106,6 @@ msgstr "Zavřít"
 msgid "Action"
 msgstr "Výběr akce"
 
-msgid "Sort"
-msgstr "Třídění"
-
 msgid "Inversion"
 msgstr "Inverze"
 
@@ -174,6 +171,12 @@ msgstr "Možnosti..."
 
 msgid "Select operation:"
 msgstr "Zvolte operaci:"
+
+msgid "Sort by"
+msgstr "Třídit podle"
+
+msgid "Sort"
+msgstr "Třídění"
 
 #, python-format
 msgid "New directory name in '%s'"
@@ -387,6 +390,14 @@ msgid ""
 "If enabled, then will be on start maintained selector position in items list."
 msgstr ""
 "Jestliže je povoleno, je po startu zachovávána pozice kurzoru v seznamu."
+
+msgid "Sorting as menu under yellow"
+msgstr "Třídění jako menu "
+
+msgid "Use 'Sort by' as menu under yellow button instead simple 'Sort'."
+msgstr ""
+"Pro žluté tlačítko se používá menu 'Třídit jako'  místo jednoduchého "
+"'Třídit'."
 
 msgid "List of bookmarks"
 msgstr "Seznam záložek"

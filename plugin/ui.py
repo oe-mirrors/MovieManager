@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.80"
+VERSION = "1.81"
 #  by ims (c) 2018 ims21@users.sourceforge.net
 #
 #  This program is free software; you can redistribute it and/or
@@ -82,6 +82,7 @@ config.moviemanager.sort = ConfigSelection(default = "0", choices = [
 	("4", _("Original list - reverted"))
 	])
 config.moviemanager.position = ConfigYesNo(default=False)
+config.moviemanager.sort_as = ConfigYesNo(default=False)
 
 cfg = config.moviemanager
 
@@ -214,7 +215,7 @@ class MovieManager(Screen, HelpableScreen):
 
 		self["key_red"] = Button(_("Cancel"))
 		self["key_green"] = Button(_("Action"))
-		self["key_yellow"] = Button(_("Sort"))
+		self["key_yellow"] = Button(self.sortText())
 		self["key_blue"] = Button(_("Inversion"))
 
 		self.playingRef = self.session.nav.getCurrentlyPlayingServiceOrGroup()
@@ -448,6 +449,7 @@ class MovieManager(Screen, HelpableScreen):
 						path = None
 					self.getData(path)
 				self.displaySelectionPars()
+				self["key_yellow"].setText(self.sortText())
 			self.cfg_before = self.getCfgStatus()
 			self.session.openWithCallback(cfgCallBack, MovieManagerCfg)
 		elif choice[1] == 30:
@@ -717,6 +719,9 @@ class MovieManager(Screen, HelpableScreen):
 		if self.played:
 			self.controlPlayerInfoBar()
 			return
+		if cfg.sort_as.value:
+			self.selectSortby()
+			return
 		sort = int(config.moviemanager.sort.value)
 		sort +=1
 		if sort == 3 and  not len(self.list.getSelectionsList()):
@@ -740,6 +745,9 @@ class MovieManager(Screen, HelpableScreen):
 			idx = self.getItemIndex(item)
 			self["config"].moveToIndex(idx)
 			config.moviemanager.sort.value = str(sort)
+
+	def sortText(self):
+		return _("Sort by") if cfg.sort_as.value else _("Sort")
 
 	def timerHidePlayerInfoBar(self):
 		self.hidePlayerInfoBar.stop()
@@ -1067,6 +1075,7 @@ class MovieManagerCfg(Screen, ConfigListScreen):
 		self.list.append(getConfigListEntry(_("DVD images"), cfg.dvds, _("If enabled, then will be added dvd image files into list.") + note))
 		self.list.append(getConfigListEntry(_("Pictures"), cfg.pictures, _("If enabled, then will be added pictures into list.") + note))
 		self.list.append(getConfigListEntry(_("To maintain selector position"), cfg.position, _("If enabled, then will be on start maintained selector position in items list.")))
+		self.list.append(getConfigListEntry(_("Sorting as menu under yellow"), cfg.sort_as, _("Use 'Sort by' as menu under yellow button instead simple 'Sort'.")))
 		self["config"].list = self.list
 
 	# Summary - for (LCD):

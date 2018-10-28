@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-09 22:39+0200\n"
+"POT-Creation-Date: 2018-10-28 11:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -109,9 +109,6 @@ msgstr ""
 msgid "Action"
 msgstr ""
 
-msgid "Sort"
-msgstr ""
-
 msgid "Inversion"
 msgstr ""
 
@@ -174,6 +171,12 @@ msgid "Options..."
 msgstr ""
 
 msgid "Select operation:"
+msgstr ""
+
+msgid "Sort by"
+msgstr ""
+
+msgid "Sort"
 msgstr ""
 
 #, python-format
@@ -369,6 +372,12 @@ msgstr ""
 
 msgid ""
 "If enabled, then will be on start maintained selector position in items list."
+msgstr ""
+
+msgid "Sorting as menu under yellow"
+msgstr ""
+
+msgid "Use 'Sort by' as menu under yellow button instead simple 'Sort'."
 msgstr ""
 
 msgid "List of bookmarks"
