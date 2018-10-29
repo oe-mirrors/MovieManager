@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-09 22:39+0200\n"
-"PO-Revision-Date: 2018-10-27 18:19+0200\n"
+"POT-Creation-Date: 2018-10-28 11:13+0100\n"
+"PO-Revision-Date: 2018-10-29 09:03+0100\n"
 "Last-Translator: Rob van der Does <RobvanderDoes@Gmail.com>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -110,9 +110,6 @@ msgstr "Annuleer"
 msgid "Action"
 msgstr "Actie"
 
-msgid "Sort"
-msgstr "Sorteer"
-
 msgid "Inversion"
 msgstr "Omkeren"
 
@@ -178,6 +175,12 @@ msgstr "Opties..."
 
 msgid "Select operation:"
 msgstr "Kies uitvoering:"
+
+msgid "Sort by"
+msgstr "Sorteer op"
+
+msgid "Sort"
+msgstr "Sorteer"
 
 #, python-format
 msgid "New directory name in '%s'"
@@ -395,6 +398,14 @@ msgstr "Om de selectiepositie te behouden"
 msgid ""
 "If enabled, then will be on start maintained selector position in items list."
 msgstr "Indien ingeschakeld, zal de selector op de positie in de lijst staan."
+
+msgid "Sorting as menu under yellow"
+msgstr "Sorteer als menu onder geel"
+
+msgid "Use 'Sort by' as menu under yellow button instead simple 'Sort'."
+msgstr ""
+"Gebruik 'Sorteer op' als menu onder de gele toets in plaats van eenvoudig "
+"'Sorteer'."
 
 msgid "List of bookmarks"
 msgstr "Lijst met bookmarks"
