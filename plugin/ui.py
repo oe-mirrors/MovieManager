@@ -4,8 +4,8 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.81"
-#  by ims (c) 2018 ims21@users.sourceforge.net
+VERSION = "1.82"
+#  by ims (c) 2018-2019 ims@openpli.org
 #
 #  This program is free software; you can redistribute it and/or
 #  modify it under the terms of the GNU General Public License
@@ -28,7 +28,7 @@ from Components.Button import Button
 from Components.ActionMap import ActionMap, HelpableActionMap
 from Screens.HelpMenu import HelpableScreen
 from Components.ConfigList import ConfigListScreen
-from enigma import eServiceReference, iServiceInformation, eServiceCenter, getDesktop, eSize, ePoint, iPlayableService, eTimer
+from enigma import eServiceReference, iServiceInformation, eServiceCenter, getDesktop, eSize, ePoint, iPlayableService, eTimer, eConsoleAppContainer
 from Components.SelectionList import SelectionList, SelectionEntryComponent
 from Components.Sources.ServiceEvent import ServiceEvent
 from Screens.ChoiceBox import ChoiceBox
@@ -217,6 +217,8 @@ class MovieManager(Screen, HelpableScreen):
 		self["key_green"] = Button(_("Action"))
 		self["key_yellow"] = Button(self.sortText())
 		self["key_blue"] = Button(_("Inversion"))
+
+		self.container = eConsoleAppContainer()
 
 		self.playingRef = self.session.nav.getCurrentlyPlayingServiceOrGroup()
 		self["description"].setText(_("Use 'Menu' or 'Action' for select operation. Multiple files mark with 'OK' or use 'CH+/CH-'."))
@@ -410,6 +412,8 @@ class MovieManager(Screen, HelpableScreen):
 		if cfg.manage_all.value:
 			menu.append((_("Manage files in active bookmarks..."),18))
 			keys += ["red"]
+		menu.append((_("Use sync"),40))
+		keys += ["0"]
 		menu.append((_("Options..."),20))
 		keys += ["menu"]
 
@@ -454,6 +458,10 @@ class MovieManager(Screen, HelpableScreen):
 			self.session.openWithCallback(cfgCallBack, MovieManagerCfg)
 		elif choice[1] == 30:
 			self.playSelected()
+		elif choice[1] == 40:
+			cmd = '%s' % "sync -d"
+			if self.container.execute(cmd):
+				print "[MovieManager] failed to execute sync"
 
 	def createDir(self):
 		self.session.openWithCallback(self.parent.createDirCallback, VirtualKeyBoard,

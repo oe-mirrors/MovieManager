@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Enigma2 ManagerAutofs Plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-28 11:13+0100\n"
-"PO-Revision-Date: 2018-10-28 11:13+0100\n"
+"POT-Creation-Date: 2019-01-15 12:37+0100\n"
+"PO-Revision-Date: 2019-01-15 12:37+0100\n"
 "Last-Translator: ims <ims21@users.sourceforge.net>\n"
 "Language-Team: PLi\n"
 "Language: cs_CZ\n"
@@ -166,17 +166,14 @@ msgstr "Třídit podle..."
 msgid "Manage files in active bookmarks..."
 msgstr "Správa souborů v aktivních záložkách..."
 
+msgid "Use sync"
+msgstr "Použít sync"
+
 msgid "Options..."
 msgstr "Možnosti..."
 
 msgid "Select operation:"
 msgstr "Zvolte operaci:"
-
-msgid "Sort by"
-msgstr "Třídit podle"
-
-msgid "Sort"
-msgstr "Třídění"
 
 #, python-format
 msgid "New directory name in '%s'"
@@ -212,6 +209,12 @@ msgstr "Velikost: %s"
 #, python-format
 msgid "Selected: %s"
 msgstr "Označeno: %s"
+
+msgid "Sort by"
+msgstr "Třídit podle"
+
+msgid "Sort"
+msgstr "Třídění"
 
 #, python-format
 msgid ""
