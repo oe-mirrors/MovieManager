@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-28 11:13+0100\n"
-"PO-Revision-Date: 2018-10-29 09:03+0100\n"
+"POT-Creation-Date: 2019-01-15 12:39+0100\n"
+"PO-Revision-Date: 2019-01-21 14:56+0100\n"
 "Last-Translator: Rob van der Does <RobvanderDoes@Gmail.com>\n"
 "Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2\n"
+"X-Generator: Poedit 2.2.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Movie manager"
@@ -170,17 +170,14 @@ msgstr "Sorteer op..."
 msgid "Manage files in active bookmarks..."
 msgstr "Beheer de bestanden in actieve bladwijzers..."
 
+msgid "Use sync"
+msgstr "Gebruik sync"
+
 msgid "Options..."
 msgstr "Opties..."
 
 msgid "Select operation:"
 msgstr "Kies uitvoering:"
-
-msgid "Sort by"
-msgstr "Sorteer op"
-
-msgid "Sort"
-msgstr "Sorteer"
 
 #, python-format
 msgid "New directory name in '%s'"
@@ -216,6 +213,12 @@ msgstr "Grootte: %s"
 #, python-format
 msgid "Selected: %s"
 msgstr "Geselecteerd: %s"
+
+msgid "Sort by"
+msgstr "Sorteer op"
+
+msgid "Sort"
+msgstr "Sorteer"
 
 #, python-format
 msgid ""
