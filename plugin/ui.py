@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.83"
+VERSION = "1.84"
 #  by ims (c) 2018-2019 ims@openpli.org
 #
 #  This program is free software; you can redistribute it and/or
@@ -410,6 +410,8 @@ class MovieManager(Screen, HelpableScreen):
 		menu.append((_("Sort by..."),17))
 		keys+=["yellow"]
 		if cfg.manage_all.value:
+			menu.append((_("Update valid bookmarks"),19))
+			keys += [""]
 			menu.append((_("Manage files in active bookmarks..."),18))
 			keys += ["red"]
 		menu.append((_("Use sync"),40))
@@ -444,6 +446,8 @@ class MovieManager(Screen, HelpableScreen):
 		elif choice[1] == 18:
 			self.accross = cfg.manage_all.value
 			self.getData()
+		elif choice[1] == 19:
+			config.movielist.videodirs.load()
 		elif choice[1] == 20:
 			def cfgCallBack(choice=False):
 				cfg_after = self.getCfgStatus()
