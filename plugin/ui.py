@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.82"
+VERSION = "1.83"
 #  by ims (c) 2018-2019 ims@openpli.org
 #
 #  This program is free software; you can redistribute it and/or
@@ -414,6 +414,8 @@ class MovieManager(Screen, HelpableScreen):
 			keys += ["red"]
 		menu.append((_("Use sync"),40))
 		keys += ["0"]
+		menu.append((_("Save list"),50))
+		keys += [""]
 		menu.append((_("Options..."),20))
 		keys += ["menu"]
 
@@ -462,6 +464,8 @@ class MovieManager(Screen, HelpableScreen):
 			cmd = '%s' % "sync -d"
 			if self.container.execute(cmd):
 				print "[MovieManager] failed to execute sync"
+		elif choice[1] == 50:
+			self.saveList()
 
 	def createDir(self):
 		self.session.openWithCallback(self.parent.createDirCallback, VirtualKeyBoard,
@@ -478,7 +482,10 @@ class MovieManager(Screen, HelpableScreen):
 
 	def saveList(self):
 		import codecs
-		fo = open("%s" % LISTFILE, "w")
+		from datetime import datetime
+		listfile = LISTFILE.split('.')
+		csvName="%s-%s.%s" % (listfile[0], datetime.now().strftime("%Y%m%d-%H%M%S"), listfile[1])
+		fo = open("%s" % csvName, "w")
 		fo.write(codecs.BOM_UTF8)
 		fo.write("%s;%s;%s\n" % (_("name"),_("size"),_("path")))
 		for item in self.list.list:
@@ -488,7 +495,7 @@ class MovieManager(Screen, HelpableScreen):
 			line = "%s;%s;%s\n" % (name, size, path)
 			fo.write(line)
 		fo.close()
-		self.session.open(MessageBox, _("List was saved to '%s'") % (gC + LISTFILE + fC), type = MessageBox.TYPE_INFO, timeout = 5)
+		self.session.open(MessageBox, _("List was saved to '%s'") % (gC + csvName + fC), type = MessageBox.TYPE_INFO, timeout = 5)
 
 	def selectSortby(self):
 		menu = []
