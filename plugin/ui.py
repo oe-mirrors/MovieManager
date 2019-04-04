@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.85"
+VERSION = "1.86"
 #  by ims (c) 2018-2019 ims@openpli.org
 #
 #  This program is free software; you can redistribute it and/or
@@ -387,39 +387,39 @@ class MovieManager(Screen, HelpableScreen):
 			self.controlPlayerInfoBar()
 			return
 		menu = []
-		menu.append((_("Copy to..."),5))
-		menu.append((_("Move to..."),6))
+		menu.append((_("Copy to..."), 5, _("Copy current file or selected file(s) to directory.")))
+		menu.append((_("Move to..."), 6, _("Move current file or selected file(s) to directory.")))
 		keys = ["5","6"]
-		menu.append((_("Rename"),2))
+		menu.append((_("Rename"), 2, _("Rename current file.")))
 		keys += ["2"]
 		if config.usage.setup_level.index == 2:
-			menu.append((_("Delete"),8))
+			menu.append((_("Delete"),8, _("Delete current file or selected file(s).")))
 			keys += ["8"]
 		if cfg.clear_bookmarks.value:
-			menu.append((_("Clear bookmarks..."),10))
+			menu.append((_("Clear bookmarks..."), 10, _("Display all existing bookmarks in box. Unwanted or unnecessary bookmarks can be removed.")))
 			keys += [""]
-		menu.append((_("Reset playback position"),15))
+		menu.append((_("Reset playback position"), 15, _("Reset playback position for all marked files in movielist.")))
 		keys+=[""]
-		menu.append((_("Create directory"),7))
+		menu.append((_("Create directory"), 7, _("Create new directory in current directory.")))
 		keys+=["7"]
 		if len(self.list.getSelectionsList()):
-			menu.append((_("Play selected..."),30))
+			menu.append((_("Play selected..."), 30, _("Playback all selected files.")))
 			keys+=["green"]
 		elif self["config"].getCurrent():
-			menu.append((_("Play"),30))
+			menu.append((_("Play"), 30, _("Playback current file.")))
 			keys+=["green"]
-		menu.append((_("Sort by..."),17))
+		menu.append((_("Sort by..."), 17, _("Set sort type for current movielist.")))
 		keys+=["yellow"]
 		if cfg.manage_all.value:
-			menu.append((_("Update valid bookmarks"),19))
+			menu.append((_("Update valid bookmarks"), 19, _("Update bookmarks depending on the current mountpoints. If mountpoints sleeping, then it take some time before they wakes up.")))
 			keys += [""]
-			menu.append((_("Manage files in active bookmarks..."),18))
+			menu.append((_("Manage files in active bookmarks..."), 18, _("Create movielist from all active bookmarks. Please, be patient, it take some time. There in 'Options...' it can be limited to some filetypes and can be enabled browsing subdirectories.")))
 			keys += ["red"]
-		menu.append((_("Use sync"),40))
+		menu.append((_("Use sync"), 40))
 		keys += ["0"]
-		menu.append((_("Save list"),50))
+		menu.append((_("Save list"), 50, _("Save current movielist to '/tmp' directory as '.cvs' file.")))
 		keys += [""]
-		menu.append((_("Options..."),20))
+		menu.append((_("Options..."), 20))
 		keys += ["menu"]
 
 		text = _("Select operation:")

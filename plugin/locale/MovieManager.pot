@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-04 20:33+0200\n"
+"POT-Creation-Date: 2019-04-04 21:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -137,43 +137,89 @@ msgstr ""
 msgid "Copy to..."
 msgstr ""
 
+msgid "Copy current file or selected file(s) to directory."
+msgstr ""
+
 msgid "Move to..."
+msgstr ""
+
+msgid "Move current file or selected file(s) to directory."
 msgstr ""
 
 msgid "Rename"
 msgstr ""
 
+msgid "Rename current file."
+msgstr ""
+
 msgid "Delete"
+msgstr ""
+
+msgid "Delete current file or selected file(s)."
 msgstr ""
 
 msgid "Clear bookmarks..."
 msgstr ""
 
+msgid ""
+"Display all existing bookmarks in box. Unwanted or unnecessary bookmarks can "
+"be removed."
+msgstr ""
+
 msgid "Reset playback position"
+msgstr ""
+
+msgid "Reset playback position for all marked files in movielist."
 msgstr ""
 
 msgid "Create directory"
 msgstr ""
 
+msgid "Create new directory in current directory."
+msgstr ""
+
 msgid "Play selected..."
+msgstr ""
+
+msgid "Playback all selected files."
 msgstr ""
 
 msgid "Play"
 msgstr ""
 
+msgid "Playback current file."
+msgstr ""
+
 msgid "Sort by..."
+msgstr ""
+
+msgid "Set sort type for current movielist."
 msgstr ""
 
 msgid "Update valid bookmarks"
 msgstr ""
 
+msgid ""
+"Update bookmarks depending on the current mountpoints. If mountpoints "
+"sleeping, then it take some time before they wakes up."
+msgstr ""
+
 msgid "Manage files in active bookmarks..."
+msgstr ""
+
+msgid ""
+"Create movielist from all active bookmarks. Please, be patient, it take some "
+"time. There in 'Options...' it can be limited to some filetypes and can be "
+"enabled browsing subdirectories."
 msgstr ""
 
 msgid "Use sync"
 msgstr ""
 
 msgid "Save list"
+msgstr ""
+
+msgid "Save current movielist to '/tmp' directory as '.cvs' file."
 msgstr ""
 
 msgid "Options..."
