@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.84"
+VERSION = "1.85"
 #  by ims (c) 2018-2019 ims@openpli.org
 #
 #  This program is free software; you can redistribute it and/or
@@ -83,6 +83,7 @@ config.moviemanager.sort = ConfigSelection(default = "0", choices = [
 	])
 config.moviemanager.position = ConfigYesNo(default=False)
 config.moviemanager.sort_as = ConfigYesNo(default=False)
+config.moviemanager.refresh_bookmarks = ConfigYesNo(default=True)
 
 cfg = config.moviemanager
 
@@ -444,6 +445,10 @@ class MovieManager(Screen, HelpableScreen):
 		elif choice[1] == 17:
 			self.selectSortby()
 		elif choice[1] == 18:
+			if cfg.refresh_bookmarks.value:
+				print "[MovieManager] reload bookmarks"
+				config.movielist.videodirs.load()
+				print "[MovieManager] bookmarks reloaded"
 			self.accross = cfg.manage_all.value
 			self.getData()
 		elif choice[1] == 19:
@@ -1095,6 +1100,8 @@ class MovieManagerCfg(Screen, ConfigListScreen):
 		self.list.append(getConfigListEntry(_("Pictures"), cfg.pictures, _("If enabled, then will be added pictures into list.") + note))
 		self.list.append(getConfigListEntry(_("To maintain selector position"), cfg.position, _("If enabled, then will be on start maintained selector position in items list.")))
 		self.list.append(getConfigListEntry(_("Sorting as menu under yellow"), cfg.sort_as, _("Use 'Sort by' as menu under yellow button instead simple 'Sort'.")))
+		self.list.append(getConfigListEntry(_("Refresh bookmaks"), cfg.refresh_bookmarks, _("Enable refresh bookmarks before each 'Manage files in active bookmarks'. It will add extra time.")))
+
 		self["config"].list = self.list
 
 	# Summary - for (LCD):

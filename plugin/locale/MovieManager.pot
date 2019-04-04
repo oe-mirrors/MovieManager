@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-27 19:47+0100\n"
+"POT-Creation-Date: 2019-04-04 20:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -387,6 +387,14 @@ msgid "Sorting as menu under yellow"
 msgstr ""
 
 msgid "Use 'Sort by' as menu under yellow button instead simple 'Sort'."
+msgstr ""
+
+msgid "Refresh bookmaks"
+msgstr ""
+
+msgid ""
+"Enable refresh bookmarks before each 'Manage files in active bookmarks'. It "
+"will add extra time."
 msgstr ""
 
 msgid "List of bookmarks"
