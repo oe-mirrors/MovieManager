@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.86"
+VERSION = "1.87"
 #  by ims (c) 2018-2019 ims@openpli.org
 #
 #  This program is free software; you can redistribute it and/or
@@ -392,6 +392,8 @@ class MovieManager(Screen, HelpableScreen):
 		keys = ["5","6"]
 		menu.append((_("Rename"), 2, _("Rename current file.")))
 		keys += ["2"]
+		menu.append((_("Create directory"), 7, _("Create new directory in current directory.")))
+		keys+=["7"]
 		if config.usage.setup_level.index == 2:
 			menu.append((_("Delete"),8, _("Delete current file or selected file(s).")))
 			keys += ["8"]
@@ -400,8 +402,7 @@ class MovieManager(Screen, HelpableScreen):
 			keys += [""]
 		menu.append((_("Reset playback position"), 15, _("Reset playback position for all marked files in movielist.")))
 		keys+=[""]
-		menu.append((_("Create directory"), 7, _("Create new directory in current directory.")))
-		keys+=["7"]
+
 		if len(self.list.getSelectionsList()):
 			menu.append((_("Play selected..."), 30, _("Playback all selected files.")))
 			keys+=["green"]
