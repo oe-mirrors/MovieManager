@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.87"
+VERSION = "1.88"
 #  by ims (c) 2018-2019 ims@openpli.org
 #
 #  This program is free software; you can redistribute it and/or
@@ -424,7 +424,7 @@ class MovieManager(Screen, HelpableScreen):
 		keys += ["menu"]
 
 		text = _("Select operation:")
-		self.session.openWithCallback(self.menuCallback, ChoiceBox, title=text, list=menu, keys=keys)
+		self.session.openWithCallback(self.menuCallback, ChoiceBox, title=text, list=menu, keys=keys, skin_name="MovieManagerChoiceBox")
 
 	def menuCallback(self, choice):
 		if choice is None:
@@ -1062,7 +1062,7 @@ class MovieManagerCfg(Screen, ConfigListScreen):
 	def __init__(self, session):
 		Screen.__init__(self, session)
 		self.skinName = ["MovieManagerCfg", "Setup"]
-		self.setup_title = _("Options...") + "\t" + _("v.%s") % VERSION
+		self.setup_title = "%s %s - %s" % (_("MovieManager"), _("v.%s") % VERSION, _("Options..."))
 		self.setTitle(self.setup_title)
 
 		self["key_red"] = Label(_("Cancel"))
