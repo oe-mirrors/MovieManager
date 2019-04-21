@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-15 12:39+0100\n"
-"PO-Revision-Date: 2019-01-21 15:37+0100\n"
+"POT-Creation-Date: 2019-04-04 21:48+0200\n"
+"PO-Revision-Date: 2019-04-21 15:02+0200\n"
 "Last-Translator: Rob van der Does <RobvanderDoes@Gmail.com>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -140,38 +140,98 @@ msgstr "Verwijder van selectie (%s)"
 msgid "Copy to..."
 msgstr "Kopieer naar..."
 
+msgid "Copy current file or selected file(s) to directory."
+msgstr "Kopieer huidige of geselecteerde bestand(en) naar map."
+
 msgid "Move to..."
 msgstr "Verplaats naar..."
+
+msgid "Move current file or selected file(s) to directory."
+msgstr "Verplaats huidige of geselecteerde bestand(en) naar map."
 
 msgid "Rename"
 msgstr "Hernoem"
 
+msgid "Rename current file."
+msgstr "Hernoem huidige bestand."
+
 msgid "Delete"
 msgstr "Verwijder"
 
+msgid "Delete current file or selected file(s)."
+msgstr "Verwijder huidige of geselecteerde bestand(en)."
+
 msgid "Clear bookmarks..."
-msgstr "Verwijder bookmarks..."
+msgstr "Verwijder bladwijzers..."
+
+msgid ""
+"Display all existing bookmarks in box. Unwanted or unnecessary bookmarks can "
+"be removed."
+msgstr ""
+"Toon alle bestaande bladwijzers. Ongewenste en onnodige bladwijzers kunnen "
+"worden verwijderd."
 
 msgid "Reset playback position"
 msgstr "Zet afspeelpositie terug"
 
+msgid "Reset playback position for all marked files in movielist."
+msgstr "Reset afspeelpositie voor alle gemarkeerde bestanden in de movielijst."
+
 msgid "Create directory"
 msgstr "Creëer map"
+
+msgid "Create new directory in current directory."
+msgstr "Creëer nieuwe map in huidige map."
 
 msgid "Play selected..."
 msgstr "Geselecteerde afspelen..."
 
+msgid "Playback all selected files."
+msgstr "Geselecteerde afspelen."
+
 msgid "Play"
 msgstr "Afspelen"
+
+msgid "Playback current file."
+msgstr "Speel huidige bestand af."
 
 msgid "Sort by..."
 msgstr "Sorteer op..."
 
+msgid "Set sort type for current movielist."
+msgstr "Stel de sortering voor de huidige movielijst in."
+
+msgid "Update valid bookmarks"
+msgstr "Update geldige bladwijzers"
+
+msgid ""
+"Update bookmarks depending on the current mountpoints. If mountpoints "
+"sleeping, then it take some time before they wakes up."
+msgstr ""
+"Update bladwijzers conform huidige mounts. Als mounts 'slapen', kan het "
+"enige tijd duren voordat die wakker zijn."
+
 msgid "Manage files in active bookmarks..."
 msgstr "Beheer de bestanden in actieve bladwijzers..."
 
+msgid ""
+"Create movielist from all active bookmarks. Please, be patient, it take some "
+"time. There in 'Options...' it can be limited to some filetypes and can be "
+"enabled browsing subdirectories."
+msgstr ""
+"Creëer movielijst van alle actieve bladwijzers. Wees geduldig, want dit kan "
+"enige tijd duren. In 'Opties...' kan het browsen binnen submappen "
+"ingeschakeld worden en het bekijken tot bepaalde bestandstypen worden "
+"beperkt. bestanden."
+
 msgid "Use sync"
 msgstr "Gebruik sync"
+
+msgid "Save list"
+msgstr "Sla lijst op"
+
+msgid "Save current movielist to '/tmp' directory as '.cvs' file."
+msgstr "Sla huidige movielijst op in '/tmp' als '.cvs' bestand."
 
 msgid "Options..."
 msgstr "Opties..."
@@ -349,10 +409,10 @@ msgid "Set 'yes' if You want add target directories into bookmarks."
 msgstr "Kies 'Ja' als u de doellocatie als bookmark wilt toevoegen."
 
 msgid "Enable 'Clear bookmark...'"
-msgstr "Schakel 'Bookmarks verwijderen...' in."
+msgstr "Schakel 'Bladwijzers verwijderen...' in."
 
 msgid "Enable in menu utility for delete bookmarks in menu."
-msgstr "Geeft de mogelijkheid bookmarks in het menu te verwijderen."
+msgstr "Geeft de mogelijkheid bladwijzers in het menu te verwijderen."
 
 msgid "Enable 'Manage files in active bookmarks...'"
 msgstr "Schakel 'Beheer de bestanden in actieve bladwijzers...' in."
@@ -410,8 +470,18 @@ msgstr ""
 "Gebruik 'Sorteer op' als menu onder de gele toets in plaats van eenvoudig "
 "'Sorteer'."
 
+msgid "Refresh bookmaks"
+msgstr "Ververs bladwijzers"
+
+msgid ""
+"Enable refresh bookmarks before each 'Manage files in active bookmarks'. It "
+"will add extra time."
+msgstr ""
+"Schakel 'Ververs bladwijzers' in voor elke 'Beheer bestanden in actieve "
+"bladwijzers'. Het kost extra tijd."
+
 msgid "List of bookmarks"
-msgstr "Lijst met bookmarks"
+msgstr "Lijst met bladwijzers"
 
 msgid "Close"
 msgstr "Sluit"
@@ -424,7 +494,7 @@ msgstr "Selecteer met 'OK' en deselecteer met 'Verwijder'."
 
 #, python-format
 msgid "Are You sure to delete %s selected bookmark(s)?"
-msgstr "Weet u zeker de %s geselecteerde bookmarks te verwijderen?"
+msgstr "Weet u zeker de %s geselecteerde bladwijzers te verwijderen?"
 
 #~ msgid ""
 #~ "Select files with 'OK' or use 'CH+/CH-' and then use 'Menu' or 'Action' "
