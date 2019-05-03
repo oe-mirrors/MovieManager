@@ -1168,7 +1168,7 @@ class MovieManagerCfg(Screen, ConfigListScreen):
 		self.list.append(getConfigListEntry(_("Sorting as menu under yellow"), cfg.sort_as, _("Use 'Sort by' as menu under yellow button instead simple 'Sort'.")))
 		self.list.append(getConfigListEntry(_("Refresh bookmaks"), cfg.refresh_bookmarks, _("Enable refresh bookmarks before each 'Manage files in active bookmarks'. It will add extra time.")))
 		self.csv_extended = _("Save extended list")
-		self.list.append(getConfigListEntry(self.csv_extended, cfg.csv_extended, _("Save extended '.csv' filelist with more data.")))
+		self.list.append(getConfigListEntry(self.csv_extended, cfg.csv_extended, _("Save extended '.csv' filelist with more data. Create file will spend more time.")))
 		if cfg.csv_extended.value:
 			dx = 4*" "
 			self.list.append(getConfigListEntry(dx + _("Duration"), cfg.csv_duration, _("Add duration in hours into extended list.")))
