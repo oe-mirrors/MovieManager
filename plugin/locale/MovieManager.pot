@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-04 21:48+0200\n"
+"POT-Creation-Date: 2019-05-03 14:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -152,6 +152,12 @@ msgstr ""
 msgid "Rename current file."
 msgstr ""
 
+msgid "Create directory"
+msgstr ""
+
+msgid "Create new directory in current directory."
+msgstr ""
+
 msgid "Delete"
 msgstr ""
 
@@ -170,12 +176,6 @@ msgid "Reset playback position"
 msgstr ""
 
 msgid "Reset playback position for all marked files in movielist."
-msgstr ""
-
-msgid "Create directory"
-msgstr ""
-
-msgid "Create new directory in current directory."
 msgstr ""
 
 msgid "Play selected..."
@@ -238,7 +238,19 @@ msgstr ""
 msgid "size"
 msgstr ""
 
+msgid "duration"
+msgstr ""
+
 msgid "path"
+msgstr ""
+
+msgid "service name"
+msgstr ""
+
+msgid "date"
+msgstr ""
+
+msgid "time"
 msgstr ""
 
 #, python-format
@@ -328,6 +340,9 @@ msgstr ""
 msgid ""
 "The CSFD plugin is not installed!\n"
 "Please install it."
+msgstr ""
+
+msgid "MovieManager"
 msgstr ""
 
 #, python-format
@@ -441,6 +456,38 @@ msgstr ""
 msgid ""
 "Enable refresh bookmarks before each 'Manage files in active bookmarks'. It "
 "will add extra time."
+msgstr ""
+
+msgid "Save extended list"
+msgstr ""
+
+msgid "Save extended '.csv' filelist with more data."
+msgstr ""
+
+msgid "Duration"
+msgstr ""
+
+msgid "Add duration in hours into extended list."
+msgstr ""
+
+msgid "Date"
+msgstr ""
+
+#, python-format
+msgid "Add date into extended list in format '%s'."
+msgstr ""
+
+msgid "Time"
+msgstr ""
+
+#, python-format
+msgid "Add time into extended list in format '%s'."
+msgstr ""
+
+msgid "Service name"
+msgstr ""
+
+msgid "Add service name into extended list."
 msgstr ""
 
 msgid "List of bookmarks"

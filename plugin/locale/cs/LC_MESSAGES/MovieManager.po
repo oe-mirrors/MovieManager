@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Enigma2 ManagerAutofs Plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-04 21:48+0200\n"
-"PO-Revision-Date: 2019-04-04 22:01+0200\n"
+"POT-Creation-Date: 2019-05-03 14:53+0200\n"
+"PO-Revision-Date: 2019-05-03 15:10+0200\n"
 "Last-Translator: ims <ims21@users.sourceforge.net>\n"
 "Language-Team: PLi\n"
 "Language: cs_CZ\n"
@@ -151,6 +151,12 @@ msgstr "Přejmenovat"
 msgid "Rename current file."
 msgstr "Přejmenovat aktuální soubor."
 
+msgid "Create directory"
+msgstr "Založit adresář"
+
+msgid "Create new directory in current directory."
+msgstr "Založit nový adresář v aktuálním adresáři."
+
 msgid "Delete"
 msgstr "Smazat"
 
@@ -172,12 +178,6 @@ msgstr "Resetovat pozici přehrávání"
 
 msgid "Reset playback position for all marked files in movielist."
 msgstr "Zresetovat pozici přehrávání pro všechny označené soubory v seznamu."
-
-msgid "Create directory"
-msgstr "Založit adresář"
-
-msgid "Create new directory in current directory."
-msgstr "Založit nový adresář v aktuálním adresáři."
 
 msgid "Play selected..."
 msgstr "Přehrát označené..."
@@ -245,8 +245,20 @@ msgstr "název"
 msgid "size"
 msgstr "velikost"
 
+msgid "duration"
+msgstr "délka"
+
 msgid "path"
 msgstr "umístění"
+
+msgid "service name"
+msgstr "název programu"
+
+msgid "date"
+msgstr "datum"
+
+msgid "time"
+msgstr "čas"
 
 #, python-format
 msgid "List was saved to '%s'"
@@ -340,6 +352,9 @@ msgid ""
 msgstr ""
 "CSFD plugin není nainstalovaný!\n"
 "Prosím, nainstalujte plugin."
+
+msgid "MovieManager"
+msgstr "Správce souborů"
 
 #, python-format
 msgid "v.%s"
@@ -470,6 +485,38 @@ msgstr ""
 "Povolit aktualizovat záložky před každým provedením 'Správa souborů v "
 "aktivních záložkách'. Prodlouží čas zpracování."
 
+msgid "Save extended list"
+msgstr "Ukládat rozšířený seznam"
+
+msgid "Save extended '.csv' filelist with more data."
+msgstr "Ukládat rozšířený '.csv' seznam s více daty."
+
+msgid "Duration"
+msgstr "Délka"
+
+msgid "Add duration in hours into extended list."
+msgstr "Přidává délku trvání do rozšířeného seznamu."
+
+msgid "Date"
+msgstr "Datum"
+
+#, python-format
+msgid "Add date into extended list in format '%s'."
+msgstr "Přidává datum do rozšířeného seznamu ve formátu '%s'."
+
+msgid "Time"
+msgstr "Čas"
+
+#, python-format
+msgid "Add time into extended list in format '%s'."
+msgstr "Přidává čas do rozšířeného seznamu ve formátu '%s'."
+
+msgid "Service name"
+msgstr "Název programu"
+
+msgid "Add service name into extended list."
+msgstr "Přidává název programu do rozšířeného seznamu."
+
 msgid "List of bookmarks"
 msgstr "Seznam záložek"
 
@@ -485,6 +532,12 @@ msgstr "Vyberte pomocí 'OK' a pak odstraňte pomocí 'Smazat'."
 #, python-format
 msgid "Are You sure to delete %s selected bookmark(s)?"
 msgstr "Opravdu chcete smazat %s označených záložek?"
+
+#~ msgid "Date format as %s"
+#~ msgstr "Datum ve formátu %s"
+
+#~ msgid "Extended '.csv' file"
+#~ msgstr "Rozšířený '.csv' seznam"
 
 #~ msgid "Info"
 #~ msgstr "Informace"

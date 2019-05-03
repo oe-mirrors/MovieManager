@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.88"
+VERSION = "1.91"
 #  by ims (c) 2018-2019 ims@openpli.org
 #
 #  This program is free software; you can redistribute it and/or
@@ -39,6 +39,8 @@ from Components.MovieList import MovieList, StubInfo, IMAGE_EXTENSIONS, resetMov
 from Tools.BoundFunction import boundFunction
 from Components.ServiceEventTracker import ServiceEventTracker
 from Screens.MinuteInput import MinuteInput
+from ServiceReference import ServiceReference
+from time import localtime, strftime, gmtime
 import os
 import skin
 
@@ -84,6 +86,11 @@ config.moviemanager.sort = ConfigSelection(default = "0", choices = [
 config.moviemanager.position = ConfigYesNo(default=False)
 config.moviemanager.sort_as = ConfigYesNo(default=False)
 config.moviemanager.refresh_bookmarks = ConfigYesNo(default=True)
+config.moviemanager.csv_extended = ConfigYesNo(default=False)
+config.moviemanager.csv_duration = ConfigYesNo(default=True)
+config.moviemanager.csv_date = ConfigYesNo(default=True)
+config.moviemanager.csv_time = ConfigYesNo(default=False)
+config.moviemanager.csv_servicename = ConfigYesNo(default=True)
 
 cfg = config.moviemanager
 
@@ -96,6 +103,8 @@ def ITEM(item):
 def SIZE(item):
 	return item[0][1][1]
 def LENGTH(item):
+	return item[0][1][2].getLength(ITEM(item))
+def INFO(item):
 	return item[0][1][2]
 def SELECTED(item):
 	return item[0][3]
@@ -259,7 +268,7 @@ class MovieManager(Screen, HelpableScreen):
 							size = info.getInfo(item, iServiceInformation.sFileSize)
 						else:
 							size = info.getInfoObject(item, iServiceInformation.sFileSize) # movie
-					list.list.append(SelectionEntryComponent(name, (item, size, info.getLength(item)), index, False))
+					list.list.append(SelectionEntryComponent(name, (item, size, info), index, False))
 					index += 1
 					suma+=size
 		self.l = SelectionList(list)
@@ -493,16 +502,72 @@ class MovieManager(Screen, HelpableScreen):
 	def saveList(self):
 		import codecs
 		from datetime import datetime
+
+		def getItemDuration(service, info):
+			duration = info.getLength(service)
+			if duration < 0:
+				return ""
+			return "%d:%02d" % (duration / 3600, duration / 60 % 60)
+
+		def getItemDate(service, info):
+			return strftime("%Y.%m.%d %H:%M", localtime(info.getInfo(service, iServiceInformation.sTimeCreate)))
+
+		def getItemName(service, info):
+			rec_ref_str = info.getInfoString(service, iServiceInformation.sServiceref)
+			service_name = ServiceReference(rec_ref_str).getServiceName()
+			if not service_name:
+				path = service.getPath().split(' - ')
+				if len(path) >=3 and path[0][-13:].replace(' ','').isdigit():
+					return path[1]
+				else:
+					return service_name
+			return service_name
+
 		listfile = LISTFILE.split('.')
 		csvName="%s-%s.%s" % (listfile[0], datetime.now().strftime("%Y%m%d-%H%M%S"), listfile[1])
+
 		fo = open("%s" % csvName, "w")
+		# header
 		fo.write(codecs.BOM_UTF8)
-		fo.write("%s;%s;%s\n" % (_("name"),_("size"),_("path")))
+		# titles
+		if cfg.csv_extended.value:
+			header = "%s;%s;" % (_("name"), _("size"))
+			if cfg.csv_duration.value:
+				header += "%s;" % _("duration")
+			header += "%s;" % _("path")
+			if cfg.csv_servicename.value:
+				header += "%s;" % _("service name")
+			if cfg.csv_date.value:
+				header += "%s;" % _("date")
+			if cfg.csv_time.value:
+				header += "%s;" % _("time")
+			header = "%s\n" % header.rstrip(';')
+		else:
+			header = ';'.join((_("name"),_("size"),_("path"))) + "\n"
+		fo.write(header)
+		# data
 		for item in self.list.list:
 			name = NAME(item)
+			service = ITEM(item)
 			size = self.convertSize(SIZE(item))
-			path = os.path.split(ITEM(item).getPath())[0]
-			line = "%s;%s;%s\n" % (name, size, path)
+			path = os.path.split(service.getPath())[0]
+			if cfg.csv_extended.value:
+				info = INFO(item)
+				line = "%s;%s;" % (name, size)
+				if cfg.csv_duration.value:
+					line += "%s;" % self.getItemDuration(service, info)
+				line += "%s;" % path
+				if cfg.csv_servicename.value:
+					line += "%s;" % self.getItemName(service, info)
+				if cfg.csv_date.value or cfg.csv_time.value:
+					tmp = self.getItemDate(service, info).split()
+					if cfg.csv_date.value:
+						line += "%s;" % tmp[0]
+					if cfg.csv_time.value:
+						line += "%s;" % tmp[1]
+				line = "%s\n" % line.rstrip(";")
+			else:
+				line = ';'.join((name, size, path)) + "\n"
 			fo.write(line)
 		fo.close()
 		self.session.open(MessageBox, _("List was saved to '%s'") % (gC + csvName + fC), type = MessageBox.TYPE_INFO, timeout = 5)
@@ -1102,12 +1167,21 @@ class MovieManagerCfg(Screen, ConfigListScreen):
 		self.list.append(getConfigListEntry(_("To maintain selector position"), cfg.position, _("If enabled, then will be on start maintained selector position in items list.")))
 		self.list.append(getConfigListEntry(_("Sorting as menu under yellow"), cfg.sort_as, _("Use 'Sort by' as menu under yellow button instead simple 'Sort'.")))
 		self.list.append(getConfigListEntry(_("Refresh bookmaks"), cfg.refresh_bookmarks, _("Enable refresh bookmarks before each 'Manage files in active bookmarks'. It will add extra time.")))
+		self.csv_extended = _("Save extended list")
+		self.list.append(getConfigListEntry(self.csv_extended, cfg.csv_extended, _("Save extended '.csv' filelist with more data.")))
+		if cfg.csv_extended.value:
+			dx = 4*" "
+			self.list.append(getConfigListEntry(dx + _("Duration"), cfg.csv_duration, _("Add duration in hours into extended list.")))
+			today = strftime("%Y.%m.%d %H:%M", localtime()).split()
+			self.list.append(getConfigListEntry(dx + _("Date"), cfg.csv_date, _("Add date into extended list in format '%s'.") % today[0]))
+			self.list.append(getConfigListEntry(dx + _("Time"), cfg.csv_time, _("Add time into extended list in format '%s'.") % today[1]))
+			self.list.append(getConfigListEntry(dx + _("Service name"), cfg.csv_servicename, _("Add service name into extended list.")))
 
 		self["config"].list = self.list
 
 	# Summary - for (LCD):
 	def changedEntry(self):
-		if self["config"].getCurrent()[0] == self.search:
+		if self["config"].getCurrent()[0] in (self.search, self.csv_extended):
 			self.loadMenu()
 		for x in self.onChangedEntry:
 			x()
