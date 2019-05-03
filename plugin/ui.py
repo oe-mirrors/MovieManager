@@ -555,12 +555,12 @@ class MovieManager(Screen, HelpableScreen):
 				info = INFO(item)
 				line = "%s;%s;" % (name, size)
 				if cfg.csv_duration.value:
-					line += "%s;" % self.getItemDuration(service, info)
+					line += "%s;" % getItemDuration(service, info)
 				line += "%s;" % path
 				if cfg.csv_servicename.value:
-					line += "%s;" % self.getItemName(service, info)
+					line += "%s;" % getItemName(service, info)
 				if cfg.csv_date.value or cfg.csv_time.value:
-					tmp = self.getItemDate(service, info).split()
+					tmp = getItemDate(service, info).split()
 					if cfg.csv_date.value:
 						line += "%s;" % tmp[0]
 					if cfg.csv_time.value:
