@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.91"
+VERSION = "1.92"
 #  by ims (c) 2018-2019 ims@openpli.org
 #
 #  This program is free software; you can redistribute it and/or
@@ -40,7 +40,7 @@ from Tools.BoundFunction import boundFunction
 from Components.ServiceEventTracker import ServiceEventTracker
 from Screens.MinuteInput import MinuteInput
 from ServiceReference import ServiceReference
-from time import localtime, strftime, gmtime
+from time import localtime, strftime, time
 import os
 import skin
 
@@ -87,7 +87,7 @@ config.moviemanager.position = ConfigYesNo(default=False)
 config.moviemanager.sort_as = ConfigYesNo(default=False)
 config.moviemanager.refresh_bookmarks = ConfigYesNo(default=True)
 config.moviemanager.csv_extended = ConfigYesNo(default=False)
-config.moviemanager.csv_duration = ConfigYesNo(default=True)
+config.moviemanager.csv_duration = ConfigYesNo(default=False)
 config.moviemanager.csv_date = ConfigYesNo(default=True)
 config.moviemanager.csv_time = ConfigYesNo(default=False)
 config.moviemanager.csv_servicename = ConfigYesNo(default=True)
@@ -529,22 +529,22 @@ class MovieManager(Screen, HelpableScreen):
 		fo = open("%s" % csvName, "w")
 		# header
 		fo.write(codecs.BOM_UTF8)
-		# titles
+		# title
 		if cfg.csv_extended.value:
-			header = "%s;%s;" % (_("name"), _("size"))
+			title = "%s;%s;" % (_("name"), _("size"))
 			if cfg.csv_duration.value:
-				header += "%s;" % _("duration")
-			header += "%s;" % _("path")
+				title += "%s;" % _("duration")
+			title += "%s;" % _("path")
 			if cfg.csv_servicename.value:
-				header += "%s;" % _("service name")
+				title += "%s;" % _("service name")
 			if cfg.csv_date.value:
-				header += "%s;" % _("date")
+				title += "%s;" % _("date")
 			if cfg.csv_time.value:
-				header += "%s;" % _("time")
-			header = "%s\n" % header.rstrip(';')
+				title += "%s;" % _("time")
+			title = "%s\n" % title.rstrip(';')
 		else:
-			header = ';'.join((_("name"),_("size"),_("path"))) + "\n"
-		fo.write(header)
+			title = ';'.join((_("name"),_("size"),_("path"))) + "\n"
+		fo.write(title)
 		# data
 		for item in self.list.list:
 			name = NAME(item)
@@ -968,7 +968,7 @@ class MovieManager(Screen, HelpableScreen):
 		if len(data):
 			for item in data:
 				try:
-					# item ... (name, (service, size, length), index, status)
+					# item ... (name, (service, size, info), index, status)
 					copyServiceFiles(item[1][0], dest, item[0])
 					if toggle:
 						self.list.toggleItemSelection(item)
@@ -998,7 +998,7 @@ class MovieManager(Screen, HelpableScreen):
 		if len(data):
 			for item in data:
 				try:
-					# item ... (name, (service, size, length), index, status)
+					# item ... (name, (service, size, info), index, status)
 					moveServiceFiles(item[1][0], dest, item[0])
 					self.list.removeSelection(item)
 				except Exception, e:
@@ -1032,7 +1032,7 @@ class MovieManager(Screen, HelpableScreen):
 				toggle = False
 			if len(data):
 				for item in data:
-					# 0 - name, 1 - (0 - item, 1-size, 2-length), 2-index
+					# 0 - name, 1 - (0 - item, 1-size, 2-info), 2-index
 					current = item[1][0]
 					resetMoviePlayState(current.getPath() + ".cuts", current)
 					if toggle:
@@ -1168,10 +1168,10 @@ class MovieManagerCfg(Screen, ConfigListScreen):
 		self.list.append(getConfigListEntry(_("Sorting as menu under yellow"), cfg.sort_as, _("Use 'Sort by' as menu under yellow button instead simple 'Sort'.")))
 		self.list.append(getConfigListEntry(_("Refresh bookmaks"), cfg.refresh_bookmarks, _("Enable refresh bookmarks before each 'Manage files in active bookmarks'. It will add extra time.")))
 		self.csv_extended = _("Save extended list")
-		self.list.append(getConfigListEntry(self.csv_extended, cfg.csv_extended, _("Save extended '.csv' filelist with more data. Create file will spend more time.")))
+		self.list.append(getConfigListEntry(self.csv_extended, cfg.csv_extended, _("Save extended '.csv' filelist with more data. It spend more time.")))
 		if cfg.csv_extended.value:
 			dx = 4*" "
-			self.list.append(getConfigListEntry(dx + _("Duration"), cfg.csv_duration, _("Add duration in hours into extended list.")))
+			self.list.append(getConfigListEntry(dx + _("Duration"), cfg.csv_duration, _("Add duration in hours into extended list. It extends list creation.")))
 			today = strftime("%Y.%m.%d %H:%M", localtime()).split()
 			self.list.append(getConfigListEntry(dx + _("Date"), cfg.csv_date, _("Add date into extended list in format '%s'.") % today[0]))
 			self.list.append(getConfigListEntry(dx + _("Time"), cfg.csv_time, _("Add time into extended list in format '%s'.") % today[1]))
