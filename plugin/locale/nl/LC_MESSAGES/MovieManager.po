@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-04 21:48+0200\n"
-"PO-Revision-Date: 2019-04-21 15:02+0200\n"
+"POT-Creation-Date: 2019-05-04 10:39+0200\n"
+"PO-Revision-Date: 2019-05-04 11:02+0200\n"
 "Last-Translator: Rob van der Does <RobvanderDoes@Gmail.com>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -155,6 +155,12 @@ msgstr "Hernoem"
 msgid "Rename current file."
 msgstr "Hernoem huidige bestand."
 
+msgid "Create directory"
+msgstr "Creëer map"
+
+msgid "Create new directory in current directory."
+msgstr "Creëer nieuwe map in huidige map."
+
 msgid "Delete"
 msgstr "Verwijder"
 
@@ -176,12 +182,6 @@ msgstr "Zet afspeelpositie terug"
 
 msgid "Reset playback position for all marked files in movielist."
 msgstr "Reset afspeelpositie voor alle gemarkeerde bestanden in de movielijst."
-
-msgid "Create directory"
-msgstr "Creëer map"
-
-msgid "Create new directory in current directory."
-msgstr "Creëer nieuwe map in huidige map."
 
 msgid "Play selected..."
 msgstr "Geselecteerde afspelen..."
@@ -249,8 +249,20 @@ msgstr "naam"
 msgid "size"
 msgstr "grootte"
 
+msgid "duration"
+msgstr "duur"
+
 msgid "path"
 msgstr "pad"
+
+msgid "service name"
+msgstr "kanaalnaam"
+
+msgid "date"
+msgstr "datum"
+
+msgid "time"
+msgstr "tijd"
 
 #, python-format
 msgid "List was saved to '%s'"
@@ -344,6 +356,9 @@ msgid ""
 msgstr ""
 "De CSFD plugin is niet geïnstalleerd!\n"
 "Installeer die."
+
+msgid "MovieManager"
+msgstr "Moviemanager"
 
 #, python-format
 msgid "v.%s"
@@ -479,6 +494,42 @@ msgid ""
 msgstr ""
 "Schakel 'Ververs bladwijzers' in voor elke 'Beheer bestanden in actieve "
 "bladwijzers'. Het kost extra tijd."
+
+msgid "Save extended list"
+msgstr "Sla uitgebreide lijst op"
+
+msgid "Save extended '.csv' filelist with more data. It spend more time."
+msgstr ""
+"Sla uitgebreide '.csv'-bestandenlijst op met meer data. Het maken van de "
+"lijst duurt daardoor langer."
+
+msgid "Duration"
+msgstr "Duur"
+
+msgid "Add duration in hours into extended list. It extends list creation."
+msgstr ""
+"Voeg duur in uren toe aan uitgebreide lijst. Het maken van de lijst duurt "
+"daardoor langer."
+
+msgid "Date"
+msgstr "Datum"
+
+#, python-format
+msgid "Add date into extended list in format '%s'."
+msgstr "Voeg datum toe aan uitgebreide lijst in formaat '%s\"."
+
+msgid "Time"
+msgstr "Tijd"
+
+#, python-format
+msgid "Add time into extended list in format '%s'."
+msgstr "Voeg tijd toe aan uitgebreide lijst in formaat '%s\"."
+
+msgid "Service name"
+msgstr "Kanaalnaam"
+
+msgid "Add service name into extended list."
+msgstr "Voeg kanaalnaam toe aan uitgebreide lijst."
 
 msgid "List of bookmarks"
 msgstr "Lijst met bladwijzers"
