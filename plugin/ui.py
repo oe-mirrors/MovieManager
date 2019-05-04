@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.92"
+VERSION = "1.93"
 #  by ims (c) 2018-2019 ims@openpli.org
 #
 #  This program is free software; you can redistribute it and/or
@@ -95,6 +95,7 @@ config.moviemanager.csv_servicename = ConfigYesNo(default=True)
 cfg = config.moviemanager
 
 LISTFILE = '/tmp/movies.csv'
+HOSTNAME = '/etc/hostname'
 
 def NAME(item):
 	return item[0][0]
@@ -503,6 +504,13 @@ class MovieManager(Screen, HelpableScreen):
 		import codecs
 		from datetime import datetime
 
+		def getBoxName():
+			fi = open(HOSTNAME, "r")
+			line = fi.readline().rstrip('\n')
+			fi.close()
+			if len(line):
+				return line
+			return "e2"
 		def getItemDuration(service, info):
 			duration = info.getLength(service)
 			if duration < 0:
@@ -524,7 +532,7 @@ class MovieManager(Screen, HelpableScreen):
 			return service_name
 
 		listfile = LISTFILE.split('.')
-		csvName="%s-%s.%s" % (listfile[0], datetime.now().strftime("%Y%m%d-%H%M%S"), listfile[1])
+		csvName="%s-%s-%s.%s" % (listfile[0], getBoxName(), datetime.now().strftime("%Y%m%d-%H%M%S"), listfile[1])
 
 		fo = open("%s" % csvName, "w")
 		# header
