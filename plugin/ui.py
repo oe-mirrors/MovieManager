@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.93"
+VERSION = "1.94"
 #  by ims (c) 2018-2019 ims@openpli.org
 #
 #  This program is free software; you can redistribute it and/or
@@ -71,6 +71,7 @@ config.moviemanager.endlength = ConfigSelection(default = "5", choices = [("0", 
 config.moviemanager.add_bookmark = ConfigYesNo(default=False)
 config.moviemanager.clear_bookmarks = ConfigYesNo(default=True)
 config.moviemanager.manage_all = ConfigYesNo(default=False)
+config.moviemanager.removepkl = ConfigYesNo(default=False)
 config.moviemanager.subdirs = ConfigYesNo(default=False)
 config.moviemanager.movies = ConfigYesNo(default=True)
 config.moviemanager.pictures = ConfigYesNo(default=False)
@@ -96,6 +97,7 @@ cfg = config.moviemanager
 
 LISTFILE = '/tmp/movies.csv'
 HOSTNAME = '/etc/hostname'
+PKLFILE = '.e2settings.pkl'
 
 def NAME(item):
 	return item[0][0]
@@ -430,6 +432,9 @@ class MovieManager(Screen, HelpableScreen):
 		keys += ["0"]
 		menu.append((_("Save list"), 50, _("Save current movielist to '/tmp' directory as '.cvs' file.")))
 		keys += [""]
+		if cfg.removepkl.value:
+			menu.append((_("Remove local directory setting"), 60, _("Remove local setting '.e2settings.pkl' in selected directories.")))
+			keys += [""]
 		menu.append((_("Options..."), 20))
 		keys += ["menu"]
 
@@ -486,6 +491,11 @@ class MovieManager(Screen, HelpableScreen):
 				print "[MovieManager] failed to execute sync"
 		elif choice[1] == 50:
 			self.saveList()
+		elif choice[1] == 60:
+			def cfgCallBack(choice=False):
+				return
+			from pklmanager import pklMovieManager
+			self.session.openWithCallback(cfgCallBack, pklMovieManager)
 
 	def createDir(self):
 		self.session.openWithCallback(self.parent.createDirCallback, VirtualKeyBoard,
@@ -1175,6 +1185,7 @@ class MovieManagerCfg(Screen, ConfigListScreen):
 		self.list.append(getConfigListEntry(_("To maintain selector position"), cfg.position, _("If enabled, then will be on start maintained selector position in items list.")))
 		self.list.append(getConfigListEntry(_("Sorting as menu under yellow"), cfg.sort_as, _("Use 'Sort by' as menu under yellow button instead simple 'Sort'.")))
 		self.list.append(getConfigListEntry(_("Refresh bookmaks"), cfg.refresh_bookmarks, _("Enable refresh bookmarks before each 'Manage files in active bookmarks'. It will add extra time.")))
+		self.list.append(getConfigListEntry(_("Enable 'Remove local directory setting...'"), cfg.removepkl, _("Enable item for delete local directory setting in menu.")))
 		self.csv_extended = _("Save extended list")
 		self.list.append(getConfigListEntry(self.csv_extended, cfg.csv_extended, _("Save extended '.csv' filelist with more data. It spend more time.")))
 		if cfg.csv_extended.value:
