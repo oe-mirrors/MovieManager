@@ -104,6 +104,7 @@ class pklMovieManager(Screen):
 				try:
 					os.unlink("%s/%s" % (item[0], PKLFILE))
 					self.list.removeSelection(item)
+					self.pklPaths.pop(item[0])
 				except:
 					print "[pklMovieManager] error remove %s" % PKLFILE
 			if not len(self.list.list):
