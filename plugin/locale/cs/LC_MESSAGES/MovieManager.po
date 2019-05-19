@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Enigma2 ManagerAutofs Plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-04 10:39+0200\n"
-"PO-Revision-Date: 2019-05-04 10:41+0200\n"
+"POT-Creation-Date: 2019-05-19 11:14+0200\n"
+"PO-Revision-Date: 2019-05-19 11:19+0200\n"
 "Last-Translator: ims <ims21@users.sourceforge.net>\n"
 "Language-Team: PLi\n"
 "Language: cs_CZ\n"
@@ -16,6 +16,32 @@ msgstr ""
 
 msgid "Movie manager"
 msgstr "Správce souborů"
+
+msgid "Directories with local setting"
+msgstr "Adresáře s lokálním nastavením"
+
+msgid "Cancel"
+msgstr "Zavřít"
+
+msgid ""
+"Remove current item or select items with 'OK' or 'Inversion' and then use "
+"remove."
+msgstr ""
+"Smažte aktuální položku nebo vyberte položky pomocí 'OK' nebo 'Inverze' a "
+"poté smažte."
+
+msgid "Inversion"
+msgstr "Inverze"
+
+msgid "Remove"
+msgstr "Smazat"
+
+#, python-format
+msgid "Are You sure to delete %s setting?"
+msgid_plural "Are You sure to delete %s settings?"
+msgstr[0] "Opravdu chcete smazat %s nastavení?"
+msgstr[1] "Opravdu chcete smazat %s nastavení?"
+msgstr[2] "Opravdu chcete smazat %s nastavení?"
 
 msgid "start title"
 msgstr "začátku názvu"
@@ -100,14 +126,8 @@ msgstr "Uložit seznam do '%s'"
 msgid "Current item info"
 msgstr "Informace o aktuální položce"
 
-msgid "Cancel"
-msgstr "Zavřít"
-
 msgid "Action"
 msgstr "Výběr akce"
-
-msgid "Inversion"
-msgstr "Inverze"
 
 msgid ""
 "Use 'Menu' or 'Action' for select operation. Multiple files mark with 'OK' "
@@ -229,6 +249,12 @@ msgstr "Uložit seznam"
 msgid "Save current movielist to '/tmp' directory as '.cvs' file."
 msgstr "Uložit aktuální seznam souborů do '/tmp' jako '.cvs' soubor."
 
+msgid "Remove local directory setting..."
+msgstr "Odstranit místní nastavení adresářů..."
+
+msgid "Remove local setting '.e2settings.pkl' in selected directories."
+msgstr "Smaže lokální nastavení '.e2settings.pkl' ve vybraných adresářích."
+
 msgid "Options..."
 msgstr "Možnosti..."
 
@@ -291,14 +317,26 @@ msgstr "Třídění"
 #, python-format
 msgid ""
 "Plugin does not use the trash or check a running recording!\n"
+"Do You want continue and delete %s selected file?"
+msgid_plural ""
+"Plugin does not use the trash or check a running recording!\n"
 "Do You want continue and delete %s selected files?"
-msgstr ""
+msgstr[0] ""
+"Plugin nepoužívá koš ani nekontroluje probíhající nahrávání!\n"
+"Chcete přesto pokračovat a smazat %s vybraný soubor?"
+msgstr[1] ""
+"Plugin nepoužívá koš ani nekontroluje probíhající nahrávání!\n"
+"Chcete přesto pokračovat a smazat %s vybrané souborý?"
+msgstr[2] ""
 "Plugin nepoužívá koš ani nekontroluje probíhající nahrávání!\n"
 "Chcete přesto pokračovat a smazat %s vybraných souborů?"
 
 #, python-format
-msgid "Are You sure to delete %s selected file(s)?"
-msgstr "Opravdu chcete smazat %s označený(ch)  soubor(ů)?"
+msgid "Are You sure to delete %s selected file?"
+msgid_plural "Are You sure to delete %s selected files?"
+msgstr[0] "Opravdu chcete smazat %s označený soubor?"
+msgstr[1] "Opravdu chcete smazat %s označené soubory?"
+msgstr[2] "Opravdu chcete smazat %s označených souborů?"
 
 #, python-format
 msgid "Sucessfuly deleted %s of %s files..."
@@ -421,6 +459,16 @@ msgstr "Povolit 'Čistit záložky...'"
 msgid "Enable in menu utility for delete bookmarks in menu."
 msgstr "Povolit v menu nástroj pro mazání záložek."
 
+msgid "Enable 'Remove local directory setting...'"
+msgstr "Povolit 'Odstranit místní nastavení adresářů...'"
+
+msgid ""
+"Enable item for delete local directory setting in menu. It depends on "
+"displayed directories in movielist."
+msgstr ""
+"Povoluje položku pro mazání lokálního nastavení adresářů v menu. Závisí na "
+"zobrazených adresářích v seznamu."
+
 msgid "Enable 'Manage files in active bookmarks...'"
 msgstr "Povolit 'Správu souborů v aktivních záložkách...'"
 
@@ -533,8 +581,14 @@ msgid "Select with 'OK' and then remove with 'Delete'."
 msgstr "Vyberte pomocí 'OK' a pak odstraňte pomocí 'Smazat'."
 
 #, python-format
-msgid "Are You sure to delete %s selected bookmark(s)?"
-msgstr "Opravdu chcete smazat %s označených záložek?"
+msgid "Are You sure to delete %s selected bookmark?"
+msgid_plural "Are You sure to delete %s selected bookmarks?"
+msgstr[0] "Opravdu chcete smazat %s označenou záložku?"
+msgstr[1] "Opravdu chcete smazat %s označené záložky?"
+msgstr[2] "Opravdu chcete smazat %s označených záložek?"
+
+#~ msgid "Select directory"
+#~ msgstr "Zvolte adresář(e)"
 
 #~ msgid "Date format as %s"
 #~ msgstr "Datum ve formátu %s"

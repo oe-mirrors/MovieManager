@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 # for localized messages
-from . import _
+from . import _, ngettext
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.95"
+VERSION = "1.96"
 #  by ims (c) 2018-2019 ims@openpli.org
 #
 #  This program is free software; you can redistribute it and/or
@@ -925,12 +925,16 @@ class MovieManager(Screen, HelpableScreen):
 	def deleteSelected(self):
 		def firstConfirmForDelete(choice):
 			if choice:
-				self.session.openWithCallback(self.delete, MessageBox, _("Plugin does not use the trash or check a running recording!\nDo You want continue and delete %s selected files?") % selected, type=MessageBox.TYPE_YESNO, default=False)
+				msg = ngettext("Plugin does not use the trash or check a running recording!\nDo You want continue and delete %s selected file?",
+						"Plugin does not use the trash or check a running recording!\nDo You want continue and delete %s selected files?",
+						selected) % selected
+				self.session.openWithCallback(self.delete, MessageBox, msg, type=MessageBox.TYPE_YESNO, default=False)
 		if self["config"].getCurrent():
 			selected = len(self.list.getSelectionsList())
 			if not selected:
 				selected = 1
-			self.session.openWithCallback(firstConfirmForDelete, MessageBox, _("Are You sure to delete %s selected file(s)?") % selected, type=MessageBox.TYPE_YESNO, default=False)
+				text = ngettext("Are You sure to delete %s selected file?" ,"Are You sure to delete %s selected files?", selected) % selected
+			self.session.openWithCallback(firstConfirmForDelete, MessageBox, text, type=MessageBox.TYPE_YESNO, default=False)
 
 	def delete(self, choice):
 		if choice:
@@ -1321,7 +1325,8 @@ class MovieManagerClearBookmarks(Screen, HelpableScreen):
 			selected = len(self.list.getSelectionsList())
 			if not selected:
 				selected = 1
-			self.session.openWithCallback(self.delete, MessageBox, _("Are You sure to delete %s selected bookmark(s)?") % selected, type=MessageBox.TYPE_YESNO, default=False)
+			msg = ngettext("Are You sure to delete %s selected bookmark?" ,"Are You sure to delete %s selected bookmarks?", selected) % selected
+			self.session.openWithCallback(self.delete, MessageBox, msg, type=MessageBox.TYPE_YESNO, default=False)
 
 	def delete(self, choice):
 		if choice:

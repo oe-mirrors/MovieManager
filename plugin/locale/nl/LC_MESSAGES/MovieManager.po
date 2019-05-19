@@ -7,19 +7,43 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-04 10:39+0200\n"
-"PO-Revision-Date: 2019-05-04 11:02+0200\n"
+"POT-Creation-Date: 2019-05-19 11:14+0200\n"
+"PO-Revision-Date: 2019-05-19 11:20+0200\n"
 "Last-Translator: Rob van der Does <RobvanderDoes@Gmail.com>\n"
 "Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.0.6\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Movie manager"
 msgstr "Moviemanager"
+
+msgid "Directories with local setting"
+msgstr ""
+
+msgid "Cancel"
+msgstr "Annuleer"
+
+msgid ""
+"Remove current item or select items with 'OK' or 'Inversion' and then use "
+"remove."
+msgstr ""
+
+msgid "Inversion"
+msgstr "Omkeren"
+
+msgid "Remove"
+msgstr ""
+
+#, fuzzy, python-format
+#| msgid "Are You sure to delete %s selected file(s)?"
+msgid "Are You sure to delete %s setting?"
+msgid_plural "Are You sure to delete %s settings?"
+msgstr[0] "Weet u zeker dat u %s geselecteerde bestand(en) wilt wissen?"
+msgstr[1] "Weet u zeker dat u %s geselecteerde bestand(en) wilt wissen?"
 
 msgid "start title"
 msgstr "starttitel"
@@ -104,14 +128,8 @@ msgstr "Sla lijst op als '%s'"
 msgid "Current item info"
 msgstr "Info huidige item"
 
-msgid "Cancel"
-msgstr "Annuleer"
-
 msgid "Action"
 msgstr "Actie"
-
-msgid "Inversion"
-msgstr "Omkeren"
 
 msgid ""
 "Use 'Menu' or 'Action' for select operation. Multiple files mark with 'OK' "
@@ -233,6 +251,12 @@ msgstr "Sla lijst op"
 msgid "Save current movielist to '/tmp' directory as '.cvs' file."
 msgstr "Sla huidige movielijst op in '/tmp' als '.cvs' bestand."
 
+msgid "Remove local directory setting..."
+msgstr ""
+
+msgid "Remove local setting '.e2settings.pkl' in selected directories."
+msgstr ""
+
 msgid "Options..."
 msgstr "Opties..."
 
@@ -292,17 +316,29 @@ msgstr "Sorteer op"
 msgid "Sort"
 msgstr "Sorteer"
 
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "Plugin does not use the trash or check a running recording!\n"
+#| "Do You want continue and delete %s selected files?"
 msgid ""
 "Plugin does not use the trash or check a running recording!\n"
+"Do You want continue and delete %s selected file?"
+msgid_plural ""
+"Plugin does not use the trash or check a running recording!\n"
 "Do You want continue and delete %s selected files?"
-msgstr ""
+msgstr[0] ""
+"Plugin gebruikt geen prullenbak en controleert niet op lopende opnames!\n"
+"Wilt u doorgaan met het verwijderen van %s bestanden?"
+msgstr[1] ""
 "Plugin gebruikt geen prullenbak en controleert niet op lopende opnames!\n"
 "Wilt u doorgaan met het verwijderen van %s bestanden?"
 
-#, python-format
-msgid "Are You sure to delete %s selected file(s)?"
-msgstr "Weet u zeker dat u %s geselecteerde bestand(en) wilt wissen?"
+#, fuzzy, python-format
+#| msgid "Are You sure to delete %s selected file(s)?"
+msgid "Are You sure to delete %s selected file?"
+msgid_plural "Are You sure to delete %s selected files?"
+msgstr[0] "Weet u zeker dat u %s geselecteerde bestand(en) wilt wissen?"
+msgstr[1] "Weet u zeker dat u %s geselecteerde bestand(en) wilt wissen?"
 
 #, python-format
 msgid "Sucessfuly deleted %s of %s files..."
@@ -429,6 +465,14 @@ msgstr "Schakel 'Bladwijzers verwijderen...' in."
 msgid "Enable in menu utility for delete bookmarks in menu."
 msgstr "Geeft de mogelijkheid bladwijzers in het menu te verwijderen."
 
+msgid "Enable 'Remove local directory setting...'"
+msgstr ""
+
+msgid ""
+"Enable item for delete local directory setting in menu. It depends on "
+"displayed directories in movielist."
+msgstr ""
+
 msgid "Enable 'Manage files in active bookmarks...'"
 msgstr "Schakel 'Beheer de bestanden in actieve bladwijzers...' in."
 
@@ -543,9 +587,12 @@ msgstr "Verwijder geselecteerde"
 msgid "Select with 'OK' and then remove with 'Delete'."
 msgstr "Selecteer met 'OK' en deselecteer met 'Verwijder'."
 
-#, python-format
-msgid "Are You sure to delete %s selected bookmark(s)?"
-msgstr "Weet u zeker de %s geselecteerde bladwijzers te verwijderen?"
+#, fuzzy, python-format
+#| msgid "Are You sure to delete %s selected bookmark(s)?"
+msgid "Are You sure to delete %s selected bookmark?"
+msgid_plural "Are You sure to delete %s selected bookmarks?"
+msgstr[0] "Weet u zeker de %s geselecteerde bladwijzers te verwijderen?"
+msgstr[1] "Weet u zeker de %s geselecteerde bladwijzers te verwijderen?"
 
 #~ msgid ""
 #~ "Select files with 'OK' or use 'CH+/CH-' and then use 'Menu' or 'Action' "

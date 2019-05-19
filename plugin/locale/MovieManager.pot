@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-04 10:39+0200\n"
+"POT-Creation-Date: 2019-05-19 11:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,9 +16,33 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 msgid "Movie manager"
 msgstr ""
+
+msgid "Directories with local setting"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid ""
+"Remove current item or select items with 'OK' or 'Inversion' and then use "
+"remove."
+msgstr ""
+
+msgid "Inversion"
+msgstr ""
+
+msgid "Remove"
+msgstr ""
+
+#, python-format
+msgid "Are You sure to delete %s setting?"
+msgid_plural "Are You sure to delete %s settings?"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "start title"
 msgstr ""
@@ -103,13 +127,7 @@ msgstr ""
 msgid "Current item info"
 msgstr ""
 
-msgid "Cancel"
-msgstr ""
-
 msgid "Action"
-msgstr ""
-
-msgid "Inversion"
 msgstr ""
 
 msgid ""
@@ -222,6 +240,12 @@ msgstr ""
 msgid "Save current movielist to '/tmp' directory as '.cvs' file."
 msgstr ""
 
+msgid "Remove local directory setting..."
+msgstr ""
+
+msgid "Remove local setting '.e2settings.pkl' in selected directories."
+msgstr ""
+
 msgid "Options..."
 msgstr ""
 
@@ -284,12 +308,18 @@ msgstr ""
 #, python-format
 msgid ""
 "Plugin does not use the trash or check a running recording!\n"
+"Do You want continue and delete %s selected file?"
+msgid_plural ""
+"Plugin does not use the trash or check a running recording!\n"
 "Do You want continue and delete %s selected files?"
-msgstr ""
+msgstr[0] ""
+msgstr[1] ""
 
 #, python-format
-msgid "Are You sure to delete %s selected file(s)?"
-msgstr ""
+msgid "Are You sure to delete %s selected file?"
+msgid_plural "Are You sure to delete %s selected files?"
+msgstr[0] ""
+msgstr[1] ""
 
 #, python-format
 msgid "Sucessfuly deleted %s of %s files..."
@@ -400,6 +430,14 @@ msgstr ""
 msgid "Enable in menu utility for delete bookmarks in menu."
 msgstr ""
 
+msgid "Enable 'Remove local directory setting...'"
+msgstr ""
+
+msgid ""
+"Enable item for delete local directory setting in menu. It depends on "
+"displayed directories in movielist."
+msgstr ""
+
 msgid "Enable 'Manage files in active bookmarks...'"
 msgstr ""
 
@@ -503,5 +541,7 @@ msgid "Select with 'OK' and then remove with 'Delete'."
 msgstr ""
 
 #, python-format
-msgid "Are You sure to delete %s selected bookmark(s)?"
-msgstr ""
+msgid "Are You sure to delete %s selected bookmark?"
+msgid_plural "Are You sure to delete %s selected bookmarks?"
+msgstr[0] ""
+msgstr[1] ""

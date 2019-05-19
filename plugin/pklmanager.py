@@ -16,7 +16,7 @@
 #  GNU General Public License for more details.
 #
 # for localized messages
-from . import _
+from . import _, ngettext
 
 from Plugins.Plugin import PluginDescriptor
 from Screens.Screen import Screen
@@ -43,12 +43,12 @@ class pklMovieManager(Screen):
 		<widget name="key_blue" position="420,0" size="140,40" valign="center" halign="center" zPosition="4"  foregroundColor="white" font="Regular;20" transparent="1" shadowColor="background" shadowOffset="-2,-2"/>
 		<widget name="config" position="5,40" zPosition="2" size="550,275" itemHeight="30" font="Regular;20" foregroundColor="white" scrollbarMode="showOnDemand"/>
 		<ePixmap pixmap="skin_default/div-h.png" position="5,320" zPosition="2" size="550,2"/>
-		<widget name="text" position="5,325" zPosition="2" size="550,92" valign="center" halign="left" font="Regular;20" foregroundColor="white"/>
+		<widget name="description" position="5,325" zPosition="2" size="550,92" valign="center" halign="left" font="Regular;20" foregroundColor="white"/>
 	</screen>"""
 
 	def __init__(self, session, pkl_paths):
 		Screen.__init__(self, session)
-		self.setTitle(_("Select directory"))
+		self.setTitle(_("Directories with local setting"))
 
 		self.skinName = ["pklMovieManager","Setup"]
 
@@ -60,7 +60,7 @@ class pklMovieManager(Screen):
 		self.list = SelectionList([])
 		self.pklPaths = pkl_paths
 		self.reloadList()
-		self["text"] = Label()
+		self["description"] = Label()
 
 		self["actions"] = ActionMap(["OkCancelActions","ColorActions"],
 			{
@@ -72,7 +72,7 @@ class pklMovieManager(Screen):
 			})
 
 		text = _("Remove current item or select items with 'OK' or 'Inversion' and then use remove.")
-		self["text"].setText(text)
+		self["description"].setText(text)
 
 	def reloadList(self):
 		self.pklPaths.sort()
@@ -92,7 +92,8 @@ class pklMovieManager(Screen):
 			selected = len(self.list.getSelectionsList())
 			if not selected:
 				selected = 1
-			self.session.openWithCallback(self.deleteSelected, MessageBox, _("Are You sure to delete %s setting(s)?") % selected, type=MessageBox.TYPE_YESNO, default=False)
+			text = ngettext("Are You sure to delete %s setting?" ,"Are You sure to delete %s settings?", selected) % selected
+			self.session.openWithCallback(self.deleteSelected, MessageBox, text, type=MessageBox.TYPE_YESNO, default=False)
 
 	def deleteSelected(self, choice):
 		if choice:
