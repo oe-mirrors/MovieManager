@@ -433,7 +433,7 @@ class MovieManager(Screen, HelpableScreen):
 		menu.append((_("Save list"), 50, _("Save current movielist to '/tmp' directory as '.cvs' file.")))
 		keys += [""]
 		if cfg.removepkl.value:
-			menu.append((_("Remove local directory setting"), 60, _("Remove local setting '.e2settings.pkl' in selected directories.")))
+			menu.append((_("Remove local directory setting..."), 60, _("Remove local setting '.e2settings.pkl' in selected directories.")))
 			keys += [""]
 		menu.append((_("Options..."), 20))
 		keys += ["menu"]

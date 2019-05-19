@@ -50,6 +50,8 @@ class pklMovieManager(Screen):
 		Screen.__init__(self, session)
 		self.setTitle(_("Select directory"))
 
+		self.skinName = ["pklMovieManager","Setup"]
+
 		self["key_red"] = Button(_("Cancel"))
 		self["key_green"] = Button()
 		self["key_blue"] = Button()
@@ -77,7 +79,7 @@ class pklMovieManager(Screen):
 			paths = []
 			for path, dirs, files in os.walk(path):
 				if PKLFILE in files:
-					paths.append(path)
+					paths.append(path.rstrip('/'))
 			return paths
 		def lookFile(path):
 			if os.path.exists(path + PKLFILE):
@@ -88,7 +90,6 @@ class pklMovieManager(Screen):
 			if cfg.manage_all.value and config.movielist.videodirs.saved_value:
 				dirs = eval(config.movielist.videodirs.saved_value)
 				dirs.append(current_dir)
-				dirs = set(dirs)
 				for path in dirs:
 					if cfg.subdirs.value:
 						paths += lookDirs(path)
@@ -107,12 +108,16 @@ class pklMovieManager(Screen):
 
 		self.l = self.list
 		self.l.setList([])
-		nr = 0
-		for x in readLists(config.movielist.last_videodir.value.rstrip('/')):
-			self.list.addSelection(x, "%s" % x, nr, False)
-			nr += 1
+
+		dirs = []
+		for i in set(readLists(config.movielist.last_videodir.value.rstrip('/'))):
+			dirs.append(i)
+		dirs.sort()
+		for idx, x in enumerate(dirs):
+			self.list.addSelection(x, "%s" % x, idx, False)
+
 		self["config"] = self.list
-		if nr:
+		if self.list.len():
 			self["key_blue"].setText(_("Inversion"))
 			self["key_yellow"].setText(_("Remove"))
 		else:
@@ -134,12 +139,11 @@ class pklMovieManager(Screen):
 			for item in data:
 				try:
 					os.unlink("%s/%s" % (item[0], PKLFILE))
+					self.list.removeSelection(item)
 				except:
 					print "[pklMovieManager] error remove %s" % PKLFILE
 			if not len(self.list.list):
 				self.exit()
-			else:
-				self.reloadList()
 
 	def exit(self):
 		self.close()
