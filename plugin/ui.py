@@ -4,7 +4,7 @@ from . import _
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.94"
+VERSION = "1.95"
 #  by ims (c) 2018-2019 ims@openpli.org
 #
 #  This program is free software; you can redistribute it and/or
@@ -170,6 +170,7 @@ class MovieManager(Screen, HelpableScreen):
 		self.size = 0
 		self.list = SelectionList([])
 
+		self.pklPaths = []
 		self["config"] = self.list
 		self.getData(config.movielist.last_videodir.value)
 
@@ -432,7 +433,7 @@ class MovieManager(Screen, HelpableScreen):
 		keys += ["0"]
 		menu.append((_("Save list"), 50, _("Save current movielist to '/tmp' directory as '.cvs' file.")))
 		keys += [""]
-		if cfg.removepkl.value:
+		if cfg.removepkl.value and len(self.pklPaths):
 			menu.append((_("Remove local directory setting..."), 60, _("Remove local setting '.e2settings.pkl' in selected directories.")))
 			keys += [""]
 		menu.append((_("Options..."), 20))
@@ -495,7 +496,7 @@ class MovieManager(Screen, HelpableScreen):
 			def cfgCallBack(choice=False):
 				return
 			from pklmanager import pklMovieManager
-			self.session.openWithCallback(cfgCallBack, pklMovieManager)
+			self.session.openWithCallback(cfgCallBack, pklMovieManager, self.pklPaths)
 
 	def createDir(self):
 		self.session.openWithCallback(self.parent.createDirCallback, VirtualKeyBoard,
@@ -685,6 +686,8 @@ class MovieManager(Screen, HelpableScreen):
 					if not path.endswith('/'):
 						path += '/'
 					paths.append(path)
+				if PKLFILE in files:
+					self.pklPaths.append(path.rstrip('/'))
 			return paths
 		def setCurrentRef(path):
 			self.current_ref = eServiceReference("2:0:1:0:0:0:0:0:0:0:" + path)
@@ -716,6 +719,8 @@ class MovieManager(Screen, HelpableScreen):
 					files = readSubdirs(current_dir)
 				else:
 					files += readDirectory(current_dir)
+					if os.path.exists(current_dir + PKLFILE):
+						self.pklPaths.append(current_dir)
 				print "[MovieManager] + added files from %s" % current_dir
 			else:
 				print "[MovieManager] no valid bookmarks!"
@@ -724,6 +729,7 @@ class MovieManager(Screen, HelpableScreen):
 		if len(self["config"].list):
 			item = self["config"].getCurrent()
 			self.current = ITEM(item)
+		self.pklPaths = []
 		self.clearList()
 		self.list = self.parseMovieList(readLists(current_dir), self.list)
 		self.sortList(int(cfg.sort.value))
@@ -1176,6 +1182,7 @@ class MovieManagerCfg(Screen, ConfigListScreen):
 		self.list.append(getConfigListEntry(_("Compare case sensitive"), cfg.sensitive, _("Sets whether to distinguish between uper case and lower case for searching.")))
 		self.list.append(getConfigListEntry(_("Use target directory as bookmark"), cfg.add_bookmark, _("Set 'yes' if You want add target directories into bookmarks.")))
 		self.list.append(getConfigListEntry(_("Enable 'Clear bookmark...'"), cfg.clear_bookmarks, _("Enable in menu utility for delete bookmarks in menu.")))
+		self.list.append(getConfigListEntry(_("Enable 'Remove local directory setting...'"), cfg.removepkl, _("Enable item for delete local directory setting in menu. It depends on displayed directories in movielist.")))
 		self.list.append(getConfigListEntry(_("Enable 'Manage files in active bookmarks...'"), cfg.manage_all, _("Enable in menu item for manage movies in all active bookmarks as one list.") + note))
 		self.list.append(getConfigListEntry(_("Including subdirectories"), cfg.subdirs, _("If enabled, then will be used subdirectories too (it will take longer).") + note))
 		self.list.append(getConfigListEntry(_("Movie files"), cfg.movies, _("If enabled, then will be added movie files into list.") + note))
@@ -1185,7 +1192,6 @@ class MovieManagerCfg(Screen, ConfigListScreen):
 		self.list.append(getConfigListEntry(_("To maintain selector position"), cfg.position, _("If enabled, then will be on start maintained selector position in items list.")))
 		self.list.append(getConfigListEntry(_("Sorting as menu under yellow"), cfg.sort_as, _("Use 'Sort by' as menu under yellow button instead simple 'Sort'.")))
 		self.list.append(getConfigListEntry(_("Refresh bookmaks"), cfg.refresh_bookmarks, _("Enable refresh bookmarks before each 'Manage files in active bookmarks'. It will add extra time.")))
-		self.list.append(getConfigListEntry(_("Enable 'Remove local directory setting...'"), cfg.removepkl, _("Enable item for delete local directory setting in menu.")))
 		self.csv_extended = _("Save extended list")
 		self.list.append(getConfigListEntry(self.csv_extended, cfg.csv_extended, _("Save extended '.csv' filelist with more data. It spend more time.")))
 		if cfg.csv_extended.value:

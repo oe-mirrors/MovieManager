@@ -46,7 +46,7 @@ class pklMovieManager(Screen):
 		<widget name="text" position="5,325" zPosition="2" size="550,92" valign="center" halign="left" font="Regular;20" foregroundColor="white"/>
 	</screen>"""
 
-	def __init__(self, session):
+	def __init__(self, session, pkl_paths):
 		Screen.__init__(self, session)
 		self.setTitle(_("Select directory"))
 
@@ -58,7 +58,7 @@ class pklMovieManager(Screen):
 		self["key_yellow"] = Button()
 
 		self.list = SelectionList([])
-
+		self.pklPaths = pkl_paths
 		self.reloadList()
 		self["text"] = Label()
 
@@ -71,49 +71,12 @@ class pklMovieManager(Screen):
 				"yellow": self.remove,
 			})
 
-		text = _("Select directory with 'OK' or 'Inversion' and remove it.")
+		text = _("Remove current item or select items with 'OK' or 'Inversion' and then use remove.")
 		self["text"].setText(text)
 
 	def reloadList(self):
-		def lookDirs(path):
-			paths = []
-			for path, dirs, files in os.walk(path):
-				if PKLFILE in files:
-					paths.append(path.rstrip('/'))
-			return paths
-		def lookFile(path):
-			if os.path.exists(path + PKLFILE):
-				return True
-			return False
-		def readLists(current_dir=None):
-			paths = []
-			if cfg.manage_all.value and config.movielist.videodirs.saved_value:
-				dirs = eval(config.movielist.videodirs.saved_value)
-				dirs.append(current_dir)
-				for path in dirs:
-					if cfg.subdirs.value:
-						paths += lookDirs(path)
-					else:
-						if lookFile(path):
-							paths.append(path)
-			elif current_dir:
-				if cfg.subdirs.value:
-					paths += lookDirs(current_dir)
-				else:
-					if lookFile(current_dir):
-						paths.append(current_dir)
-			else:
-				print "[pklMovieManager] no valid bookmarks!"
-			return paths
-
-		self.l = self.list
-		self.l.setList([])
-
-		dirs = []
-		for i in set(readLists(config.movielist.last_videodir.value.rstrip('/'))):
-			dirs.append(i)
-		dirs.sort()
-		for idx, x in enumerate(dirs):
+		self.pklPaths.sort()
+		for idx, x in enumerate(self.pklPaths):
 			self.list.addSelection(x, "%s" % x, idx, False)
 
 		self["config"] = self.list
@@ -129,7 +92,7 @@ class pklMovieManager(Screen):
 			selected = len(self.list.getSelectionsList())
 			if not selected:
 				selected = 1
-			self.session.openWithCallback(self.deleteSelected, MessageBox, _("Are You sure to delete %s selected file(s)?") % selected, type=MessageBox.TYPE_YESNO, default=False)
+			self.session.openWithCallback(self.deleteSelected, MessageBox, _("Are You sure to delete %s setting(s)?") % selected, type=MessageBox.TYPE_YESNO, default=False)
 
 	def deleteSelected(self, choice):
 		if choice:
