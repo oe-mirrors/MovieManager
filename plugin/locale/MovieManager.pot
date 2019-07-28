@@ -8,303 +8,367 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-19 11:14+0200\n"
+"POT-Creation-Date: 2019-07-28 20:51+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-msgid "Movie manager"
+#: ../ui.py:214 ../ui.py:216 ../ui.py:222 ../ui.py:223 ../ui.py:224
+#: ../ui.py:225 ../ui.py:226 ../ui.py:227
+#, python-format
+msgid " (%ss)"
 msgstr ""
 
-msgid "Directories with local setting"
+#: ../ui.py:1125
+#, python-format
+msgid "%.0f GB"
 msgstr ""
 
-msgid "Cancel"
+#: ../ui.py:1129
+#, python-format
+msgid "%.0f MB"
 msgstr ""
 
-msgid ""
-"Remove current item or select items with 'OK' or 'Inversion' and then use "
-"remove."
+#: ../ui.py:1131
+#, python-format
+msgid "%.0f kB"
 msgstr ""
 
-msgid "Inversion"
+#: ../ui.py:1127
+#, python-format
+msgid "%.2f GB"
 msgstr ""
 
-msgid "Remove"
+#: ../ui.py:1132
+#, python-format
+msgid "%d B"
 msgstr ""
 
+#: ../ui.py:1180
+msgid "(Note: change will cancel all selections.)"
+msgstr ""
+
+#: ../ui.py:82
+msgid "A-z sort"
+msgstr ""
+
+#: ../ui.py:231
+msgid "Action"
+msgstr ""
+
+#: ../ui.py:1205
+#, python-format
+msgid "Add date into extended list in format '%s'."
+msgstr ""
+
+#: ../ui.py:1203
+msgid "Add duration in hours into extended list. It extends list creation."
+msgstr ""
+
+#: ../ui.py:185 ../ui.py:1268
+msgid "Add or remove item of selection"
+msgstr ""
+
+#: ../ui.py:1207
+msgid "Add service name into extended list."
+msgstr ""
+
+#: ../ui.py:1206
+#, python-format
+msgid "Add time into extended list in format '%s'."
+msgstr ""
+
+#: ../ui.py:353
+#, python-format
+msgid "Add to selection (%s)"
+msgstr ""
+
+#: ../ui.py:69 ../ui.py:70
+msgid "All"
+msgstr ""
+
+#: ../ui.py:1328
+#, python-format
+msgid "Are You sure to delete %s selected bookmark?"
+msgid_plural "Are You sure to delete %s selected bookmarks?"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../ui.py:936
+#, python-format
+msgid "Are You sure to delete %s selected file?"
+msgid_plural "Are You sure to delete %s selected files?"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../pklmanager.py:95
 #, python-format
 msgid "Are You sure to delete %s setting?"
 msgid_plural "Are You sure to delete %s settings?"
 msgstr[0] ""
 msgstr[1] ""
 
-msgid "start title"
+#: ../ui.py:1193
+msgid "Audio files"
 msgstr ""
 
-msgid "end title"
+#: ../pklmanager.py:55 ../ui.py:230 ../ui.py:1161 ../ui.py:1278
+msgid "Cancel"
 msgstr ""
 
-msgid "contains in title"
-msgstr ""
-
-msgid "No"
-msgstr ""
-
-msgid "All"
-msgstr ""
-
-msgid "Original list"
-msgstr ""
-
-msgid "A-z sort"
-msgstr ""
-
-msgid "Z-a sort"
-msgstr ""
-
-msgid "Selected top"
-msgstr ""
-
-msgid "Original list - reverted"
-msgstr ""
-
-msgid "List of files"
-msgstr ""
-
-msgid "Exit plugin"
-msgstr ""
-
-msgid "Add or remove item of selection"
-msgstr ""
-
-msgid "Skip forward"
-msgstr ""
-
-msgid "Skip backward"
-msgstr ""
-
-msgid "Select action"
-msgstr ""
-
-msgid "Sort list"
-msgstr ""
-
-msgid "Invert selection"
-msgstr ""
-
-msgid "Preview"
-msgstr ""
-
-msgid "Stop"
-msgstr ""
-
-#, python-format
-msgid " (%ss)"
-msgstr ""
-
-msgid "Seek forward (enter time)"
-msgstr ""
-
-msgid "Seek backward (enter time)"
-msgstr ""
-
-msgid "Group selection - add"
-msgstr ""
-
-msgid "Group selection - remove"
-msgstr ""
-
-#, python-format
-msgid "Save list to '%s'"
-msgstr ""
-
-msgid "Current item info"
-msgstr ""
-
-msgid "Action"
-msgstr ""
-
-msgid ""
-"Use 'Menu' or 'Action' for select operation. Multiple files mark with 'OK' "
-"or use 'CH+/CH-'."
-msgstr ""
-
-msgid "starts with..."
-msgstr ""
-
-msgid "ends with..."
-msgstr ""
-
-msgid "contains..."
-msgstr ""
-
-#, python-format
-msgid "Add to selection (%s)"
-msgstr ""
-
-#, python-format
-msgid "Remove from selection (%s)"
-msgstr ""
-
-msgid "Copy to..."
-msgstr ""
-
-msgid "Copy current file or selected file(s) to directory."
-msgstr ""
-
-msgid "Move to..."
-msgstr ""
-
-msgid "Move current file or selected file(s) to directory."
-msgstr ""
-
-msgid "Rename"
-msgstr ""
-
-msgid "Rename current file."
-msgstr ""
-
-msgid "Create directory"
-msgstr ""
-
-msgid "Create new directory in current directory."
-msgstr ""
-
-msgid "Delete"
-msgstr ""
-
-msgid "Delete current file or selected file(s)."
-msgstr ""
-
+#: ../ui.py:414
 msgid "Clear bookmarks..."
 msgstr ""
 
-msgid ""
-"Display all existing bookmarks in box. Unwanted or unnecessary bookmarks can "
-"be removed."
+#: ../ui.py:1267 ../ui.py:1272
+msgid "Close"
 msgstr ""
 
-msgid "Reset playback position"
+#: ../ui.py:1079
+msgid "Close playback?"
 msgstr ""
 
-msgid "Reset playback position for all marked files in movielist."
+#: ../ui.py:1186
+msgid "Compare case sensitive"
 msgstr ""
 
-msgid "Play selected..."
+#: ../ui.py:403
+msgid "Copy current file or selected file(s) to directory."
 msgstr ""
 
-msgid "Playback all selected files."
+#: ../ui.py:403
+msgid "Copy to..."
 msgstr ""
 
-msgid "Play"
+#: ../ui.py:408
+msgid "Create directory"
 msgstr ""
 
-msgid "Playback current file."
+#: ../ui.py:430
+msgid "Create movielist from all active bookmarks. Please, be patient, it take some time. There in 'Options...' it can be limited to some filetypes and can be enabled browsing subdirectories."
 msgstr ""
 
-msgid "Sort by..."
+#: ../ui.py:408
+msgid "Create new directory in current directory."
 msgstr ""
 
-msgid "Set sort type for current movielist."
+#: ../ui.py:221
+msgid "Current item info"
 msgstr ""
 
-msgid "Update valid bookmarks"
+#: ../ui.py:1194
+msgid "DVD images"
 msgstr ""
 
-msgid ""
-"Update bookmarks depending on the current mountpoints. If mountpoints "
-"sleeping, then it take some time before they wakes up."
+#: ../ui.py:1205
+msgid "Date"
 msgstr ""
 
-msgid "Manage files in active bookmarks..."
+#: ../ui.py:411 ../ui.py:1279
+msgid "Delete"
 msgstr ""
 
-msgid ""
-"Create movielist from all active bookmarks. Please, be patient, it take some "
-"time. There in 'Options...' it can be limited to some filetypes and can be "
-"enabled browsing subdirectories."
+#: ../ui.py:411
+msgid "Delete current file or selected file(s)."
 msgstr ""
 
-msgid "Use sync"
+#: ../ui.py:973
+msgid "Delete failed!"
 msgstr ""
 
-msgid "Save list"
+#: ../ui.py:1273
+msgid "Delete selected"
 msgstr ""
 
-msgid "Save current movielist to '/tmp' directory as '.cvs' file."
+#: ../pklmanager.py:51
+msgid "Directories with local setting"
 msgstr ""
 
-msgid "Remove local directory setting..."
+#: ../ui.py:414
+msgid "Display all existing bookmarks in box. Unwanted or unnecessary bookmarks can be removed."
 msgstr ""
 
-msgid "Remove local setting '.e2settings.pkl' in selected directories."
+#: ../ui.py:1203
+msgid "Duration"
 msgstr ""
 
-msgid "Options..."
+#: ../ui.py:1188
+msgid "Enable 'Clear bookmark...'"
 msgstr ""
 
-msgid "Select operation:"
+#: ../ui.py:1190
+msgid "Enable 'Manage files in active bookmarks...'"
 msgstr ""
 
-#, python-format
-msgid "New directory name in '%s'"
+#: ../ui.py:1189
+msgid "Enable 'Remove local directory setting...'"
 msgstr ""
 
-msgid "name"
+#: ../ui.py:1190
+msgid "Enable in menu item for manage movies in all active bookmarks as one list."
 msgstr ""
 
-msgid "size"
+#: ../ui.py:1188
+msgid "Enable in menu utility for delete bookmarks in menu."
 msgstr ""
 
-msgid "duration"
+#: ../ui.py:1189
+msgid "Enable item for delete local directory setting in menu. It depends on displayed directories in movielist."
 msgstr ""
 
-msgid "path"
+#: ../ui.py:1198
+msgid "Enable refresh bookmarks before each 'Manage files in active bookmarks'. It will add extra time."
 msgstr ""
 
-msgid "service name"
+#: ../ui.py:672 ../ui.py:677
+msgid "Error"
 msgstr ""
 
-msgid "date"
+#: ../ui.py:184 ../ui.py:208
+msgid "Exit plugin"
 msgstr ""
 
-msgid "time"
+#: ../ui.py:218
+msgid "Group selection - add"
 msgstr ""
 
+#: ../ui.py:219
+msgid "Group selection - remove"
+msgstr ""
+
+#: ../ui.py:1193
+msgid "If enabled, then will be added audio files into list."
+msgstr ""
+
+#: ../ui.py:1194
+msgid "If enabled, then will be added dvd image files into list."
+msgstr ""
+
+#: ../ui.py:1192
+msgid "If enabled, then will be added movie files into list."
+msgstr ""
+
+#: ../ui.py:1195
+msgid "If enabled, then will be added pictures into list."
+msgstr ""
+
+#: ../ui.py:1196
+msgid "If enabled, then will be on start maintained selector position in items list."
+msgstr ""
+
+#: ../ui.py:1191
+msgid "If enabled, then will be used subdirectories too (it will take longer)."
+msgstr ""
+
+#: ../ui.py:1191
+msgid "Including subdirectories"
+msgstr ""
+
+#: ../pklmanager.py:84 ../ui.py:233 ../ui.py:1281
+msgid "Inversion"
+msgstr ""
+
+#: ../ui.py:211 ../ui.py:1275
+msgid "Invert selection"
+msgstr ""
+
+#: ../ui.py:1255
+msgid "List of bookmarks"
+msgstr ""
+
+#: ../ui.py:162 ../ui.py:790
+msgid "List of files"
+msgstr ""
+
+#: ../ui.py:592
 #, python-format
 msgid "List was saved to '%s'"
 msgstr ""
 
-msgid "Sort list:"
+#: ../ui.py:430
+msgid "Manage files in active bookmarks..."
 msgstr ""
 
+#: ../ui.py:404
+msgid "Move current file or selected file(s) to directory."
+msgstr ""
+
+#: ../ui.py:404
+msgid "Move to..."
+msgstr ""
+
+#: ../ui.py:1192
+msgid "Movie files"
+msgstr ""
+
+#: ../plugin.py:8
+msgid "Movie manager"
+msgstr ""
+
+#: ../ui.py:1158
+msgid "MovieManager"
+msgstr ""
+
+#: ../ui.py:503
 #, python-format
-msgid "The path %s already exists."
+msgid "New directory name in '%s'"
 msgstr ""
 
-msgid "Error"
+#: ../ui.py:69 ../ui.py:70
+msgid "No"
 msgstr ""
 
+#: ../ui.py:1162
+msgid "OK"
+msgstr ""
+
+#: ../ui.py:1050
 #, python-format
-msgid "Size: %s"
+msgid "On destination '%s' is %s free space only!"
 msgstr ""
 
-#, python-format
-msgid "Selected: %s"
+#: ../ui.py:439 ../ui.py:1158
+msgid "Options..."
 msgstr ""
 
-msgid "Sort by"
+#: ../ui.py:81
+msgid "Original list"
 msgstr ""
 
-msgid "Sort"
+#: ../ui.py:85
+msgid "Original list - reverted"
 msgstr ""
 
+#: ../ui.py:1091
+msgid "Other"
+msgstr ""
+
+#: ../ui.py:1195
+msgid "Pictures"
+msgstr ""
+
+#: ../ui.py:423
+msgid "Play"
+msgstr ""
+
+#: ../ui.py:420
+msgid "Play selected..."
+msgstr ""
+
+#: ../ui.py:420
+msgid "Playback all selected files."
+msgstr ""
+
+#: ../ui.py:423
+msgid "Playback current file."
+msgstr ""
+
+#: ../ui.py:928
 #, python-format
 msgid ""
 "Plugin does not use the trash or check a running recording!\n"
@@ -315,233 +379,299 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#, python-format
-msgid "Are You sure to delete %s selected file?"
-msgid_plural "Are You sure to delete %s selected files?"
-msgstr[0] ""
-msgstr[1] ""
+#: ../ui.py:1183
+msgid "Pre-fill first 'n' filename chars to virtual keyboard"
+msgstr ""
 
+#: ../ui.py:1185
+msgid "Pre-fill last 'n' filename chars to virtual keyboard"
+msgstr ""
+
+#: ../ui.py:212
+msgid "Preview"
+msgstr ""
+
+#: ../ui.py:1198
+msgid "Refresh bookmaks"
+msgstr ""
+
+#: ../pklmanager.py:85
+msgid "Remove"
+msgstr ""
+
+#: ../pklmanager.py:74
+msgid "Remove current item or select items with 'OK' or 'Inversion' and then use remove."
+msgstr ""
+
+#: ../ui.py:355
+#, python-format
+msgid "Remove from selection (%s)"
+msgstr ""
+
+#: ../ui.py:437
+msgid "Remove local directory setting..."
+msgstr ""
+
+#: ../ui.py:437
+msgid "Remove local setting '.e2settings.pkl' in selected directories."
+msgstr ""
+
+#: ../ui.py:406 ../ui.py:616
+msgid "Rename"
+msgstr ""
+
+#: ../ui.py:406
+msgid "Rename current file."
+msgstr ""
+
+#: ../ui.py:416
+msgid "Reset playback position"
+msgstr ""
+
+#: ../ui.py:416
+msgid "Reset playback position for all marked files in movielist."
+msgstr ""
+
+#: ../ui.py:985 ../ui.py:1017
+msgid "Same source and target directory!"
+msgstr ""
+
+#: ../ui.py:434
+msgid "Save current movielist to '/tmp' directory as '.csv' file."
+msgstr ""
+
+#: ../ui.py:1200
+msgid "Save extended '.csv' filelist with more data. It spend more time."
+msgstr ""
+
+#: ../ui.py:1199
+msgid "Save extended list"
+msgstr ""
+
+#: ../ui.py:434
+msgid "Save list"
+msgstr ""
+
+#: ../ui.py:220
+#, python-format
+msgid "Save list to '%s'"
+msgstr ""
+
+#: ../ui.py:1179
+msgid "Search in group selection by"
+msgstr ""
+
+#: ../ui.py:217
+msgid "Seek backward (enter time)"
+msgstr ""
+
+#: ../ui.py:215
+msgid "Seek forward (enter time)"
+msgstr ""
+
+#: ../ui.py:207 ../ui.py:209
+msgid "Select action"
+msgstr ""
+
+#: ../ui.py:978
+msgid "Select destination for copy selected files..."
+msgstr ""
+
+#: ../ui.py:1009
+msgid "Select destination for move selected files..."
+msgstr ""
+
+#: ../ui.py:442
+msgid "Select operation:"
+msgstr ""
+
+#: ../ui.py:1284
+msgid "Select with 'OK' and then remove with 'Delete'."
+msgstr ""
+
+#: ../ui.py:84
+msgid "Selected top"
+msgstr ""
+
+#: ../ui.py:772
+#, python-format
+msgid "Selected: %s"
+msgstr ""
+
+#: ../ui.py:1207
+msgid "Service name"
+msgstr ""
+
+#: ../ui.py:1187
+msgid "Set 'yes' if You want add target directories into bookmarks."
+msgstr ""
+
+#: ../ui.py:425
+msgid "Set sort type for current movielist."
+msgstr ""
+
+#: ../ui.py:1186
+msgid "Sets whether to distinguish between uper case and lower case for searching."
+msgstr ""
+
+#: ../ui.py:771
+#, python-format
+msgid "Size: %s"
+msgstr ""
+
+#: ../ui.py:195
+msgid "Skip backward"
+msgstr ""
+
+#: ../ui.py:194
+msgid "Skip forward"
+msgstr ""
+
+#: ../ui.py:864 ../ui.py:1280
+msgid "Sort"
+msgstr ""
+
+#: ../ui.py:864
+msgid "Sort by"
+msgstr ""
+
+#: ../ui.py:425
+msgid "Sort by..."
+msgstr ""
+
+#: ../ui.py:210 ../ui.py:1274
+msgid "Sort list"
+msgstr ""
+
+#: ../ui.py:598
+msgid "Sort list:"
+msgstr ""
+
+#: ../ui.py:1197
+msgid "Sorting as menu under yellow"
+msgstr ""
+
+#: ../ui.py:213
+msgid "Stop"
+msgstr ""
+
+#: ../ui.py:953
 #, python-format
 msgid "Sucessfuly deleted %s of %s files..."
 msgstr ""
 
-msgid "Delete failed!"
-msgstr ""
-
-msgid "Select destination for copy selected files..."
-msgstr ""
-
-msgid "Same source and target directory!"
-msgstr ""
-
-msgid "Select destination for move selected files..."
-msgstr ""
-
-#, python-format
-msgid "On destination '%s' is %s free space only!"
-msgstr ""
-
-msgid "Close playback?"
-msgstr ""
-
-msgid "Other"
-msgstr ""
-
-#, python-format
-msgid "%.0f GB"
-msgstr ""
-
-#, python-format
-msgid "%.2f GB"
-msgstr ""
-
-#, python-format
-msgid "%.0f MB"
-msgstr ""
-
-#, python-format
-msgid "%.0f kB"
-msgstr ""
-
-#, python-format
-msgid "%d B"
-msgstr ""
-
+#: ../ui.py:1140
 msgid ""
 "The CSFD plugin is not installed!\n"
 "Please install it."
 msgstr ""
 
-msgid "MovieManager"
-msgstr ""
-
+#: ../ui.py:670
 #, python-format
-msgid "v.%s"
+msgid "The path %s already exists."
 msgstr ""
 
-msgid "OK"
-msgstr ""
-
-msgid "Search in group selection by"
-msgstr ""
-
-msgid "(Note: change will cancel all selections.)"
-msgstr ""
-
-msgid ""
-"You can set what will group selection use - start of title, end of title or "
-"contains in title."
-msgstr ""
-
-msgid "Pre-fill first 'n' filename chars to virtual keyboard"
-msgstr ""
-
-msgid ""
-"You can set the number of letters from the beginning of the current file "
-"name as the text pre-filled into virtual keyboard for easier input via group "
-"selection. For 'group selection' use 'CH+/CH-' buttons."
-msgstr ""
-
-msgid "Pre-fill last 'n' filename chars to virtual keyboard"
-msgstr ""
-
-msgid ""
-"You can set the number of letters from the end of the current file name as "
-"the text pre-filled into virtual keyboard for easier input via group "
-"selection. For 'group selection' use 'CH+/CH-' buttons."
-msgstr ""
-
-msgid "Compare case sensitive"
-msgstr ""
-
-msgid ""
-"Sets whether to distinguish between uper case and lower case for searching."
-msgstr ""
-
-msgid "Use target directory as bookmark"
-msgstr ""
-
-msgid "Set 'yes' if You want add target directories into bookmarks."
-msgstr ""
-
-msgid "Enable 'Clear bookmark...'"
-msgstr ""
-
-msgid "Enable in menu utility for delete bookmarks in menu."
-msgstr ""
-
-msgid "Enable 'Remove local directory setting...'"
-msgstr ""
-
-msgid ""
-"Enable item for delete local directory setting in menu. It depends on "
-"displayed directories in movielist."
-msgstr ""
-
-msgid "Enable 'Manage files in active bookmarks...'"
-msgstr ""
-
-msgid ""
-"Enable in menu item for manage movies in all active bookmarks as one list."
-msgstr ""
-
-msgid "Including subdirectories"
-msgstr ""
-
-msgid "If enabled, then will be used subdirectories too (it will take longer)."
-msgstr ""
-
-msgid "Movie files"
-msgstr ""
-
-msgid "If enabled, then will be added movie files into list."
-msgstr ""
-
-msgid "Audio files"
-msgstr ""
-
-msgid "If enabled, then will be added audio files into list."
-msgstr ""
-
-msgid "DVD images"
-msgstr ""
-
-msgid "If enabled, then will be added dvd image files into list."
-msgstr ""
-
-msgid "Pictures"
-msgstr ""
-
-msgid "If enabled, then will be added pictures into list."
-msgstr ""
-
-msgid "To maintain selector position"
-msgstr ""
-
-msgid ""
-"If enabled, then will be on start maintained selector position in items list."
-msgstr ""
-
-msgid "Sorting as menu under yellow"
-msgstr ""
-
-msgid "Use 'Sort by' as menu under yellow button instead simple 'Sort'."
-msgstr ""
-
-msgid "Refresh bookmaks"
-msgstr ""
-
-msgid ""
-"Enable refresh bookmarks before each 'Manage files in active bookmarks'. It "
-"will add extra time."
-msgstr ""
-
-msgid "Save extended list"
-msgstr ""
-
-msgid "Save extended '.csv' filelist with more data. It spend more time."
-msgstr ""
-
-msgid "Duration"
-msgstr ""
-
-msgid "Add duration in hours into extended list. It extends list creation."
-msgstr ""
-
-msgid "Date"
-msgstr ""
-
-#, python-format
-msgid "Add date into extended list in format '%s'."
-msgstr ""
-
+#: ../ui.py:1206
 msgid "Time"
 msgstr ""
 
+#: ../ui.py:1196
+msgid "To maintain selector position"
+msgstr ""
+
+#: ../ui.py:428
+msgid "Update bookmarks depending on the current mountpoints. If mountpoints sleeping, then it take some time before they wakes up."
+msgstr ""
+
+#: ../ui.py:428
+msgid "Update valid bookmarks"
+msgstr ""
+
+#: ../ui.py:238
+msgid "Use 'Menu' or 'Action' for select operation. Multiple files mark with 'OK' or use 'CH+/CH-'."
+msgstr ""
+
+#: ../ui.py:1197
+msgid "Use 'Sort by' as menu under yellow button instead simple 'Sort'."
+msgstr ""
+
+#: ../ui.py:432
+msgid "Use sync"
+msgstr ""
+
+#: ../ui.py:1187
+msgid "Use target directory as bookmark"
+msgstr ""
+
+#: ../ui.py:1183
+msgid "You can set the number of letters from the beginning of the current file name as the text pre-filled into virtual keyboard for easier input via group selection. For 'group selection' use 'CH+/CH-' buttons."
+msgstr ""
+
+#: ../ui.py:1185
+msgid "You can set the number of letters from the end of the current file name as the text pre-filled into virtual keyboard for easier input via group selection. For 'group selection' use 'CH+/CH-' buttons."
+msgstr ""
+
+#: ../ui.py:1181
+msgid "You can set what will group selection use - start of title, end of title or contains in title."
+msgstr ""
+
+#: ../ui.py:83
+msgid "Z-a sort"
+msgstr ""
+
+#: ../ui.py:63
+msgid "contains in title"
+msgstr ""
+
+#: ../ui.py:351
+msgid "contains..."
+msgstr ""
+
+#: ../ui.py:560
+msgid "date"
+msgstr ""
+
+#: ../ui.py:555
+msgid "duration"
+msgstr ""
+
+#: ../ui.py:63
+msgid "end title"
+msgstr ""
+
+#: ../ui.py:349
+msgid "ends with..."
+msgstr ""
+
+#: ../ui.py:553 ../ui.py:565
+msgid "name"
+msgstr ""
+
+#: ../ui.py:556 ../ui.py:565
+msgid "path"
+msgstr ""
+
+#: ../ui.py:558
+msgid "service name"
+msgstr ""
+
+#: ../ui.py:553 ../ui.py:565
+msgid "size"
+msgstr ""
+
+#: ../ui.py:63
+msgid "start title"
+msgstr ""
+
+#: ../ui.py:347
+msgid "starts with..."
+msgstr ""
+
+#: ../ui.py:562
+msgid "time"
+msgstr ""
+
+#: ../ui.py:1158
 #, python-format
-msgid "Add time into extended list in format '%s'."
+msgid "v.%s"
 msgstr ""
-
-msgid "Service name"
-msgstr ""
-
-msgid "Add service name into extended list."
-msgstr ""
-
-msgid "List of bookmarks"
-msgstr ""
-
-msgid "Close"
-msgstr ""
-
-msgid "Delete selected"
-msgstr ""
-
-msgid "Select with 'OK' and then remove with 'Delete'."
-msgstr ""
-
-#, python-format
-msgid "Are You sure to delete %s selected bookmark?"
-msgid_plural "Are You sure to delete %s selected bookmarks?"
-msgstr[0] ""
-msgstr[1] ""
