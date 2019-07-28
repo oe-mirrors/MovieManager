@@ -431,7 +431,7 @@ class MovieManager(Screen, HelpableScreen):
 			keys += ["red"]
 		menu.append((_("Use sync"), 40))
 		keys += ["0"]
-		menu.append((_("Save list"), 50, _("Save current movielist to '/tmp' directory as '.cvs' file.")))
+		menu.append((_("Save list"), 50, _("Save current movielist to '/tmp' directory as '.csv' file.")))
 		keys += [""]
 		if cfg.removepkl.value and len(self.pklPaths):
 			menu.append((_("Remove local directory setting..."), 60, _("Remove local setting '.e2settings.pkl' in selected directories.")))
