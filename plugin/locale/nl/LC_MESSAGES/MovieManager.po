@@ -441,9 +441,8 @@ msgid "Same source and target directory!"
 msgstr "Bron en doel hebben dezelfde locatie!"
 
 #: ../ui.py:434
-#, fuzzy
 msgid "Save current movielist to '/tmp' directory as '.csv' file."
-msgstr "Sla huidige movielijst op in '/tmp' als '.cvs' bestand."
+msgstr "Sla huidige movielijst op in '/tmp' als '.csv' bestand."
 
 #: ../ui.py:1200
 msgid "Save extended '.csv' filelist with more data. It spend more time."

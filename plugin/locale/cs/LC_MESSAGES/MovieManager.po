@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Enigma2 ManagerAutofs Plugin\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-28 20:48+0200\n"
-"PO-Revision-Date: 2019-05-19 11:19+0200\n"
+"PO-Revision-Date: 2019-07-29 00:14+0200\n"
 "Last-Translator: ims <ims21@users.sourceforge.net>\n"
 "Language-Team: PLi\n"
 "Language: cs_CZ\n"
@@ -13,8 +13,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Poedit 2.0.6\n"
 
-#: ../ui.py:214 ../ui.py:216 ../ui.py:222 ../ui.py:223 ../ui.py:224
-#: ../ui.py:225 ../ui.py:226 ../ui.py:227
+#: ../ui.py:214 ../ui.py:216 ../ui.py:222 ../ui.py:223 ../ui.py:224 ../ui.py:225 ../ui.py:226 ../ui.py:227
 #, python-format
 msgid " (%ss)"
 msgstr " (%ss)"
@@ -442,9 +441,8 @@ msgid "Same source and target directory!"
 msgstr "Stejný zdrojový a cílový adresář!"
 
 #: ../ui.py:434
-#, fuzzy
 msgid "Save current movielist to '/tmp' directory as '.csv' file."
-msgstr "Uložit aktuální seznam souborů do '/tmp' jako '.cvs' soubor."
+msgstr "Uložit aktuální seznam souborů do '/tmp' jako '.csv' soubor."
 
 #: ../ui.py:1200
 msgid "Save extended '.csv' filelist with more data. It spend more time."
