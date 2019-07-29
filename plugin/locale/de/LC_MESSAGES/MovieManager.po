@@ -10,7 +10,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.3\n"
+"X-Generator: Poedit 2.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../ui.py:214 ../ui.py:216 ../ui.py:222 ../ui.py:223 ../ui.py:224
@@ -88,25 +88,25 @@ msgid "All"
 msgstr "Alle"
 
 #: ../ui.py:1328
-#, fuzzy, python-format
+#, python-format
 msgid "Are You sure to delete %s selected bookmark?"
 msgid_plural "Are You sure to delete %s selected bookmarks?"
-msgstr[0] "Möchten sie wirklich löschen %s ausgewählte(s) Lesezeichen ?"
-msgstr[1] "Möchten sie wirklich löschen %s ausgewählte(s) Lesezeichen ?"
+msgstr[0] "Möchten Sie %s ausgewählte(s) Lesezeichen wirklich löschen ?"
+msgstr[1] "Möchten Sie %s ausgewählte(s) Lesezeichen wirklich löschen ?"
 
 #: ../ui.py:936
-#, fuzzy, python-format
+#, python-format
 msgid "Are You sure to delete %s selected file?"
 msgid_plural "Are You sure to delete %s selected files?"
-msgstr[0] "Möchten sie wirklich löschen %s ausgewählte Datei(en) ?"
-msgstr[1] "Möchten sie wirklich löschen %s ausgewählte Datei(en) ?"
+msgstr[0] "Möchten Sie %s ausgewählte Datei(en) wirklich löschen ?"
+msgstr[1] "Möchten Sie %s ausgewählte Datei(en) wirklich löschen ?"
 
 #: ../pklmanager.py:95
-#, fuzzy, python-format
+#, python-format
 msgid "Are You sure to delete %s setting?"
 msgid_plural "Are You sure to delete %s settings?"
-msgstr[0] "Möchten sie wirklich löschen %s ausgewählte Datei(en) ?"
-msgstr[1] "Möchten sie wirklich löschen %s ausgewählte Datei(en) ?"
+msgstr[0] "Möchten Sie %s Einstellung wirklich löschen ?"
+msgstr[1] "Möchten Sie %s Einstellung wirklich löschen ?"
 
 #: ../ui.py:1193
 msgid "Audio files"
@@ -182,7 +182,7 @@ msgstr "Lösche Ausgewählte"
 
 #: ../pklmanager.py:51
 msgid "Directories with local setting"
-msgstr ""
+msgstr "Verzeichnisse mit lokalen Einstellungen"
 
 #: ../ui.py:414
 msgid "Display all existing bookmarks in box. Unwanted or unnecessary bookmarks can be removed."
@@ -202,7 +202,7 @@ msgstr "'Datei Verwaltung in aktiven Lesezeichen' ermöglichen ..."
 
 #: ../ui.py:1189
 msgid "Enable 'Remove local directory setting...'"
-msgstr ""
+msgstr "Erlaube 'Lokal Verzeichnis Einstellung löschen ...'"
 
 #: ../ui.py:1190
 msgid "Enable in menu item for manage movies in all active bookmarks as one list."
@@ -214,7 +214,7 @@ msgstr "Wenn aktiviert, können Lesezeichen im Menü über das Programm gelösch
 
 #: ../ui.py:1189
 msgid "Enable item for delete local directory setting in menu. It depends on displayed directories in movielist."
-msgstr ""
+msgstr "Aktiviere Eintrag um Lokal Verzeichnis Einstellung im Menü zu löschen. Das ist abhängig von den gezeigten Verzeichnissen in der Film-Liste."
 
 #: ../ui.py:1198
 msgid "Enable refresh bookmarks before each 'Manage files in active bookmarks'. It will add extra time."
@@ -368,7 +368,7 @@ msgid "Playback current file."
 msgstr "Aktuell markierte Datei abspielen."
 
 #: ../ui.py:928
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Plugin does not use the trash or check a running recording!\n"
 "Do You want continue and delete %s selected file?"
@@ -376,10 +376,10 @@ msgid_plural ""
 "Plugin does not use the trash or check a running recording!\n"
 "Do You want continue and delete %s selected files?"
 msgstr[0] ""
-"Plugin benutzt keinen Papierkorb oder prüft auf laufende Aufnahmen !\n"
+"Plugin nutzt keinen Papierkorb oder prüft laufende Aufnahmen !\n"
 "Möchten Sie fortfahren und %s ausgewählte Dateien löschen ?"
 msgstr[1] ""
-"Plugin benutzt keinen Papierkorb oder prüft auf laufende Aufnahmen !\n"
+"Plugin nutzt keinen Papierkorb oder prüft laufende Aufnahmen !\n"
 "Möchten Sie fortfahren und %s ausgewählte Dateien löschen ?"
 
 #: ../ui.py:1183
@@ -400,11 +400,11 @@ msgstr "Lesezeichen aktualisieren"
 
 #: ../pklmanager.py:85
 msgid "Remove"
-msgstr ""
+msgstr "Entfernen"
 
 #: ../pklmanager.py:74
 msgid "Remove current item or select items with 'OK' or 'Inversion' and then use remove."
-msgstr ""
+msgstr "Entferne aktuelle Einträge oder wähle Einträge mit 'OK' oder Ausw. umkehren und dann benutze Löschen."
 
 #: ../ui.py:355
 #, python-format
@@ -413,11 +413,11 @@ msgstr "Löschen der Auswahl (%s)"
 
 #: ../ui.py:437
 msgid "Remove local directory setting..."
-msgstr ""
+msgstr "Lösche Lokal Verzeichnis Einstellung"
 
 #: ../ui.py:437
 msgid "Remove local setting '.e2settings.pkl' in selected directories."
-msgstr ""
+msgstr "Lösche Lokale Einstellung '.e2settings.pkl' in ausgewählten Verzeichnissen."
 
 #: ../ui.py:406 ../ui.py:616
 msgid "Rename"
@@ -596,7 +596,7 @@ msgstr "Aktualisiere gültige Lesezeichen"
 
 #: ../ui.py:238
 msgid "Use 'Menu' or 'Action' for select operation. Multiple files mark with 'OK' or use 'CH+/CH-'."
-msgstr "'Menü' oder 'Aktion' für gewählte Aktion verwenden. Mehrere Dateien mit 'OK' markieren, oder 'CH+/CH-' benutzen."
+msgstr "Wähle 'Menü' oder 'Aktion' für gewünschte Aktion. Mehrere Dateien mit 'OK' wählen, oder 'CH+/CH-' benutzen."
 
 #: ../ui.py:1197
 msgid "Use 'Sort by' as menu under yellow button instead simple 'Sort'."
