@@ -11,7 +11,7 @@ if getDesktop(0).size().width() <= 1280:
 select_png = None
 select_png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_PLUGINS, plugin_path + "/png/select_on%s.png" % resolution))
 if select_png is None:
-	select_png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_SKIN, "icons/select_on.png"))
+	select_png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_SKIN, "icons/lock_on.png"))
 
 def MySelectionEntryComponent(description, value, index, selected):
 	dx, dy, dw, dh = skin.parameters.get("ImsSelectionListDescr",(35, 2, 650, 30))

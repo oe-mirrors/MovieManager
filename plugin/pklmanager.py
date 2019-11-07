@@ -23,11 +23,11 @@ from Screens.Screen import Screen
 from Components.Button import Button
 from Components.Label import Label
 from Components.ActionMap import ActionMap
-from Components.SelectionList import SelectionList
 from Screens.MessageBox import MessageBox
 from Components.config import config
 import skin
 import os
+from myselectionlist import MySelectionList
 from ui import PKLFILE, cfg
 
 class pklMovieManager(Screen):
@@ -57,7 +57,7 @@ class pklMovieManager(Screen):
 		self["key_blue"] = Button()
 		self["key_yellow"] = Button()
 
-		self.list = SelectionList([])
+		self.list = MySelectionList([])
 		self.pklPaths = pkl_paths
 		self.reloadList()
 		self["description"] = Label()
