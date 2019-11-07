@@ -1,8 +1,12 @@
 from Plugins.Plugin import PluginDescriptor
 
+plugin_path = None
+
 def main(session, service, **kwargs):
 	import ui
 	session.open(ui.MovieManager, service, session.current_dialog)
 
-def Plugins(**kwargs):
+def Plugins(path, **kwargs):
+	global plugin_path
+	plugin_path = path
 	return PluginDescriptor(name=_("Movie manager"),description =_("Movie manager"), where=PluginDescriptor.WHERE_MOVIELIST, fnc=main)

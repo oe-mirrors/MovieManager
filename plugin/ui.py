@@ -4,7 +4,7 @@ from . import _, ngettext
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.96"
+VERSION = "1.97"
 #  by ims (c) 2018-2019 ims@openpli.org
 #
 #  This program is free software; you can redistribute it and/or
@@ -29,7 +29,6 @@ from Components.ActionMap import ActionMap, HelpableActionMap
 from Screens.HelpMenu import HelpableScreen
 from Components.ConfigList import ConfigListScreen
 from enigma import eServiceReference, iServiceInformation, eServiceCenter, getDesktop, eSize, ePoint, iPlayableService, eTimer, eConsoleAppContainer
-from Components.SelectionList import SelectionList, SelectionEntryComponent
 from Components.Sources.ServiceEvent import ServiceEvent
 from Screens.ChoiceBox import ChoiceBox
 from Screens.VirtualKeyBoard import VirtualKeyBoard
@@ -41,6 +40,7 @@ from Components.ServiceEventTracker import ServiceEventTracker
 from Screens.MinuteInput import MinuteInput
 from ServiceReference import ServiceReference
 from time import localtime, strftime, time
+from myselectionlist import MySelectionList, MySelectionEntryComponent
 import os
 import skin
 
@@ -160,15 +160,13 @@ class MovieManager(Screen, HelpableScreen):
 			})
 
 		self.setTitle(_("List of files") + ":  %s" % config.movielist.last_videodir.value)
-		self.original_selectionpng = None
-		self.changePng()
 
 		self["Service"] = ServiceEvent()
 
 		self.accross = False
 		self.position = -1
 		self.size = 0
-		self.list = SelectionList([])
+		self.list = MySelectionList([])
 
 		self.pklPaths = []
 		self["config"] = self.list
@@ -272,10 +270,10 @@ class MovieManager(Screen, HelpableScreen):
 							size = info.getInfo(item, iServiceInformation.sFileSize)
 						else:
 							size = info.getInfoObject(item, iServiceInformation.sFileSize) # movie
-					list.list.append(SelectionEntryComponent(name, (item, size, info), index, False))
+					list.list.append(MySelectionEntryComponent(name, (item, size, info), index, False))
 					index += 1
 					suma+=size
-		self.l = SelectionList(list)
+		self.l = MySelectionList(list)
 		self.l.setList(list)
 		print "[MovieMnager} list filled with %s items. Size: %s, position %s" % (index, self.convertSize(suma), self.position)
 		self.size = 0
@@ -440,7 +438,7 @@ class MovieManager(Screen, HelpableScreen):
 		keys += ["menu"]
 
 		text = _("Select operation:")
-		self.session.openWithCallback(self.menuCallback, ChoiceBox, title=text, list=menu, keys=keys, skin_name="MovieManagerChoiceBox")
+		self.session.openWithCallback(self.menuCallback, ChoiceBox, title=text, list=menu, keys=["dummy" if key=="" else key for key in keys], skin_name="MovieManagerChoiceBox")
 
 	def menuCallback(self, choice):
 		if choice is None:
@@ -628,9 +626,9 @@ class MovieManager(Screen, HelpableScreen):
 			index = 0
 			for n in newlist:
 				item = n[0]
-				list.list.append(SelectionEntryComponent(item[0], item[1], index, item[3]))
+				list.list.append(MySelectionEntryComponent(item[0], item[1], index, item[3]))
 				index+=1
-			self.l = SelectionList(list)
+			self.l = MySelectionList(list)
 			self.l.setList(list)
 			return list
 		def renameItem(item, newname, list):
@@ -801,13 +799,6 @@ class MovieManager(Screen, HelpableScreen):
 		if lastposition:
 			return "%s%s" % (lastposition, '%')
 		return ""
-
-	def changePng(self):
-		path = resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/icons/mark_select.png")
-		if os.path.exists(path):
-			import Components.SelectionList
-			self.original_selectionpng = Components.SelectionList.selectionpng
-			Components.SelectionList.selectionpng = LoadPixmap(cached=True, path=path)
 
 	def getItemIndex(self, item):
 		index = 0
@@ -1081,9 +1072,6 @@ class MovieManager(Screen, HelpableScreen):
 			self.playerInfoBar.doClose()
 			self.session.nav.playService(self.playingRef)
 			config.moviemanager.sort.save()
-			if self.original_selectionpng:
-				import Components.SelectionList
-				Components.SelectionList.selectionpng = self.original_selectionpng
 			self.close()
 			self.parent.reloadList()
 
@@ -1254,7 +1242,7 @@ class MovieManagerClearBookmarks(Screen, HelpableScreen):
 
 		self.setTitle(_("List of bookmarks"))
 
-		self.list = SelectionList([])
+		self.list = MySelectionList([])
 		if self.loadAllMovielistVideodirs():
 			index = 0
 			for bookmark in eval(config.movielist.videodirs.saved_value):
