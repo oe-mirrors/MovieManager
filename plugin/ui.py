@@ -951,8 +951,8 @@ class MovieManager(Screen, HelpableScreen):
 		offline = serviceHandler.offlineOperations(item[1][0])
 		try:
 			if offline is None:
-			        from enigma import eBackgroundFileEraser
-			        eBackgroundFileEraser.getInstance().erase(os.path.realpath(item[1][0].getPath()))
+				from enigma import eBackgroundFileEraser
+				eBackgroundFileEraser.getInstance().erase(os.path.realpath(item[1][0].getPath()))
 			else:
 				if offline.deleteFromDisk(0):
 					raise Exception, "Offline delete failed"
