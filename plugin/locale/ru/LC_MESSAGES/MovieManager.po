@@ -1,0 +1,688 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-28 20:51+0200\n"
+"PO-Revision-Date: 2020-08-28 14:27+0300\n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"X-Generator: Poedit 2.0.4\n"
+
+#: ../ui.py:214 ../ui.py:216 ../ui.py:222 ../ui.py:223 ../ui.py:224 ../ui.py:225 ../ui.py:226 ../ui.py:227
+#, python-format
+msgid " (%ss)"
+msgstr " (%ss)"
+
+#: ../ui.py:1125
+#, python-format
+msgid "%.0f GB"
+msgstr "%.0f ГБ"
+
+#: ../ui.py:1129
+#, python-format
+msgid "%.0f MB"
+msgstr "%.0f МБ"
+
+#: ../ui.py:1131
+#, python-format
+msgid "%.0f kB"
+msgstr "%.0f кб"
+
+#: ../ui.py:1127
+#, python-format
+msgid "%.2f GB"
+msgstr "%.2f ГБ"
+
+#: ../ui.py:1132
+#, python-format
+msgid "%d B"
+msgstr "%d Б"
+
+#: ../ui.py:1180
+msgid "(Note: change will cancel all selections.)"
+msgstr "(Примечание: изменение отменит весь выбор.)"
+
+#: ../ui.py:82
+msgid "A-z sort"
+msgstr "Сортировка A-z"
+
+#: ../ui.py:231
+msgid "Action"
+msgstr "Действие"
+
+#: ../ui.py:1205
+#, python-format
+msgid "Add date into extended list in format '%s'."
+msgstr "Добавить дату в расширенный список в формате '%s'."
+
+#: ../ui.py:1203
+msgid "Add duration in hours into extended list. It extends list creation."
+msgstr "Добавить продолжительность в часах в расширенный список. Это расширяет возможности создания списка."
+
+#: ../ui.py:185 ../ui.py:1268
+msgid "Add or remove item of selection"
+msgstr "Добавить или удалить элемент выбора"
+
+#: ../ui.py:1207
+msgid "Add service name into extended list."
+msgstr "Добавить название сервиса в расширенный список."
+
+#: ../ui.py:1206
+#, python-format
+msgid "Add time into extended list in format '%s'."
+msgstr "Добавить время в расширенный список в формате '%s'."
+
+#: ../ui.py:353
+#, python-format
+msgid "Add to selection (%s)"
+msgstr "Добавить к выбору (%s)"
+
+#: ../ui.py:69 ../ui.py:70
+msgid "All"
+msgstr "Все"
+
+#: ../ui.py:1328
+#, python-format
+msgid "Are You sure to delete %s selected bookmark?"
+msgid_plural "Are You sure to delete %s selected bookmarks?"
+msgstr[0] "Вы действительно хотите удалить выбранную %s закладку?"
+msgstr[1] "Вы действительно хотите удалить выбранные %s закладки?"
+msgstr[2] "Вы действительно хотите удалить выбранные %s закладки?"
+
+#: ../ui.py:936
+#, python-format
+msgid "Are You sure to delete %s selected file?"
+msgid_plural "Are You sure to delete %s selected files?"
+msgstr[0] "Вы действительно хотите удалить выбранный %s файл?"
+msgstr[1] "Вы действительно хотите удалить выбранные %s файлы?"
+msgstr[2] "Вы действительно хотите удалить выбранные %s файлы?"
+
+#: ../pklmanager.py:95
+#, python-format
+msgid "Are You sure to delete %s setting?"
+msgid_plural "Are You sure to delete %s settings?"
+msgstr[0] "Вы уверены, что хотите удалить %s настройку?"
+msgstr[1] "Вы уверены, что хотите удалить %s настройки?"
+msgstr[2] "Вы уверены, что хотите удалить %s настройки?"
+
+#: ../ui.py:1193
+msgid "Audio files"
+msgstr "Аудио файлы"
+
+#: ../pklmanager.py:55 ../ui.py:230 ../ui.py:1161 ../ui.py:1278
+msgid "Cancel"
+msgstr "Отмена"
+
+#: ../ui.py:414
+msgid "Clear bookmarks..."
+msgstr "Очистить закладки..."
+
+#: ../ui.py:1267 ../ui.py:1272
+msgid "Close"
+msgstr "Закрыть"
+
+#: ../ui.py:1079
+msgid "Close playback?"
+msgstr "Остановить воспроизведение?"
+
+#: ../ui.py:1186
+msgid "Compare case sensitive"
+msgstr "Сравнить с учетом регистра"
+
+#: ../ui.py:403
+msgid "Copy current file or selected file(s) to directory."
+msgstr "Копировать текущий файл или выбранный файл(ы) в каталог."
+
+#: ../ui.py:403
+msgid "Copy to..."
+msgstr "Копировать в..."
+
+#: ../ui.py:408
+msgid "Create directory"
+msgstr "Создать каталог"
+
+#: ../ui.py:430
+msgid "Create movielist from all active bookmarks. Please, be patient, it take some time. There in 'Options...' it can be limited to some filetypes and can be enabled browsing subdirectories."
+msgstr "Создать список фильмов из всех активных закладок. Пожалуйста, проявите терпение, это займет некоторое время. Там в 'Параметрах...' он может быть ограничен некоторыми типами файлов и может быть включен для просмотра подкаталогов."
+
+#: ../ui.py:408
+msgid "Create new directory in current directory."
+msgstr "Создать новый каталог в текущем каталоге."
+
+#: ../ui.py:221
+msgid "Current item info"
+msgstr "Информация о текущем элементе"
+
+#: ../ui.py:1194
+msgid "DVD images"
+msgstr "DVD образы"
+
+#: ../ui.py:1205
+msgid "Date"
+msgstr "Дата"
+
+#: ../ui.py:411 ../ui.py:1279
+msgid "Delete"
+msgstr "Удалить"
+
+#: ../ui.py:411
+msgid "Delete current file or selected file(s)."
+msgstr "Удалить текущий файл или выбранный файл(ы)"
+
+#: ../ui.py:973
+msgid "Delete failed!"
+msgstr "Не удалось удалить!"
+
+#: ../ui.py:1273
+msgid "Delete selected"
+msgstr "Удалить выбранное"
+
+#: ../pklmanager.py:51
+msgid "Directories with local setting"
+msgstr "Каталоги с локальной настройкой"
+
+#: ../ui.py:414
+msgid "Display all existing bookmarks in box. Unwanted or unnecessary bookmarks can be removed."
+msgstr "Показать все существующие закладки в ресивере. Нежелательные или ненужные закладки можно удалить."
+
+#: ../ui.py:1203
+msgid "Duration"
+msgstr "Продолжительность"
+
+#: ../ui.py:1188
+msgid "Enable 'Clear bookmark...'"
+msgstr "Включить 'Очистить закладку...'"
+
+#: ../ui.py:1190
+msgid "Enable 'Manage files in active bookmarks...'"
+msgstr "Включить 'Управление файлами в активных закладках'"
+
+#: ../ui.py:1189
+msgid "Enable 'Remove local directory setting...'"
+msgstr "Включить 'Удалить настройку локального каталога...'"
+
+#: ../ui.py:1190
+msgid "Enable in menu item for manage movies in all active bookmarks as one list."
+msgstr "Включить в меню пункт для управления фильмами во всех активных закладках в виде одного списка."
+
+#: ../ui.py:1188
+msgid "Enable in menu utility for delete bookmarks in menu."
+msgstr "Включить в меню утилиту для удаления закладок в меню."
+
+#: ../ui.py:1189
+msgid "Enable item for delete local directory setting in menu. It depends on displayed directories in movielist."
+msgstr "Включить в меню пункт для удаления локального каталога. Это зависит от отображаемых каталогов в списке фильмов."
+
+#: ../ui.py:1198
+msgid "Enable refresh bookmarks before each 'Manage files in active bookmarks'. It will add extra time."
+msgstr "Включить обновление закладок перед каждым 'Управлением файлами в активных закладках'. Это добавит дополнительное время."
+
+#: ../ui.py:672 ../ui.py:677
+msgid "Error"
+msgstr "Ошибка"
+
+#: ../ui.py:184 ../ui.py:208
+msgid "Exit plugin"
+msgstr "Выйти из плагина"
+
+#: ../ui.py:218
+msgid "Group selection - add"
+msgstr "Групповой выбор - добавить"
+
+#: ../ui.py:219
+msgid "Group selection - remove"
+msgstr "Групповой выбор - удалить"
+
+#: ../ui.py:1193
+msgid "If enabled, then will be added audio files into list."
+msgstr "Если включено, то в список будут добавлены аудиофайлы."
+
+#: ../ui.py:1194
+msgid "If enabled, then will be added dvd image files into list."
+msgstr "Если включено, то в список будут добавлены файлы с образами dvd."
+
+#: ../ui.py:1192
+msgid "If enabled, then will be added movie files into list."
+msgstr "Если включено, то в список будут добавлены файлы фильмов."
+
+#: ../ui.py:1195
+msgid "If enabled, then will be added pictures into list."
+msgstr "Если включено, то в список будут добавляться картинки."
+
+#: ../ui.py:1196
+msgid "If enabled, then will be on start maintained selector position in items list."
+msgstr "Если включено, то при запуске будет сохранена позиция селектора в списке элементов."
+
+#: ../ui.py:1191
+msgid "If enabled, then will be used subdirectories too (it will take longer)."
+msgstr "Если включено, то будут использоваться и подкаталоги (это займет больше времени)"
+
+#: ../ui.py:1191
+msgid "Including subdirectories"
+msgstr "Включая подкаталоги"
+
+#: ../pklmanager.py:84 ../ui.py:233 ../ui.py:1281
+msgid "Inversion"
+msgstr "Инвертировать"
+
+#: ../ui.py:211 ../ui.py:1275
+msgid "Invert selection"
+msgstr "Инвертировать выбор"
+
+#: ../ui.py:1255
+msgid "List of bookmarks"
+msgstr "Список закладок"
+
+#: ../ui.py:162 ../ui.py:790
+msgid "List of files"
+msgstr "Список файлов"
+
+#: ../ui.py:592
+#, python-format
+msgid "List was saved to '%s'"
+msgstr "Список сохранен в '%s'"
+
+#: ../ui.py:430
+msgid "Manage files in active bookmarks..."
+msgstr "Управление файлами в активных закладках..."
+
+#: ../ui.py:404
+msgid "Move current file or selected file(s) to directory."
+msgstr "Переместить текущий файл или выбранный файл(ы) в каталог."
+
+#: ../ui.py:404
+msgid "Move to..."
+msgstr "Перейти к..."
+
+#: ../ui.py:1192
+msgid "Movie files"
+msgstr "Файлы фильмов"
+
+#: ../plugin.py:8
+msgid "Movie manager"
+msgstr "Менеджер фильмов"
+
+#: ../ui.py:1158
+msgid "MovieManager"
+msgstr "Менеджер Фильмов"
+
+#: ../ui.py:503
+#, python-format
+msgid "New directory name in '%s'"
+msgstr "Новое имя каталога в '%s'"
+
+#: ../ui.py:69 ../ui.py:70
+msgid "No"
+msgstr "Нет"
+
+#: ../ui.py:1162
+msgid "OK"
+msgstr "ОК"
+
+#: ../ui.py:1050
+#, python-format
+msgid "On destination '%s' is %s free space only!"
+msgstr "По назначению '%s' есть только %s свободного места!"
+
+#: ../ui.py:439 ../ui.py:1158
+msgid "Options..."
+msgstr "Параметры..."
+
+#: ../ui.py:81
+msgid "Original list"
+msgstr "Исходный список"
+
+#: ../ui.py:85
+msgid "Original list - reverted"
+msgstr "Исходный список - вернуть"
+
+#: ../ui.py:1091
+msgid "Other"
+msgstr "Другой"
+
+#: ../ui.py:1195
+msgid "Pictures"
+msgstr "Картинки"
+
+#: ../ui.py:423
+msgid "Play"
+msgstr "Воспроизведение"
+
+#: ../ui.py:420
+msgid "Play selected..."
+msgstr "Воспроизвести выбранное..."
+
+#: ../ui.py:420
+msgid "Playback all selected files."
+msgstr "Воспроизвести все выбранные файлы."
+
+#: ../ui.py:423
+msgid "Playback current file."
+msgstr "Воспроизвести текущий файл."
+
+#: ../ui.py:928
+#, python-format
+msgid ""
+"Plugin does not use the trash or check a running recording!\n"
+"Do You want continue and delete %s selected file?"
+msgid_plural ""
+"Plugin does not use the trash or check a running recording!\n"
+"Do You want continue and delete %s selected files?"
+msgstr[0] ""
+"Плагин не использует корзину и не проверяет работающую запись!\n"
+"Вы хотите продолжить и удалить %s выбранный файл?"
+msgstr[1] ""
+"Плагин не использует корзину и не проверяет работающую запись!\n"
+"Вы хотите продолжить и удалить %s выбранные файлы?"
+msgstr[2] ""
+"Плагин не использует корзину и не проверяет работающую запись!\n"
+"Вы хотите продолжить и удалить %s выбранные файлы?"
+
+#: ../ui.py:1183
+msgid "Pre-fill first 'n' filename chars to virtual keyboard"
+msgstr "Предварительно заполнить первые символы 'n' имени файла на виртуальной клавиатуре"
+
+#: ../ui.py:1185
+msgid "Pre-fill last 'n' filename chars to virtual keyboard"
+msgstr "Предварительно заполнить последние символы 'n' имени файла на виртуальной клавиатуре"
+
+#: ../ui.py:212
+msgid "Preview"
+msgstr "Предпросмотр"
+
+#: ../ui.py:1198
+msgid "Refresh bookmaks"
+msgstr "Обновить закладки"
+
+#: ../pklmanager.py:85
+msgid "Remove"
+msgstr "Удалить"
+
+#: ../pklmanager.py:74
+msgid "Remove current item or select items with 'OK' or 'Inversion' and then use remove."
+msgstr "Удалить текущий элемент или выберать элементы с помощью 'ОК' или 'Инвертировать', а затем удалить."
+
+#: ../ui.py:355
+#, python-format
+msgid "Remove from selection (%s)"
+msgstr "Удалить из выбора (%s)"
+
+#: ../ui.py:437
+msgid "Remove local directory setting..."
+msgstr "Удалить настройку локального каталога..."
+
+#: ../ui.py:437
+msgid "Remove local setting '.e2settings.pkl' in selected directories."
+msgstr "Удалите локальный параметр '.e2settings.pkl' в выбранных каталогах."
+
+#: ../ui.py:406 ../ui.py:616
+msgid "Rename"
+msgstr "Переименовать"
+
+#: ../ui.py:406
+msgid "Rename current file."
+msgstr "Переименовать текущий файл."
+
+#: ../ui.py:416
+msgid "Reset playback position"
+msgstr "Сбросить позицию воспроизведения"
+
+#: ../ui.py:416
+msgid "Reset playback position for all marked files in movielist."
+msgstr "Сбросить позицию воспроизведения для всех отмеченных файлов в списке фильмов."
+
+#: ../ui.py:985 ../ui.py:1017
+msgid "Same source and target directory!"
+msgstr "Тот же исходный и целевой каталог!"
+
+#: ../ui.py:434
+msgid "Save current movielist to '/tmp' directory as '.csv' file."
+msgstr "Сохранить текущий список фильмов в каталоге '/tmp' как '.csv'файл."
+
+#: ../ui.py:1200
+msgid "Save extended '.csv' filelist with more data. It spend more time."
+msgstr "Сохранить расширенный список файлов '.csv' с дополнительными данными. На это тратится больше времени."
+
+#: ../ui.py:1199
+msgid "Save extended list"
+msgstr "Сохранить расширенный список"
+
+#: ../ui.py:434
+msgid "Save list"
+msgstr "Сохранить список"
+
+#: ../ui.py:220
+#, python-format
+msgid "Save list to '%s'"
+msgstr "Сохранить список в '%s'"
+
+#: ../ui.py:1179
+msgid "Search in group selection by"
+msgstr "Искать в групповом выборе по"
+
+#: ../ui.py:217
+msgid "Seek backward (enter time)"
+msgstr "Перейти назад (введите время)"
+
+#: ../ui.py:215
+msgid "Seek forward (enter time)"
+msgstr "Перейти вперед (введите время)"
+
+#: ../ui.py:207 ../ui.py:209
+msgid "Select action"
+msgstr "Выберите действие"
+
+#: ../ui.py:978
+msgid "Select destination for copy selected files..."
+msgstr "Выбрать место назначения для копирования выбранных файлов..."
+
+#: ../ui.py:1009
+msgid "Select destination for move selected files..."
+msgstr "Выбрать место назначения для перемещения выбранных файлов..."
+
+#: ../ui.py:442
+msgid "Select operation:"
+msgstr "Выберите операцию:"
+
+#: ../ui.py:1284
+msgid "Select with 'OK' and then remove with 'Delete'."
+msgstr "Выбрать с помощью 'ОК', а затем удалить с помощью 'Удалить'."
+
+#: ../ui.py:84
+msgid "Selected top"
+msgstr "Выбрать верхний"
+
+#: ../ui.py:772
+#, python-format
+msgid "Selected: %s"
+msgstr "Выбрано: %s"
+
+#: ../ui.py:1207
+msgid "Service name"
+msgstr "Имя сервиса"
+
+#: ../ui.py:1187
+msgid "Set 'yes' if You want add target directories into bookmarks."
+msgstr "Установите 'Да', если хотите добавить целевые каталоги в закладки."
+
+#: ../ui.py:425
+msgid "Set sort type for current movielist."
+msgstr "Установить тип сортировки для текущего списка фильмов."
+
+#: ../ui.py:1186
+msgid "Sets whether to distinguish between uper case and lower case for searching."
+msgstr "Задает, следует ли различать верхний и нижний регистры для поиска."
+
+#: ../ui.py:771
+#, python-format
+msgid "Size: %s"
+msgstr "Размер: %s"
+
+#: ../ui.py:195
+msgid "Skip backward"
+msgstr "Перейти назад"
+
+#: ../ui.py:194
+msgid "Skip forward"
+msgstr "Перейти вперед"
+
+#: ../ui.py:864 ../ui.py:1280
+msgid "Sort"
+msgstr "Сортировать"
+
+#: ../ui.py:864
+msgid "Sort by"
+msgstr "Сортировать по"
+
+#: ../ui.py:425
+msgid "Sort by..."
+msgstr "Сортировать по..."
+
+#: ../ui.py:210 ../ui.py:1274
+msgid "Sort list"
+msgstr "Сортировать список"
+
+#: ../ui.py:598
+msgid "Sort list:"
+msgstr "Сортировать список:"
+
+#: ../ui.py:1197
+msgid "Sorting as menu under yellow"
+msgstr "Сортировка как меню под желтым"
+
+#: ../ui.py:213
+msgid "Stop"
+msgstr "Стоп"
+
+#: ../ui.py:953
+#, python-format
+msgid "Sucessfuly deleted %s of %s files..."
+msgstr "Успешно удалено %s из %s файлов..."
+
+#: ../ui.py:1140
+msgid ""
+"The CSFD plugin is not installed!\n"
+"Please install it."
+msgstr ""
+"Плагин CSFD не установлен!\n"
+"Пожалуйста, установите его."
+
+#: ../ui.py:670
+#, python-format
+msgid "The path %s already exists."
+msgstr "Путь %s уже существует."
+
+#: ../ui.py:1206
+msgid "Time"
+msgstr "Время"
+
+#: ../ui.py:1196
+msgid "To maintain selector position"
+msgstr "Для сохранения положения селектора"
+
+#: ../ui.py:428
+msgid "Update bookmarks depending on the current mountpoints. If mountpoints sleeping, then it take some time before they wakes up."
+msgstr "Обновить закладки в зависимости от текущих точек монтирования. Если точки монтирования спят, то потребуется некоторое время, прежде чем они проснутся."
+
+#: ../ui.py:428
+msgid "Update valid bookmarks"
+msgstr "Обновить действующие закладки"
+
+#: ../ui.py:238
+msgid "Use 'Menu' or 'Action' for select operation. Multiple files mark with 'OK' or use 'CH+/CH-'."
+msgstr "Использовать 'Меню' или 'Действие' для выбора операции. Несколько файлов помечаются 'ОК' или использовать 'CH+/CH-'."
+
+#: ../ui.py:1197
+msgid "Use 'Sort by' as menu under yellow button instead simple 'Sort'."
+msgstr "Использовать 'Сортировать по' в качестве меню под желтой кнопкой вместо простого 'Сортировать'."
+
+#: ../ui.py:432
+msgid "Use sync"
+msgstr "Использовать синхронизацию"
+
+#: ../ui.py:1187
+msgid "Use target directory as bookmark"
+msgstr "Использовать целевой каталог как закладку"
+
+#: ../ui.py:1183
+msgid "You can set the number of letters from the beginning of the current file name as the text pre-filled into virtual keyboard for easier input via group selection. For 'group selection' use 'CH+/CH-' buttons."
+msgstr "Вы можете установить количество букв от начала текущего имени файла, поскольку текст предварительно заполняется на виртуальной клавиатуре для облегчения ввода с помощью группового выбора. Для 'выбора группы' используйте кнопки 'CH+/CH-'."
+
+#: ../ui.py:1185
+msgid "You can set the number of letters from the end of the current file name as the text pre-filled into virtual keyboard for easier input via group selection. For 'group selection' use 'CH+/CH-' buttons."
+msgstr "Вы можете установить количество букв от конца текущего имени файла в качестве текста, предварительно заполненного на виртуальной клавиатуре, для облегчения ввода с помощью группового выбора. Для 'выбора группы' используйте кнопки 'CH+/CH-'."
+
+#: ../ui.py:1181
+msgid "You can set what will group selection use - start of title, end of title or contains in title."
+msgstr "Вы можете установить, что будет использоваться, выбор группы - начало заголовка, конец заголовка или содержание в заголовке."
+
+#: ../ui.py:83
+msgid "Z-a sort"
+msgstr "Сортировка Z-a"
+
+#: ../ui.py:63
+msgid "contains in title"
+msgstr "содержится в заголовке"
+
+#: ../ui.py:351
+msgid "contains..."
+msgstr "содержит..."
+
+#: ../ui.py:560
+msgid "date"
+msgstr "дата"
+
+#: ../ui.py:555
+msgid "duration"
+msgstr "продолжительность"
+
+#: ../ui.py:63
+msgid "end title"
+msgstr "конец названия"
+
+#: ../ui.py:349
+msgid "ends with..."
+msgstr "заканчивается..."
+
+#: ../ui.py:553 ../ui.py:565
+msgid "name"
+msgstr "имя"
+
+#: ../ui.py:556 ../ui.py:565
+msgid "path"
+msgstr "путь"
+
+#: ../ui.py:558
+msgid "service name"
+msgstr "имя сервиса"
+
+#: ../ui.py:553 ../ui.py:565
+msgid "size"
+msgstr "размер"
+
+#: ../ui.py:63
+msgid "start title"
+msgstr "начало названия"
+
+#: ../ui.py:347
+msgid "starts with..."
+msgstr "начинается с..."
+
+#: ../ui.py:562
+msgid "time"
+msgstr "время"
+
+#: ../ui.py:1158
+#, python-format
+msgid "v.%s"
+msgstr "v.%s"
