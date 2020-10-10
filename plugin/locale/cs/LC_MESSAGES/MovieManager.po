@@ -2,82 +2,83 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Enigma2 ManagerAutofs Plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-28 20:48+0200\n"
-"PO-Revision-Date: 2019-11-17 09:14+0100\n"
+"POT-Creation-Date: 2020-10-10 13:12+0200\n"
+"PO-Revision-Date: 2020-10-10 13:15+0200\n"
 "Last-Translator: ims <ims21@users.sourceforge.net>\n"
 "Language-Team: PLi\n"
 "Language: cs_CZ\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Poedit 2.0.6\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n>=2 && n<=4 ? 1 : 2);\n"
+"X-Generator: Poedit 2.4.1\n"
 
-#: ../ui.py:214 ../ui.py:216 ../ui.py:222 ../ui.py:223 ../ui.py:224 ../ui.py:225 ../ui.py:226 ../ui.py:227
+#: ../ui.py:213 ../ui.py:215 ../ui.py:221 ../ui.py:222 ../ui.py:223
+#: ../ui.py:224 ../ui.py:225 ../ui.py:226
 #, python-format
 msgid " (%ss)"
 msgstr " (%ss)"
 
-#: ../ui.py:1125
+#: ../ui.py:1117
 #, python-format
 msgid "%.0f GB"
 msgstr "%.0f GB"
 
-#: ../ui.py:1129
+#: ../ui.py:1121
 #, python-format
 msgid "%.0f MB"
 msgstr "%.0f MB"
 
-#: ../ui.py:1131
+#: ../ui.py:1123
 #, python-format
 msgid "%.0f kB"
 msgstr "%.0f MB"
 
-#: ../ui.py:1127
+#: ../ui.py:1119
 #, python-format
 msgid "%.2f GB"
 msgstr "%.2f GB"
 
-#: ../ui.py:1132
+#: ../ui.py:1124
 #, python-format
 msgid "%d B"
 msgstr "%d B"
 
-#: ../ui.py:1180
+#: ../ui.py:1172
 msgid "(Note: change will cancel all selections.)"
 msgstr "(Pozn: změna zruší všechna označení.)"
 
-#: ../ui.py:82
+#: ../ui.py:83
 msgid "A-z sort"
 msgstr "A-z"
 
-#: ../ui.py:231
+#: ../ui.py:230
 msgid "Action"
 msgstr "Výběr akce"
 
-#: ../ui.py:1205
+#: ../ui.py:1198
 #, python-format
 msgid "Add date into extended list in format '%s'."
 msgstr "Přidává datum do rozšířeného seznamu ve formátu '%s'."
 
-#: ../ui.py:1203
+#: ../ui.py:1196
 msgid "Add duration in hours into extended list. It extends list creation."
 msgstr "Přidává délku trvání do rozšířeného seznamu. Prodlužuje dobu vytváření."
 
-#: ../ui.py:185 ../ui.py:1268
+#: ../ui.py:184 ../ui.py:1261
 msgid "Add or remove item of selection"
 msgstr "Přidat nebo odebrat z výběru"
 
-#: ../ui.py:1207
+#: ../ui.py:1200
 msgid "Add service name into extended list."
 msgstr "Přidává název programu do rozšířeného seznamu."
 
-#: ../ui.py:1206
+#: ../ui.py:1199
 #, python-format
 msgid "Add time into extended list in format '%s'."
 msgstr "Přidává čas do rozšířeného seznamu ve formátu '%s'."
 
-#: ../ui.py:353
+#: ../ui.py:354
 #, python-format
 msgid "Add to selection (%s)"
 msgstr "Přidat do výběru (%s)"
@@ -86,7 +87,7 @@ msgstr "Přidat do výběru (%s)"
 msgid "All"
 msgstr "Vše"
 
-#: ../ui.py:1328
+#: ../ui.py:1321
 #, python-format
 msgid "Are You sure to delete %s selected bookmark?"
 msgid_plural "Are You sure to delete %s selected bookmarks?"
@@ -94,7 +95,7 @@ msgstr[0] "Opravdu chcete smazat %s označenou záložku?"
 msgstr[1] "Opravdu chcete smazat %s označené záložky?"
 msgstr[2] "Opravdu chcete smazat %s označených záložek?"
 
-#: ../ui.py:936
+#: ../ui.py:931
 #, python-format
 msgid "Are You sure to delete %s selected file?"
 msgid_plural "Are You sure to delete %s selected files?"
@@ -110,75 +111,75 @@ msgstr[0] "Opravdu chcete smazat %s nastavení?"
 msgstr[1] "Opravdu chcete smazat %s nastavení?"
 msgstr[2] "Opravdu chcete smazat %s nastavení?"
 
-#: ../ui.py:1193
+#: ../ui.py:1186
 msgid "Audio files"
 msgstr "Audio soubory"
 
-#: ../pklmanager.py:55 ../ui.py:230 ../ui.py:1161 ../ui.py:1278
+#: ../pklmanager.py:55 ../ui.py:229 ../ui.py:1153 ../ui.py:1271
 msgid "Cancel"
 msgstr "Zavřít"
 
-#: ../ui.py:414
+#: ../ui.py:415
 msgid "Clear bookmarks..."
 msgstr "Čistit záložky..."
 
-#: ../ui.py:1267 ../ui.py:1272
+#: ../ui.py:1260 ../ui.py:1265
 msgid "Close"
 msgstr "Zavřít"
 
-#: ../ui.py:1079
+#: ../ui.py:1074
 msgid "Close playback?"
 msgstr "Ukončit přehrávání?"
 
-#: ../ui.py:1186
+#: ../ui.py:1178
 msgid "Compare case sensitive"
 msgstr "Rozlišovat velikost písmen"
 
-#: ../ui.py:403
+#: ../ui.py:404
 msgid "Copy current file or selected file(s) to directory."
 msgstr "Kopírovat aktuální soubor nebo označené soubory do adresáře."
 
-#: ../ui.py:403
+#: ../ui.py:404
 msgid "Copy to..."
 msgstr "Kopírovat do..."
 
-#: ../ui.py:408
+#: ../ui.py:409
 msgid "Create directory"
 msgstr "Založit adresář"
 
-#: ../ui.py:430
+#: ../ui.py:431
 msgid "Create movielist from all active bookmarks. Please, be patient, it take some time. There in 'Options...' it can be limited to some filetypes and can be enabled browsing subdirectories."
 msgstr "Vytvoří seznam souborů ze všech aktivních záložek. Prosím, buďte trpěliví, trvá to delší dobu. V nastavení může být omezeno na některé typy souborů a může být povoleno i prohledávání podadresářů."
 
-#: ../ui.py:408
+#: ../ui.py:409
 msgid "Create new directory in current directory."
 msgstr "Založit nový adresář v aktuálním adresáři."
 
-#: ../ui.py:221
+#: ../ui.py:220
 msgid "Current item info"
 msgstr "Informace o aktuální položce"
 
-#: ../ui.py:1194
+#: ../ui.py:1187
 msgid "DVD images"
 msgstr "DVD obrazy"
 
-#: ../ui.py:1205
+#: ../ui.py:1198
 msgid "Date"
 msgstr "Datum"
 
-#: ../ui.py:411 ../ui.py:1279
+#: ../ui.py:412 ../ui.py:1272
 msgid "Delete"
 msgstr "Smazat"
 
-#: ../ui.py:411
+#: ../ui.py:412
 msgid "Delete current file or selected file(s)."
 msgstr "Odstranit aktuální soubor nebo označené soubory."
 
-#: ../ui.py:973
+#: ../ui.py:968
 msgid "Delete failed!"
 msgstr "Smazání selhalo!"
 
-#: ../ui.py:1273
+#: ../ui.py:1266
 msgid "Delete selected"
 msgstr "Smazat vybrané"
 
@@ -186,132 +187,132 @@ msgstr "Smazat vybrané"
 msgid "Directories with local setting"
 msgstr "Adresáře s lokálním nastavením"
 
-#: ../ui.py:414
+#: ../ui.py:415
 msgid "Display all existing bookmarks in box. Unwanted or unnecessary bookmarks can be removed."
 msgstr "Zobrazí všechny existující záložky v přijímači. Nechtěné nebo nepotřebné záložky mohou být odstraněny."
 
-#: ../ui.py:1203
+#: ../ui.py:1196
 msgid "Duration"
 msgstr "Délka"
 
-#: ../ui.py:1188
+#: ../ui.py:1180
 msgid "Enable 'Clear bookmark...'"
 msgstr "Povolit 'Čistit záložky...'"
 
-#: ../ui.py:1190
+#: ../ui.py:1182
 msgid "Enable 'Manage files in active bookmarks...'"
 msgstr "Povolit 'Správu souborů v aktivních záložkách...'"
 
-#: ../ui.py:1189
+#: ../ui.py:1181
 msgid "Enable 'Remove local directory setting...'"
 msgstr "Povolit 'Odstranit místní nastavení adresářů...'"
 
-#: ../ui.py:1190
+#: ../ui.py:1182
 msgid "Enable in menu item for manage movies in all active bookmarks as one list."
 msgstr "Povoluje v menu položku pro správu souborů ze všech aktivních záložek v jednom seznamu."
 
-#: ../ui.py:1188
+#: ../ui.py:1180
 msgid "Enable in menu utility for delete bookmarks in menu."
 msgstr "Povolit v menu nástroj pro mazání záložek."
 
-#: ../ui.py:1189
+#: ../ui.py:1181
 msgid "Enable item for delete local directory setting in menu. It depends on displayed directories in movielist."
 msgstr "Povoluje položku pro mazání lokálního nastavení adresářů v menu. Závisí na zobrazených adresářích v seznamu."
 
-#: ../ui.py:1198
+#: ../ui.py:1191
 msgid "Enable refresh bookmarks before each 'Manage files in active bookmarks'. It will add extra time."
 msgstr "Povolit aktualizovat záložky před každým provedením 'Správa souborů v aktivních záložkách'. Prodlouží čas zpracování."
 
-#: ../ui.py:672 ../ui.py:677
+#: ../ui.py:674 ../ui.py:679
 msgid "Error"
 msgstr "Chyba"
 
-#: ../ui.py:184 ../ui.py:208
+#: ../ui.py:183 ../ui.py:207
 msgid "Exit plugin"
 msgstr "Zavřít plugin"
 
-#: ../ui.py:218
+#: ../ui.py:217
 msgid "Group selection - add"
 msgstr "Skupinový výběr - přidat"
 
-#: ../ui.py:219
+#: ../ui.py:218
 msgid "Group selection - remove"
 msgstr "Skupinový výběr - odebrat"
 
-#: ../ui.py:1193
+#: ../ui.py:1186
 msgid "If enabled, then will be added audio files into list."
 msgstr "Jestliže je povoleno, jsou do seznamu přidávány audio soubory."
 
-#: ../ui.py:1194
+#: ../ui.py:1187
 msgid "If enabled, then will be added dvd image files into list."
 msgstr "Jestliže je povoleno, jsou do seznamu přidávány soubory obrazů dvd."
 
-#: ../ui.py:1192
-msgid "If enabled, then will be added movie files into list."
-msgstr "Jestliže je povoleno, jsou do seznamu přidávány filmy."
+#: ../ui.py:1185
+msgid "If enabled, then will be added other movie files into list."
+msgstr "Jestliže je povoleno, jsou do seznamu přidávány ostatní filmové soubory."
 
-#: ../ui.py:1195
+#: ../ui.py:1188
 msgid "If enabled, then will be added pictures into list."
 msgstr "Jestliže je povoleno, jsou do seznamu přidávány obrázky."
 
-#: ../ui.py:1196
+#: ../ui.py:1184
+msgid "If enabled, then will be added recordings into list."
+msgstr "Jestliže je povoleno, jsou do seznamu přidávány nahrané filmy."
+
+#: ../ui.py:1189
 msgid "If enabled, then will be on start maintained selector position in items list."
 msgstr "Jestliže je povoleno, je po startu zachovávána pozice kurzoru v seznamu."
 
-#: ../ui.py:1191
+#: ../ui.py:1183
 msgid "If enabled, then will be used subdirectories too (it will take longer)."
 msgstr "Pokud je povoleno, použijí se také podadresáře (spotřebuje více času)."
 
-#: ../ui.py:1191
+#: ../ui.py:1183
 msgid "Including subdirectories"
 msgstr "Zahrnout podadresáře"
 
-#: ../pklmanager.py:84 ../ui.py:233 ../ui.py:1281
+#: ../pklmanager.py:84 ../ui.py:232 ../ui.py:1274
 msgid "Inversion"
 msgstr "Inverze"
 
-#: ../ui.py:211 ../ui.py:1275
+#: ../ui.py:210 ../ui.py:1268
 msgid "Invert selection"
 msgstr "Inverze výběru"
 
-#: ../ui.py:1255
+#: ../ui.py:1248
 msgid "List of bookmarks"
 msgstr "Seznam záložek"
 
-#: ../ui.py:162 ../ui.py:790
+#: ../ui.py:163 ../ui.py:792
 msgid "List of files"
 msgstr "Seznam souborů"
 
-#: ../ui.py:592
+#: ../ui.py:594
 #, python-format
 msgid "List was saved to '%s'"
 msgstr "Seznam uložen do '%s'"
 
-#: ../ui.py:430
+#: ../ui.py:431
 msgid "Manage files in active bookmarks..."
 msgstr "Správa souborů v aktivních záložkách..."
 
-#: ../ui.py:404
+#: ../ui.py:405
 msgid "Move current file or selected file(s) to directory."
 msgstr "Přemístit aktuální soubor nebo označené soubory do adresáře."
 
-#: ../ui.py:404
+#: ../ui.py:405
 msgid "Move to..."
 msgstr "Přesunout do..."
 
-#: ../ui.py:1192
-msgid "Movie files"
-msgstr "Filmy"
-
-#: ../plugin.py:8
+#: ../plugin.py:12
 msgid "Movie manager"
 msgstr "Správce souborů"
 
-#: ../ui.py:1158
+#: ../ui.py:1150
 msgid "MovieManager"
 msgstr "Správce souborů"
 
-#: ../ui.py:503
+#: ../ui.py:504
 #, python-format
 msgid "New directory name in '%s'"
 msgstr "Název nového adresáře v '%s'"
@@ -320,52 +321,56 @@ msgstr "Název nového adresáře v '%s'"
 msgid "No"
 msgstr "Ne"
 
-#: ../ui.py:1162
+#: ../ui.py:1154
 msgid "OK"
 msgstr "OK"
 
-#: ../ui.py:1050
+#: ../ui.py:1045
 #, python-format
 msgid "On destination '%s' is %s free space only!"
 msgstr "Zařízení '%s' má k dispozici pouze %s volného místa!"
 
-#: ../ui.py:439 ../ui.py:1158
+#: ../ui.py:440 ../ui.py:1150
 msgid "Options..."
 msgstr "Možnosti..."
 
-#: ../ui.py:81
+#: ../ui.py:82
 msgid "Original list"
 msgstr "Jako původní seznam"
 
-#: ../ui.py:85
+#: ../ui.py:86
 msgid "Original list - reverted"
 msgstr "Jako původní seznam - opačně"
 
-#: ../ui.py:1091
+#: ../ui.py:1083
 msgid "Other"
 msgstr "Další"
 
-#: ../ui.py:1195
+#: ../ui.py:1185
+msgid "Other movie files"
+msgstr "Ostatní filmové soubory"
+
+#: ../ui.py:1188
 msgid "Pictures"
 msgstr "Obrázky"
 
-#: ../ui.py:423
+#: ../ui.py:424
 msgid "Play"
 msgstr "Přehrát"
 
-#: ../ui.py:420
+#: ../ui.py:421
 msgid "Play selected..."
 msgstr "Přehrát označené..."
 
-#: ../ui.py:420
+#: ../ui.py:421
 msgid "Playback all selected files."
 msgstr "Přehrát všechny označené soubory."
 
-#: ../ui.py:423
+#: ../ui.py:424
 msgid "Playback current file."
 msgstr "Přehrát aktuální soubor."
 
-#: ../ui.py:928
+#: ../ui.py:923
 #, python-format
 msgid ""
 "Plugin does not use the trash or check a running recording!\n"
@@ -383,19 +388,23 @@ msgstr[2] ""
 "Plugin nepoužívá koš ani nekontroluje probíhající nahrávání!\n"
 "Chcete přesto pokračovat a smazat %s vybraných souborů?"
 
-#: ../ui.py:1183
+#: ../ui.py:1175
 msgid "Pre-fill first 'n' filename chars to virtual keyboard"
 msgstr "Předvyplnit prvních 'n' znaků názvu do virtuální klávesnice"
 
-#: ../ui.py:1185
+#: ../ui.py:1177
 msgid "Pre-fill last 'n' filename chars to virtual keyboard"
 msgstr "Předvyplnit posledních 'n' znaků názvu do virtuální klávesnice"
 
-#: ../ui.py:212
+#: ../ui.py:211
 msgid "Preview"
 msgstr "Náhled"
 
-#: ../ui.py:1198
+#: ../ui.py:1184
+msgid "Recordings"
+msgstr "Nahrané filmy"
+
+#: ../ui.py:1191
 msgid "Refresh bookmaks"
 msgstr "Aktualizovat záložky"
 
@@ -407,164 +416,164 @@ msgstr "Smazat"
 msgid "Remove current item or select items with 'OK' or 'Inversion' and then use remove."
 msgstr "Smažte aktuální položku nebo vyberte položky pomocí 'OK' nebo 'Inverze' a poté smažte."
 
-#: ../ui.py:355
+#: ../ui.py:356
 #, python-format
 msgid "Remove from selection (%s)"
 msgstr "Odebrat z výběru (%s)"
 
-#: ../ui.py:437
+#: ../ui.py:438
 msgid "Remove local directory setting..."
 msgstr "Odstranit místní nastavení adresářů..."
 
-#: ../ui.py:437
+#: ../ui.py:438
 msgid "Remove local setting '.e2settings.pkl' in selected directories."
 msgstr "Smaže lokální nastavení '.e2settings.pkl' ve vybraných adresářích."
 
-#: ../ui.py:406 ../ui.py:616
+#: ../ui.py:407 ../ui.py:618
 msgid "Rename"
 msgstr "Přejmenovat"
 
-#: ../ui.py:406
+#: ../ui.py:407
 msgid "Rename current file."
 msgstr "Přejmenovat aktuální soubor."
 
-#: ../ui.py:416
+#: ../ui.py:417
 msgid "Reset playback position"
 msgstr "Resetovat pozici přehrávání"
 
-#: ../ui.py:416
+#: ../ui.py:417
 msgid "Reset playback position for all marked files in movielist."
 msgstr "Zresetovat pozici přehrávání pro všechny označené soubory v seznamu."
 
-#: ../ui.py:985 ../ui.py:1017
+#: ../ui.py:980 ../ui.py:1012
 msgid "Same source and target directory!"
 msgstr "Stejný zdrojový a cílový adresář!"
 
-#: ../ui.py:434
+#: ../ui.py:435
 msgid "Save current movielist to '/tmp' directory as '.csv' file."
 msgstr "Uložit aktuální seznam souborů do '/tmp' jako '.csv' soubor."
 
-#: ../ui.py:1200
+#: ../ui.py:1193
 msgid "Save extended '.csv' filelist with more data. It spend more time."
 msgstr "Ukládat rozšířený '.csv' seznam s více daty. Vytváření souboru zabere více času."
 
-#: ../ui.py:1199
+#: ../ui.py:1192
 msgid "Save extended list"
 msgstr "Ukládat rozšířený seznam"
 
-#: ../ui.py:434
+#: ../ui.py:435
 msgid "Save list"
 msgstr "Uložit seznam"
 
-#: ../ui.py:220
+#: ../ui.py:219
 #, python-format
 msgid "Save list to '%s'"
 msgstr "Uložit seznam do '%s'"
 
-#: ../ui.py:1179
+#: ../ui.py:1171
 msgid "Search in group selection by"
 msgstr "Skupinový výběr vyhledává podle"
 
-#: ../ui.py:217
+#: ../ui.py:216
 msgid "Seek backward (enter time)"
 msgstr "Přeskočit dozadu (zadat čas)"
 
-#: ../ui.py:215
+#: ../ui.py:214
 msgid "Seek forward (enter time)"
 msgstr "Přeskočit dopředu (zadat čas)"
 
-#: ../ui.py:207 ../ui.py:209
+#: ../ui.py:206 ../ui.py:208
 msgid "Select action"
 msgstr "Zvolte akci"
 
-#: ../ui.py:978
+#: ../ui.py:973
 msgid "Select destination for copy selected files..."
 msgstr "Zvolte umístění pro kopírování vybraných souborů..."
 
-#: ../ui.py:1009
+#: ../ui.py:1004
 msgid "Select destination for move selected files..."
 msgstr "Zvolte umístění pro přemístění vybraných souborů..."
 
-#: ../ui.py:442
+#: ../ui.py:443
 msgid "Select operation:"
 msgstr "Zvolte operaci:"
 
-#: ../ui.py:1284
+#: ../ui.py:1277
 msgid "Select with 'OK' and then remove with 'Delete'."
 msgstr "Vyberte pomocí 'OK' a pak odstraňte pomocí 'Smazat'."
 
-#: ../ui.py:84
+#: ../ui.py:85
 msgid "Selected top"
 msgstr "Označené nahoru"
 
-#: ../ui.py:772
+#: ../ui.py:774
 #, python-format
 msgid "Selected: %s"
 msgstr "Označeno: %s"
 
-#: ../ui.py:1207
+#: ../ui.py:1200
 msgid "Service name"
 msgstr "Název programu"
 
-#: ../ui.py:1187
+#: ../ui.py:1179
 msgid "Set 'yes' if You want add target directories into bookmarks."
 msgstr "Jestliže chcete přidávat cílové adresáře do záložek, zvolte 'Ano' ."
 
-#: ../ui.py:425
+#: ../ui.py:426
 msgid "Set sort type for current movielist."
 msgstr "Nastavit třídění pro aktuální seznam."
 
-#: ../ui.py:1186
+#: ../ui.py:1178
 msgid "Sets whether to distinguish between uper case and lower case for searching."
 msgstr "Nastavuje, zda chcete při vyhledávání rozlišovat mezi velkými a malými písmeny."
 
-#: ../ui.py:771
+#: ../ui.py:773
 #, python-format
 msgid "Size: %s"
 msgstr "Velikost: %s"
 
-#: ../ui.py:195
+#: ../ui.py:194
 msgid "Skip backward"
 msgstr "Přeskočit dozadu"
 
-#: ../ui.py:194
+#: ../ui.py:193
 msgid "Skip forward"
 msgstr "Přeskočit dopředu"
 
-#: ../ui.py:864 ../ui.py:1280
+#: ../ui.py:859 ../ui.py:1273
 msgid "Sort"
 msgstr "Třídění"
 
-#: ../ui.py:864
+#: ../ui.py:859
 msgid "Sort by"
 msgstr "Třídit podle"
 
-#: ../ui.py:425
+#: ../ui.py:426
 msgid "Sort by..."
 msgstr "Třídit podle..."
 
-#: ../ui.py:210 ../ui.py:1274
+#: ../ui.py:209 ../ui.py:1267
 msgid "Sort list"
 msgstr "Setřídit seznam"
 
-#: ../ui.py:598
+#: ../ui.py:600
 msgid "Sort list:"
 msgstr "Třídit seznam:"
 
-#: ../ui.py:1197
+#: ../ui.py:1190
 msgid "Sorting as menu under yellow"
 msgstr "Třídění jako menu"
 
-#: ../ui.py:213
+#: ../ui.py:212
 msgid "Stop"
 msgstr "Zastavit"
 
-#: ../ui.py:953
+#: ../ui.py:948
 #, python-format
 msgid "Sucessfuly deleted %s of %s files..."
 msgstr "Úspěšně smazané soubory: %s z %s"
 
-#: ../ui.py:1140
+#: ../ui.py:1132
 msgid ""
 "The CSFD plugin is not installed!\n"
 "Please install it."
@@ -572,56 +581,56 @@ msgstr ""
 "CSFD plugin není nainstalovaný!\n"
 "Prosím, nainstalujte plugin."
 
-#: ../ui.py:670
+#: ../ui.py:672
 #, python-format
 msgid "The path %s already exists."
 msgstr "Cesta %s již existuje."
 
-#: ../ui.py:1206
+#: ../ui.py:1199
 msgid "Time"
 msgstr "Čas"
 
-#: ../ui.py:1196
+#: ../ui.py:1189
 msgid "To maintain selector position"
 msgstr "Zachovávat pozici"
 
-#: ../ui.py:428
+#: ../ui.py:429
 msgid "Update bookmarks depending on the current mountpoints. If mountpoints sleeping, then it take some time before they wakes up."
 msgstr "Aktualizovat záložky v závislosti na aktuálních bodech připojení. Jestliže jsou body připojení v úsporném režimu, bude nějakou dobu trvat, než se probudí."
 
-#: ../ui.py:428
+#: ../ui.py:429
 msgid "Update valid bookmarks"
 msgstr "Aktualizovat platné záložky"
 
-#: ../ui.py:238
+#: ../ui.py:237
 msgid "Use 'Menu' or 'Action' for select operation. Multiple files mark with 'OK' or use 'CH+/CH-'."
 msgstr "Zvolte 'Menu' nebo 'Výběr akce'. Pro označení více souborů použijte 'OK' nebo Ch+/Ch-'."
 
-#: ../ui.py:1197
+#: ../ui.py:1190
 msgid "Use 'Sort by' as menu under yellow button instead simple 'Sort'."
 msgstr "Pro žluté tlačítko se používá menu 'Třídit jako' místo jednoduchého 'Třídit'."
 
-#: ../ui.py:432
+#: ../ui.py:433
 msgid "Use sync"
 msgstr "Použít sync"
 
-#: ../ui.py:1187
+#: ../ui.py:1179
 msgid "Use target directory as bookmark"
 msgstr "Použít cílový adresář jako záložku"
 
-#: ../ui.py:1183
+#: ../ui.py:1175
 msgid "You can set the number of letters from the beginning of the current file name as the text pre-filled into virtual keyboard for easier input via group selection. For 'group selection' use 'CH+/CH-' buttons."
 msgstr "Můžete nastavit počet písmen od začátku aktuálního názvu souboru jako předvyplněný text do virtuální klávesnice pro snadnější zadávání pomocí skupinového výběru. Pro 'skupinový výběr' použijte tlačítka \"CH+/CH-\"."
 
-#: ../ui.py:1185
+#: ../ui.py:1177
 msgid "You can set the number of letters from the end of the current file name as the text pre-filled into virtual keyboard for easier input via group selection. For 'group selection' use 'CH+/CH-' buttons."
 msgstr "Můžete nastavit počet písmen od konce aktuálního názvu souboru jako předvyplněný text do virtuální klávesnice pro snadnější zadávání pomocí skupinového výběru. Pro 'skupinový výběr' použijte tlačítka \"CH+/CH-\"."
 
-#: ../ui.py:1181
+#: ../ui.py:1173
 msgid "You can set what will group selection use - start of title, end of title or contains in title."
 msgstr "Můžete zvolit, podle čeho bude skupinový výběr vybírat - podle začátku, podle konce nebo podle zadaného obsahu v názvu."
 
-#: ../ui.py:83
+#: ../ui.py:84
 msgid "Z-a sort"
 msgstr "Z-a"
 
@@ -629,15 +638,15 @@ msgstr "Z-a"
 msgid "contains in title"
 msgstr "obsahu v názvu"
 
-#: ../ui.py:351
+#: ../ui.py:352
 msgid "contains..."
 msgstr "obsahuje..."
 
-#: ../ui.py:560
+#: ../ui.py:562
 msgid "date"
 msgstr "datum"
 
-#: ../ui.py:555
+#: ../ui.py:557
 msgid "duration"
 msgstr "délka"
 
@@ -645,23 +654,23 @@ msgstr "délka"
 msgid "end title"
 msgstr "konce názvu"
 
-#: ../ui.py:349
+#: ../ui.py:350
 msgid "ends with..."
 msgstr "končí na..."
 
-#: ../ui.py:553 ../ui.py:565
+#: ../ui.py:555 ../ui.py:567
 msgid "name"
 msgstr "název"
 
-#: ../ui.py:556 ../ui.py:565
+#: ../ui.py:558 ../ui.py:567
 msgid "path"
 msgstr "umístění"
 
-#: ../ui.py:558
+#: ../ui.py:560
 msgid "service name"
 msgstr "název programu"
 
-#: ../ui.py:553 ../ui.py:565
+#: ../ui.py:555 ../ui.py:567
 msgid "size"
 msgstr "velikost"
 
@@ -669,15 +678,15 @@ msgstr "velikost"
 msgid "start title"
 msgstr "začátku názvu"
 
-#: ../ui.py:347
+#: ../ui.py:348
 msgid "starts with..."
 msgstr "začíná na..."
 
-#: ../ui.py:562
+#: ../ui.py:564
 msgid "time"
 msgstr "čas"
 
-#: ../ui.py:1158
+#: ../ui.py:1150
 #, python-format
 msgid "v.%s"
 msgstr "verze %s"
