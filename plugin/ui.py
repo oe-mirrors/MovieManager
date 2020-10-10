@@ -4,7 +4,7 @@ from . import _, ngettext
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.98"
+VERSION = "1.99"
 #  by ims (c) 2018-2020 ims@openpli.org
 #
 #  This program is free software; you can redistribute it and/or
@@ -46,6 +46,7 @@ import skin
 
 MY_RECORDINGS_EXTENSIONS = frozenset((".ts",))
 MY_MOVIE_EXTENSIONS = MOVIE_EXTENSIONS.symmetric_difference(MY_RECORDINGS_EXTENSIONS)
+SKIPPED = ".m3u8"
 
 def hex2strColor(argb):
 	out = ""
@@ -261,6 +262,8 @@ class MovieManager(Screen, HelpableScreen):
 					if not cfg.audios.value and ext in AUDIO_EXTENSIONS:
 						continue
 					if not cfg.dvds.value and ext in DVD_EXTENSIONS:
+						continue
+					if ext in SKIPPED:
 						continue
 					if self.current.getPath() == item.getPath():
 						self.position = index
@@ -741,6 +744,8 @@ class MovieManager(Screen, HelpableScreen):
 		else:
 			self.position = -1
 		self["config"].moveToIndex(self.position)
+		if not self.l.list.len():
+			self.setTitle(_("List of files is empty. Try change filter in setting."))
 
 	def toggleAllSelection(self):
 		if self.played:
