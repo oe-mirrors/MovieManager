@@ -8,18 +8,17 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-10-10 15:45+0200\n"
-"PO-Revision-Date: 2019-05-21 09:53+0200\n"
+"PO-Revision-Date: 2020-10-10 17:54+0200\n"
 "Last-Translator: Rob van der Does <RobvanderDoes@Gmail.com>\n"
 "Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.2\n"
+"X-Generator: Poedit 2.4.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../ui.py:214 ../ui.py:216 ../ui.py:222 ../ui.py:223 ../ui.py:224
-#: ../ui.py:225 ../ui.py:226 ../ui.py:227
+#: ../ui.py:214 ../ui.py:216 ../ui.py:222 ../ui.py:223 ../ui.py:224 ../ui.py:225 ../ui.py:226 ../ui.py:227
 #, python-format
 msgid " (%ss)"
 msgstr " (%ss)"
@@ -250,18 +249,16 @@ msgid "If enabled, then will be added dvd image files into list."
 msgstr "Indien ingeschakeld, zullen DVD-bestanden aan de lijst worden toegevoegd."
 
 #: ../ui.py:1190
-#, fuzzy
 msgid "If enabled, then will be added other movie files into list."
-msgstr "Indien ingeschakeld, zullen opnames aan de lijst worden toegevoegd."
+msgstr "Indien ingeschakeld, zullen andere filmbestanden aan de lijst worden toegevoegd."
 
 #: ../ui.py:1193
 msgid "If enabled, then will be added pictures into list."
 msgstr "Indien ingeschakeld, zullen plaatjes aan de lijst worden toegevoegd."
 
 #: ../ui.py:1189
-#, fuzzy
 msgid "If enabled, then will be added recordings into list."
-msgstr "Indien ingeschakeld, zullen plaatjes aan de lijst worden toegevoegd."
+msgstr "Indien ingeschakeld, zullen opnames aan de lijst worden toegevoegd."
 
 #: ../ui.py:1194
 msgid "If enabled, then will be on start maintained selector position in items list."
@@ -293,7 +290,7 @@ msgstr "Lijst met bestanden"
 
 #: ../ui.py:748
 msgid "List of files is empty. Try change filter in setting."
-msgstr ""
+msgstr "Bestandslijst is leeg. Probeer het filter in de instellingen aan te passen."
 
 #: ../ui.py:597
 #, python-format
@@ -355,9 +352,8 @@ msgid "Other"
 msgstr "Anders"
 
 #: ../ui.py:1190
-#, fuzzy
 msgid "Other movie files"
-msgstr "Opnames"
+msgstr "Andere filmbestanden"
 
 #: ../ui.py:1193
 msgid "Pictures"
@@ -408,7 +404,7 @@ msgstr "Preview"
 
 #: ../ui.py:1189
 msgid "Recordings"
-msgstr ""
+msgstr "Opnames"
 
 #: ../ui.py:1196
 msgid "Refresh bookmaks"
