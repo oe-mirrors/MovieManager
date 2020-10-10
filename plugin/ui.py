@@ -4,8 +4,8 @@ from . import _, ngettext
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "1.97"
-#  by ims (c) 2018-2019 ims@openpli.org
+VERSION = "1.98"
+#  by ims (c) 2018-2020 ims@openpli.org
 #
 #  This program is free software; you can redistribute it and/or
 #  modify it under the terms of the GNU General Public License
@@ -44,8 +44,8 @@ from myselectionlist import MySelectionList, MySelectionEntryComponent
 import os
 import skin
 
-MOVIE_EXTENSIONS1 = frozenset((".ts", ".mp4", ".mts", ".mkv", ".avi", ".mpg", ".webm"))
-MOVIES_EXTENSIONS = MOVIE_EXTENSIONS.union(MOVIE_EXTENSIONS1)
+MY_RECORDINGS_EXTENSIONS = frozenset((".ts",))
+MY_MOVIE_EXTENSIONS = MOVIE_EXTENSIONS.symmetric_difference(MY_RECORDINGS_EXTENSIONS)
 
 def hex2strColor(argb):
 	out = ""
@@ -73,7 +73,8 @@ config.moviemanager.clear_bookmarks = ConfigYesNo(default=True)
 config.moviemanager.manage_all = ConfigYesNo(default=False)
 config.moviemanager.removepkl = ConfigYesNo(default=False)
 config.moviemanager.subdirs = ConfigYesNo(default=False)
-config.moviemanager.movies = ConfigYesNo(default=True)
+config.moviemanager.recordings = ConfigYesNo(default=True)
+config.moviemanager.other_movies = ConfigYesNo(default=True)
 config.moviemanager.pictures = ConfigYesNo(default=False)
 config.moviemanager.audios = ConfigYesNo(default=False)
 config.moviemanager.dvds = ConfigYesNo(default=False)
@@ -251,7 +252,9 @@ class MovieManager(Screen, HelpableScreen):
 				item = record[0]
 				if not item.flags & eServiceReference.mustDescent:
 					ext = os.path.splitext(item.getPath())[1].lower()
-					if not cfg.movies.value and ext in MOVIES_EXTENSIONS:
+					if not cfg.recordings.value and ext in MY_RECORDINGS_EXTENSIONS:
+						continue
+					if not cfg.other_movies.value and ext in MY_MOVIE_EXTENSIONS:
 						continue
 					if not cfg.pictures.value and ext in IMAGE_EXTENSIONS:
 						continue
@@ -502,11 +505,12 @@ class MovieManager(Screen, HelpableScreen):
 
 	def getCfgStatus(self):
 		s =  0x01 if cfg.subdirs.value else 0
-		s += 0x02 if cfg.movies.value else 0
+		s += 0x02 if cfg.other_movies.value else 0
 		s += 0x04 if cfg.audios.value else 0
 		s += 0x08 if cfg.pictures.value else 0
 		s += 0x10 if cfg.dvds.value else 0
 		s += 0x20 if cfg.manage_all.value else 0
+		s += 0x40 if cfg.recordings.value else 0
 		return s
 
 	def saveList(self):
@@ -1177,7 +1181,8 @@ class MovieManagerCfg(Screen, ConfigListScreen):
 		self.list.append(getConfigListEntry(_("Enable 'Remove local directory setting...'"), cfg.removepkl, _("Enable item for delete local directory setting in menu. It depends on displayed directories in movielist.")))
 		self.list.append(getConfigListEntry(_("Enable 'Manage files in active bookmarks...'"), cfg.manage_all, _("Enable in menu item for manage movies in all active bookmarks as one list.") + note))
 		self.list.append(getConfigListEntry(_("Including subdirectories"), cfg.subdirs, _("If enabled, then will be used subdirectories too (it will take longer).") + note))
-		self.list.append(getConfigListEntry(_("Movie files"), cfg.movies, _("If enabled, then will be added movie files into list.") + note))
+		self.list.append(getConfigListEntry(_("Recordings"), cfg.recordings, _("If enabled, then will be added recordings into list.") + note))
+		self.list.append(getConfigListEntry(_("Other movie files"), cfg.other_movies, _("If enabled, then will be added other movie files into list.") + note))
 		self.list.append(getConfigListEntry(_("Audio files"), cfg.audios, _("If enabled, then will be added audio files into list.") + note))
 		self.list.append(getConfigListEntry(_("DVD images"), cfg.dvds, _("If enabled, then will be added dvd image files into list.") + note))
 		self.list.append(getConfigListEntry(_("Pictures"), cfg.pictures, _("If enabled, then will be added pictures into list.") + note))
