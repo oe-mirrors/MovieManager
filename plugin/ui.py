@@ -4,7 +4,7 @@ from . import _, ngettext
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "2.00"
+VERSION = "2.01"
 #  by ims (c) 2018-2021 ims@openpli.org
 #
 #  This program is free software; you can redistribute it and/or
@@ -226,6 +226,8 @@ class MovieManager(Screen, HelpableScreen):
 			"seek_1": (b13, seekBck + _(" (%ss)") % time_13),
 			"seek_4": (b46, seekBck + _(" (%ss)") % time_46),
 			"seek_7": (b79, seekBck + _(" (%ss)") % time_79),
+			"home": (self.firstItem, _("Go to first item")),
+			"end": (self.lastItem, _("Go to last item")),
 			}, -2)
 
 		self["key_red"] = Button(_("Cancel"))
@@ -285,6 +287,11 @@ class MovieManager(Screen, HelpableScreen):
 		print "[MovieMnager} list filled with %s items. Size: %s, position %s" % (index, self.convertSize(suma), self.position)
 		self.size = 0
 		return list
+
+	def firstItem(self):
+		self["config"].moveToIndex(0)
+	def lastItem(self):
+		self["config"].moveToIndex(self.list.len() - 1)
 
 	def moveSelector(self):
 		self["config"].moveToIndex(self.position)
