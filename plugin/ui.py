@@ -4,7 +4,7 @@ from . import _, ngettext
 
 #
 #  Movie Manager - Plugin E2 for OpenPLi
-VERSION = "2.01"
+VERSION = "2.02"
 #  by ims (c) 2018-2021 ims@openpli.org
 #
 #  This program is free software; you can redistribute it and/or
@@ -1360,6 +1360,7 @@ class MovieManagerClearBookmarks(Screen, HelpableScreen):
 			config.movielist.videodirs.save()
 
 	def exit(self):
+		config.movielist.videodirs.load()
 		self.close()
 
 class MovieManagerFileInfo(Screen):
