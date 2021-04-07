@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 # for localized messages
+from __future__ import absolute_import
+from __future__ import print_function
 from . import _, ngettext
 
 #
@@ -40,7 +42,7 @@ from Components.ServiceEventTracker import ServiceEventTracker
 from Screens.MinuteInput import MinuteInput
 from ServiceReference import ServiceReference
 from time import localtime, strftime, time
-from myselectionlist import MySelectionList, MySelectionEntryComponent
+from .myselectionlist import MySelectionList, MySelectionEntryComponent
 import os
 import skin
 
@@ -50,7 +52,7 @@ SKIPPED = ".m3u8"
 
 def hex2strColor(argb):
 	out = ""
-	for i in range(28,-1,-4):
+	for i in range(28, -1, -4):
 		out += "%s" % chr(0x30 + (argb>>i & 0xf))
 	return out
 try:
@@ -61,12 +63,12 @@ gC = "\c%s" % hex2strColor(0x000ff80)
 
 config.moviemanager = ConfigSubsection()
 config.moviemanager.sensitive = ConfigYesNo(default=False)
-config.moviemanager.search = ConfigSelection(default = "begin", choices = [("begin", _("start title")), ("end", _("end title")),("in", _("contains in title"))])
+config.moviemanager.search = ConfigSelection(default = "begin", choices = [("begin", _("start title")), ("end", _("end title")), ("in", _("contains in title"))])
 choicelist = []
 for i in range(1, 11, 1):
 	choicelist.append(("%d" % i))
-choicelist.append(("15","15"))
-choicelist.append(("20","20"))
+choicelist.append(("15", "15"))
+choicelist.append(("20", "20"))
 config.moviemanager.length = ConfigSelection(default = "3", choices = [("0", _("No"))] + choicelist + [("255", _("All"))])
 config.moviemanager.endlength = ConfigSelection(default = "5", choices = [("0", _("No"))] + choicelist + [("255", _("All"))])
 config.moviemanager.add_bookmark = ConfigYesNo(default=False)
@@ -183,7 +185,7 @@ class MovieManager(Screen, HelpableScreen):
 		self["OkCancelActions"] = HelpableActionMap(self, "OkCancelActions",
 			{
 			"cancel": (self.exit, _("Exit plugin")),
-			"ok": (self.toggleSelection,_("Add or remove item of selection")),
+			"ok": (self.toggleSelection, _("Add or remove item of selection")),
 			})
 		### CSFDRunActions can be defined in keytranslation.xml
 		self["CSFDRunActions"] = ActionMap(["CSFDRunActions"],
@@ -218,7 +220,7 @@ class MovieManager(Screen, HelpableScreen):
 			"seekBackManual": (self.seekBackManual, _("Seek backward (enter time)")),
 			"groupSelect": (boundFunction(self.selectGroup, True), _("Group selection - add")),
 			"groupUnselect": (boundFunction(self.selectGroup, False), _("Group selection - remove")),
-			"text": (self.saveList, _("Save list to '%s'") % "%s%s%s" % (gC,LISTFILE,fC)),
+			"text": (self.saveList, _("Save list to '%s'") % "%s%s%s" % (gC, LISTFILE, fC)),
 			"info": (self.displayInfo, _("Current item info")),
 			"seek_3": (f13, seekFwd + _(" (%ss)") % time_13),
 			"seek_6": (f46, seekFwd + _(" (%ss)") % time_46),
@@ -270,7 +272,7 @@ class MovieManager(Screen, HelpableScreen):
 						continue
 					if self.current.getPath() == item.getPath():
 						self.position = index
-						print "[MovieManager] position found"
+						print("[MovieManager] position found")
 					info = record[1]
 					name = info and info.getName(item)
 					size = 0
@@ -284,7 +286,7 @@ class MovieManager(Screen, HelpableScreen):
 					suma+=size
 		self.l = MySelectionList(list)
 		self.l.setList(list)
-		print "[MovieMnager} list filled with %s items. Size: %s, position %s" % (index, self.convertSize(suma), self.position)
+		print("[MovieMnager} list filled with %s items. Size: %s, position %s" % (index, self.convertSize(suma), self.position))
 		self.size = 0
 		return list
 
@@ -336,8 +338,8 @@ class MovieManager(Screen, HelpableScreen):
 				try:
 					from Plugins.Extensions.PicturePlayer import ui
 					self.session.open(ui.Pic_Full_View, [((path, False), None)], 0, path)
-				except Exception, ex:
-					print "[MovieManager] Cannot display", str(ex)
+				except Exception as ex:
+					print("[MovieManager] Cannot display", str(ex))
 					return
 			else:
 				self.session.nav.playService(ITEM(item))
@@ -414,13 +416,13 @@ class MovieManager(Screen, HelpableScreen):
 		menu = []
 		menu.append((_("Copy to..."), 5, _("Copy current file or selected file(s) to directory.")))
 		menu.append((_("Move to..."), 6, _("Move current file or selected file(s) to directory.")))
-		keys = ["5","6"]
+		keys = ["5", "6"]
 		menu.append((_("Rename"), 2, _("Rename current file.")))
 		keys += ["2"]
 		menu.append((_("Create directory"), 7, _("Create new directory in current directory.")))
 		keys+=["7"]
 		if config.usage.setup_level.index == 2:
-			menu.append((_("Delete"),8, _("Delete current file or selected file(s).")))
+			menu.append((_("Delete"), 8, _("Delete current file or selected file(s).")))
 			keys += ["8"]
 		if cfg.clear_bookmarks.value:
 			menu.append((_("Clear bookmarks..."), 10, _("Display all existing bookmarks in box. Unwanted or unnecessary bookmarks can be removed.")))
@@ -475,9 +477,9 @@ class MovieManager(Screen, HelpableScreen):
 			self.selectSortby()
 		elif choice[1] == 18:
 			if cfg.refresh_bookmarks.value:
-				print "[MovieManager] reload bookmarks"
+				print("[MovieManager] reload bookmarks")
 				config.movielist.videodirs.load()
-				print "[MovieManager] bookmarks reloaded"
+				print("[MovieManager] bookmarks reloaded")
 			self.accross = cfg.manage_all.value
 			self.getData()
 		elif choice[1] == 19:
@@ -501,13 +503,13 @@ class MovieManager(Screen, HelpableScreen):
 		elif choice[1] == 40:
 			cmd = '%s' % "sync -d"
 			if self.container.execute(cmd):
-				print "[MovieManager] failed to execute sync"
+				print("[MovieManager] failed to execute sync")
 		elif choice[1] == 50:
 			self.saveList()
 		elif choice[1] == 60:
 			def cfgCallBack(choice=False):
 				return
-			from pklmanager import pklMovieManager
+			from .pklmanager import pklMovieManager
 			self.session.openWithCallback(cfgCallBack, pklMovieManager, self.pklPaths)
 
 	def createDir(self):
@@ -550,7 +552,7 @@ class MovieManager(Screen, HelpableScreen):
 			service_name = ServiceReference(rec_ref_str).getServiceName()
 			if not service_name:
 				path = service.getPath().split(' - ')
-				if len(path) >=3 and path[0][-13:].replace(' ','').isdigit():
+				if len(path) >=3 and path[0][-13:].replace(' ', '').isdigit():
 					return path[1]
 				else:
 					return service_name
@@ -576,7 +578,7 @@ class MovieManager(Screen, HelpableScreen):
 				title += "%s;" % _("time")
 			title = "%s\n" % title.rstrip(';')
 		else:
-			title = ';'.join((_("name"),_("size"),_("path"))) + "\n"
+			title = ';'.join((_("name"), _("size"), _("path"))) + "\n"
 		fo.write(title)
 		# data
 		for item in self.list.list:
@@ -671,22 +673,22 @@ class MovieManager(Screen, HelpableScreen):
 					metafile.truncate()
 					metafile.close()
 				else:
-					pathname,filename = os.path.split(path)
+					pathname, filename = os.path.split(path)
 					newpath = os.path.join(pathname, name)
-					print "[MovieManager] rename", path, "to", newpath
+					print("[MovieManager] rename", path, "to", newpath)
 					os.rename(path, newpath)
 				idx = self.getItemIndex(item)
 				self.list = renameItem(item, name, self.list)
 				self["config"].moveToIndex(idx)
-			except OSError, e:
-				print "Error %s:" % e.errno, e
+			except OSError as e:
+				print("Error %s:" % e.errno, e)
 				if e.errno == 17:
 					msg = _("The path %s already exists.") % name
 				else:
 					msg = _("Error") + '\n' + str(e)
-			except Exception, e:
+			except Exception as e:
 				import traceback
-				print "[MovieManager] Unexpected error:", e
+				print("[MovieManager] Unexpected error:", e)
 				traceback.print_exc()
 				msg = _("Error") + '\n' + str(e)
 			if msg:
@@ -721,7 +723,7 @@ class MovieManager(Screen, HelpableScreen):
 			files = []
 			for subdir in lookDirs(path):
 				files += readDirectory(subdir)
-				print "[MovieManager] + added files from %s" % subdir
+				print("[MovieManager] + added files from %s" % subdir)
 			return files
 		def readLists(current_dir=None):
 			files = []
@@ -731,8 +733,8 @@ class MovieManager(Screen, HelpableScreen):
 						files += readSubdirs(path)
 					else:
 						files += readDirectory(path)
-					print "[MovieManager] + added files from %s" % path
-				print "[MovieManager] readed items from directories in bookmarks."
+					print("[MovieManager] + added files from %s" % path)
+				print("[MovieManager] readed items from directories in bookmarks.")
 			elif current_dir:
 				if cfg.subdirs.value:
 					files = readSubdirs(current_dir)
@@ -740,9 +742,9 @@ class MovieManager(Screen, HelpableScreen):
 					files += readDirectory(current_dir)
 					if os.path.exists(current_dir + PKLFILE):
 						self.pklPaths.append(current_dir)
-				print "[MovieManager] + added files from %s" % current_dir
+				print("[MovieManager] + added files from %s" % current_dir)
 			else:
-				print "[MovieManager] no valid bookmarks!"
+				print("[MovieManager] no valid bookmarks!")
 			return files
 
 		if len(self["config"].list):
@@ -818,7 +820,7 @@ class MovieManager(Screen, HelpableScreen):
 			self.session.open(MovieManagerFileInfo, (item, self.getLastPlayedPosition(item), self.convertSize(SIZE(item))))
 
 	def getLastPlayedPosition(self, item):
-		lastposition = moviePlayState(ITEM(item).getPath()+'.cuts' ,ITEM(item), LENGTH(item))
+		lastposition = moviePlayState(ITEM(item).getPath()+'.cuts', ITEM(item), LENGTH(item))
 		if lastposition:
 			return "%s%s" % (lastposition, '%')
 		return ""
@@ -947,7 +949,7 @@ class MovieManager(Screen, HelpableScreen):
 			selected = len(self.list.getSelectionsList())
 			if not selected:
 				selected = 1
-			text = ngettext("Are You sure to delete %s selected file?" ,"Are You sure to delete %s selected files?", selected) % selected
+			text = ngettext("Are You sure to delete %s selected file?", "Are You sure to delete %s selected files?", selected) % selected
 			self.session.openWithCallback(firstConfirmForDelete, MessageBox, text, type=MessageBox.TYPE_YESNO, default=False)
 
 	def delete(self, choice):
@@ -978,12 +980,12 @@ class MovieManager(Screen, HelpableScreen):
 				eBackgroundFileEraser.getInstance().erase(os.path.realpath(item[1][0].getPath()))
 			else:
 				if offline.deleteFromDisk(0):
-					raise Exception, "Offline delete failed"
+					raise Exception("Offline delete failed")
 			self.list.removeSelection(item)
 			from Screens.InfoBarGenerics import delResumePoint
 			delResumePoint(item[1][0])
 			return True
-		except Exception, ex:
+		except Exception as ex:
 			self.session.open(MessageBox, _("Delete failed!") + "\n" + name + "\n" + str(ex), MessageBox.TYPE_ERROR, timeout=3)
 			return False
 
@@ -1014,7 +1016,7 @@ class MovieManager(Screen, HelpableScreen):
 					copyServiceFiles(item[1][0], dest, item[0])
 					if toggle:
 						self.list.toggleItemSelection(item)
-				except Exception, e:
+				except Exception as e:
 					self.session.open(MessageBox, str(e), MessageBox.TYPE_ERROR, timeout=2)
 		self.displaySelectionPars()
 
@@ -1043,7 +1045,7 @@ class MovieManager(Screen, HelpableScreen):
 					# item ... (name, (service, size, info), index, status)
 					moveServiceFiles(item[1][0], dest, item[0])
 					self.list.removeSelection(item)
-				except Exception, e:
+				except Exception as e:
 					self.session.open(MessageBox, str(e), MessageBox.TYPE_ERROR, timeout=3 )
 		self.displaySelectionPars()
 		if not len(self.list.list):
@@ -1148,7 +1150,7 @@ class MovieManager(Screen, HelpableScreen):
 			try:
 				from Plugins.Extensions.CSFD.plugin import CSFD
 			except ImportError:
-				self.session.open(MessageBox, _("The CSFD plugin is not installed!\nPlease install it."), type = MessageBox.TYPE_INFO,timeout = 5 )
+				self.session.open(MessageBox, _("The CSFD plugin is not installed!\nPlease install it."), type = MessageBox.TYPE_INFO, timeout = 5 )
 				return False
 			else:
 				return True
@@ -1341,7 +1343,7 @@ class MovieManagerClearBookmarks(Screen, HelpableScreen):
 			selected = len(self.list.getSelectionsList())
 			if not selected:
 				selected = 1
-			msg = ngettext("Are You sure to delete %s selected bookmark?" ,"Are You sure to delete %s selected bookmarks?", selected) % selected
+			msg = ngettext("Are You sure to delete %s selected bookmark?", "Are You sure to delete %s selected bookmarks?", selected) % selected
 			self.session.openWithCallback(self.delete, MessageBox, msg, type=MessageBox.TYPE_YESNO, default=False)
 
 	def delete(self, choice):
@@ -1387,7 +1389,8 @@ class MovieManagerFileInfo(Screen):
 		<widget name="play" position="350,105" size="100,30" font="Regular;26" foregroundColor="yellow"/>
 	</screen>"""
 
-	def __init__(self, session, (item, last, size)):
+	def __init__(self, session, xxx_todo_changeme):
+		(item, last, size) = xxx_todo_changeme
 		Screen.__init__(self, session)
 		self.session = session
 
@@ -1410,13 +1413,13 @@ class MovieManagerFileInfo(Screen):
 		self.onLayoutFinish.append(self.setSize)
 
 	def setSize(self):
-		x,y = self.getLineSize()
+		x, y = self.getLineSize()
 		wsize = (x + 2*10, 5*y)
 		self.instance.resize(eSize(*wsize))
-		w,h = self.getScreenSize()
+		w, h = self.getScreenSize()
 		wx = (w - wsize[0])/2
 		wy = (h - wsize[1])/2
-		self.instance.move(ePoint(wx,wy))
+		self.instance.move(ePoint(wx, wy))
 
 	def getLineSize(self):
 		self["path"].instance.setNoWrap(1)
